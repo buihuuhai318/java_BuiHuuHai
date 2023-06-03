@@ -1,15 +1,28 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
-        int[] name = {1,2,3,4,5};
-        int max = name[0];
 
-        for (int i = 0; i < name.length; i++) {
-            if (max < name[i]) {
-                max = name[i];
-            }
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("nhap do dai mang");
+        int n = scanner.nextInt();
+        int[] name = new int[n];
+
+        for (int i = 0; i <n; i++) {
+            System.out.print("nhap so thu " + i + " ");
+            name[i] = scanner.nextInt();
         }
-        System.out.println("max la");
-        System.out.println(max);
+
+
+        System.out.println("mang vua tao la: ");
+        show(name);
+
+
+    }
+    public static void show(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println("phan tu thu " + i + " la: " + arr[i]);
+        }
     }
 }
