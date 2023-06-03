@@ -19,7 +19,7 @@ public class Main {
                 }
                 i++;
             }
-            
+
             if (check)
                 System.out.println(number + " is a prime");
             else
