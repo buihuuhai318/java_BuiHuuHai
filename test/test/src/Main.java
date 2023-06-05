@@ -1,12 +1,14 @@
 public class Main {
     public static void main(String[] args) {
-        int a = 100;
-        m(a);
-        System.out.println(a);
+
+    }
+    class MyClass {
+        String field1;
+        void field2;
+        double field3;
+        int field4;
     }
 
-    static void m(int x) {
-        x = 200;
-    }
+
 
 }
