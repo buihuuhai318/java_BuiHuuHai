@@ -1,6 +1,6 @@
 package shape;
 
-public class Shape {
+public class Shape implements Resizeable {
     private String color = "green";
     private boolean filled = true;
 
@@ -34,5 +34,10 @@ public class Shape {
                 + getColor()
                 + " and "
                 + (isFilled() ? "filled" : "not filled");
+    }
+
+    @Override
+    public void resize(double percent) {
+
     }
 }
