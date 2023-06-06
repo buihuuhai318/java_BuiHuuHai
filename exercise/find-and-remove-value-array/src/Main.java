@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        int[] arr = {1,2,3,4,5,6,7,8,9,0};
+        int[] arr = {1,2,3,4,5,6,7,8,9,10};
 
         System.out.printf("%-12s\t0\t1\t2\t3\t4\t5\t6\t7\t8\t9\n","index");
         System.out.printf("%-14s","array\t");
@@ -37,6 +37,7 @@ public class Main {
             for (int i = index + 1; i < arr.length; i++) {
                 arr[i - 1] = arr[i];
             }
+            arr[arr.length - 1] = 0;
             System.out.printf("%-14s","after\t");
             for (int i = 0; i < arr.length; i++) {
                 System.out.print(arr[i] + "\t");
