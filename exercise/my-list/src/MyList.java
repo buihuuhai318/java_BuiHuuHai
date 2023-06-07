@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class MyList<E> {
     private int size = 0;
-    private static final int DEFAULT_CAPACITY = 0;
+    private static final int DEFAULT_CAPACITY = 10;
     private Object[] elements;
 
     public MyList() {
@@ -29,21 +29,14 @@ public class MyList<E> {
         elements[index] = element;
     }
 
-    public void add(E e) {
-        if (size == elements.length) {
-            ensureCapa();
-        }
-        elements[size++] = e;
-    }
-
     public E remove(int index) {
-        E element = (E) elements[index];
+        E newElements = (E) elements[index];
         for (int i = index + 1; i < elements.length; i++) {
             elements[i - 1] = elements[i];
         }
         size--;
-        elements = Arrays.copyOf(elements, elements.length - 1);
-        return element;
+        elements = Arrays.copyOf(elements, elements.length);
+        return newElements;
     }
 
     public E get(int index) {
@@ -61,11 +54,62 @@ public class MyList<E> {
         return string;
     }
 
-    public int getSize() {
-        return size;
+//    public int getSize() {
+//        return size;
+//    }
+//
+////    public Object clone() {
+////        try {
+////            MyList<?> v = (MyList<?>) super.clone();
+////            v.elements = Arrays.copyOf(elements, size);
+////            return v;
+////        } catch (CloneNotSupportedException e) {
+////            // this shouldn't happen, since we are Cloneable
+////            throw new InternalError(e);
+////        }
+//    }
+
+    public boolean contains(E o) {
+        return indexOf(o) >= 0;
     }
 
-    public E clone() {
-        return (E) Arrays.copyOf(elements, elements.length);
+    public int indexOf(E o) {
+        int index = -1;
+        for (int i = 0; i < elements.length; i++) {
+            if (o == elements[i]) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public boolean add(E o) {
+        if (size == elements.length) {
+            ensureCapa();
+        }
+        elements[size++] = o;
+        return true;
+    }
+
+    public void ensureCapacity(int minCapacity) {
+        int elementNull = elements.length - size;
+        if (elementNull < minCapacity) {
+            elements = Arrays.copyOf(elements, elements.length + minCapacity - elementNull);
+        } else {
+            System.out.println("Capacity was ensure!");
+        }
+
+    }
+
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
+        size = 0;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
