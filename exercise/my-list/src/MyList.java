@@ -3,14 +3,14 @@ import java.util.Arrays;
 public class MyList<E> {
     private int size = 0;
     private static final int DEFAULT_CAPACITY = 10;
-    private Object[] elements;
+    private E[] elements;
 
     public MyList() {
-        elements = new Object[DEFAULT_CAPACITY];
+        elements = (E[]) new Object[DEFAULT_CAPACITY];
     }
 
     public MyList(int capacity) {
-        elements = new Object[capacity];
+        elements = (E[]) new Object[capacity];
     }
 
     private void ensureCapa() {
@@ -30,7 +30,7 @@ public class MyList<E> {
     }
 
     public E remove(int index) {
-        E newElements = (E) elements[index];
+        E newElements = elements[index];
         for (int i = index + 1; i < elements.length; i++) {
             elements[i - 1] = elements[i];
         }
@@ -43,7 +43,7 @@ public class MyList<E> {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
         }
-        return (E) elements[index];
+        return elements[index];
     }
 
     public String show() {
@@ -54,34 +54,26 @@ public class MyList<E> {
         return string;
     }
 
-//    public int getSize() {
-//        return size;
-//    }
-//
-////    public Object clone() {
-////        try {
-////            MyList<?> v = (MyList<?>) super.clone();
-////            v.elements = Arrays.copyOf(elements, size);
-////            return v;
-////        } catch (CloneNotSupportedException e) {
-////            // this shouldn't happen, since we are Cloneable
-////            throw new InternalError(e);
-////        }
-//    }
+    @Override
+    public Object clone() {
+        MyList<E> clone = new MyList<>(elements.length);
+        for (E o : elements) {
+            clone.add(o);
+        }
+        return clone;
+    }
 
     public boolean contains(E o) {
         return indexOf(o) >= 0;
     }
 
     public int indexOf(E o) {
-        int index = -1;
         for (int i = 0; i < elements.length; i++) {
             if (o == elements[i]) {
-                index = i;
-                break;
+                return i;
             }
         }
-        return index;
+        return -1;
     }
 
     public boolean add(E o) {

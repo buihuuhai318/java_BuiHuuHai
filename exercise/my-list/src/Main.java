@@ -15,8 +15,14 @@ public class Main {
         myList.ensureCapacity(7);
         System.out.println(myList.show());
         System.out.println(myList.getSize());
-        myList.clear();
-        System.out.println(myList.show());
+//        myList.clear();
+//        System.out.println("clear");
+//        System.out.println(myList.show());
+//        System.out.println(myList.getSize());
+
+        MyList<Integer> clone = (MyList<Integer>) myList.clone();
+        System.out.println("clone");
+        System.out.println(clone.show());
         System.out.println(myList.getSize());
     }
 }
