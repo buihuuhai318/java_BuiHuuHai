@@ -1,5 +1,7 @@
 public class QuadraticEquation {
-    private double a, b, c;
+    private final double a;
+    private final double b;
+    private final double c;
 
     public QuadraticEquation(double a, double b, double c) {
         this.a = a;
