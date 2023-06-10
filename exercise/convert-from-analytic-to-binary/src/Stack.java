@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Stack<T> {
     private int size;
     private int top;
@@ -38,5 +40,14 @@ public class Stack<T> {
 
     public T[] getArray() {
         return array;
+    }
+
+    @Override
+    public String toString() {
+        String text = "";
+        for (int i = 0; i < array.length; i++) {
+            text += array[i] + " ";
+        }
+        return text;
     }
 }
