@@ -1,13 +1,13 @@
-package array_list;
+package linked_list;
 
 import class_product.Product;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
-import static array_list.Display.*;
+import static linked_list.Display.displayMenu;
 
 public class Main {
-    public static ArrayList<Product> products = new ArrayList<>();
+    public static LinkedList<Product> products = new LinkedList<>();
 
     static {
         products.add(new Product("Iphone 13", 1000));

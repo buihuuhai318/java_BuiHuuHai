@@ -1,11 +1,11 @@
-package array_list;
+package linked_list;
 
 import class_product.Product;
 
 import java.util.Scanner;
 
-import static array_list.Main.products;
-import static array_list.ProductManager.*;
+import static linked_list.Main.products;
+import static linked_list.ProductManager.*;
 
 public class Display {
     static Scanner input = new Scanner(System.in);

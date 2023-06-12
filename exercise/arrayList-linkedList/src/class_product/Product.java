@@ -1,8 +1,8 @@
-package array_list;
+package class_product;
 
 public class Product {
-    private static int countProduc;
-
+    private static int countProduct;
+    private static boolean arrangement = false;
     private int id;
     private String name;
     private int price;
@@ -11,17 +11,17 @@ public class Product {
     }
 
     public Product(String name, int price) {
-        this.id = countProduc++;
+        this.id = countProduct++;
         this.name = name;
         this.price = price;
     }
 
     public static int getCountProduc() {
-        return countProduc;
+        return countProduct;
     }
 
     public static void setCountProduc(int countProduc) {
-        Product.countProduc = countProduc;
+        Product.countProduct = countProduc;
     }
 
     public int getId() {
@@ -46,6 +46,14 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public static boolean isArrangement() {
+        return arrangement;
+    }
+
+    public static void setArrangement(boolean arrangement) {
+        Product.arrangement = arrangement;
     }
 
     @Override
