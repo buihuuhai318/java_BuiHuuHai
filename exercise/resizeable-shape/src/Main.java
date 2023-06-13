@@ -27,10 +27,13 @@ public class Main {
         shape[1] = square;
         shape[2] = circle;
 
-        System.out.println(Arrays.toString(shape));
+        System.out.println();
+        System.out.println();
         for (Shape value : shape) {
             value.resize(Math.random() * 99 + 1);
         }
-        System.out.println(Arrays.toString(shape));
+        System.out.println(rectangle);
+        System.out.println(square);
+        System.out.println(circle);
     }
 }

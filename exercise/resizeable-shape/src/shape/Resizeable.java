@@ -1,5 +1,5 @@
 package shape;
 
 public interface Resizeable {
-    public abstract void resize(double percent);
+    void resize(double percent);
 }

@@ -1,6 +1,6 @@
 package shape;
 
-public class Square extends Rectangle implements Resizeable {
+public class Square extends Rectangle {
     public Square() {
     }
 
