@@ -38,8 +38,6 @@ public class Main {
                     pos--;
                 }
             }
-
-
             System.out.println("gán arr[pos] = x = " + x);
             arr[pos] = x;
             show(arr);
