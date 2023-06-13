@@ -24,7 +24,7 @@ public class Main {
                 max.addAll(list);
             }
         }
-        
+
         for (Character character : max) {
             System.out.print(character);
         }
