@@ -1,3 +1,5 @@
+package model;
+
 public abstract class Human {
     public int id;
     public String name;

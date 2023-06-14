@@ -1,3 +1,5 @@
+package model;
+
 public class Teacher extends Human {
     private String major;
 

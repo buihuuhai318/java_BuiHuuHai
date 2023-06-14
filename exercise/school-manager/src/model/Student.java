@@ -1,3 +1,5 @@
+package model;
+
 public class Student extends Human {
 
     private static int studentCount = 0;
