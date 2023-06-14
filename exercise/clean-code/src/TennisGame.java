@@ -18,37 +18,18 @@ public class TennisGame {
     public static String showReadScore(String scoreResult, int tempScore, boolean deuce) {
         if (deuce) {
             switch (tempScore) {
-                case 0:
-                    scoreResult = "Love-All";
-                    break;
-                case 1:
-                    scoreResult = "Fifteen-All";
-                    break;
-                case 2:
-                    scoreResult = "Thirty-All";
-                    break;
-                case 3:
-                    scoreResult = "Forty-All";
-                    break;
-                default:
-                    scoreResult = "Deuce";
-                    break;
-
+                case 0 -> scoreResult = "Love-All";
+                case 1 -> scoreResult = "Fifteen-All";
+                case 2 -> scoreResult = "Thirty-All";
+                case 3 -> scoreResult = "Forty-All";
+                default -> scoreResult = "Deuce";
             }
         } else {
             switch (tempScore) {
-                case 0:
-                    scoreResult = "Love";
-                    break;
-                case 1:
-                    scoreResult = "Fifteen";
-                    break;
-                case 2:
-                    scoreResult = "Thirty";
-                    break;
-                case 3:
-                    scoreResult = "Forty";
-                    break;
+                case 0 -> scoreResult = "Love";
+                case 1 -> scoreResult = "Fifteen";
+                case 2 -> scoreResult = "Thirty";
+                case 3 -> scoreResult = "Forty";
             }
         }
         return scoreResult;
