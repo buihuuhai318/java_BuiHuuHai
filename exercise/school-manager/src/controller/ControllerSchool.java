@@ -1,15 +1,15 @@
 package controller;
+
 import service.student.StudentService;
 import service.teacher.TeacherService;
 
-import java.util.Scanner;
-
 import static view.Main.input;
 
-public class Controller {
-    static StudentService studentService = new StudentService();
-    static TeacherService teacherService = new TeacherService();
-    public static void menu() {
+public class ControllerSchool {
+    StudentService studentService = new StudentService();
+    TeacherService teacherService = new TeacherService();
+
+    public void menu() {
         int choiceMain;
         do {
             System.out.println("\n--- Chương Trình Quản Lý Sinh Viên ---\n");
@@ -26,7 +26,8 @@ public class Controller {
             }
         } while (true);
     }
-    public static void miniMenu(int choiceMain) {
+
+    public void miniMenu(int choiceMain) {
         int choice;
         do {
             switch (choiceMain) {

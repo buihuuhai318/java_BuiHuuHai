@@ -3,12 +3,10 @@ package service.student;
 import model.Student;
 import repository.student.StudentRepository;
 
-import java.util.Scanner;
+import static view.Main.input;
 
 public class StudentService implements IStudentService {
-    static StudentRepository studentRepository = new StudentRepository();
-    static Scanner input = new Scanner(System.in);
-
+    StudentRepository studentRepository = new StudentRepository();
     @Override
     public void addNew() {
         System.out.print("\nNhập tên của học sinh: ");
@@ -56,9 +54,6 @@ public class StudentService implements IStudentService {
 
     @Override
     public int searchId(int id) {
-        if (id >= StudentRepository.students.size()) {
-            return -1;
-        }
         for (int i = 0; i < StudentRepository.students.size(); i++) {
             if (id == StudentRepository.students.get(i).getId()) {
                 return i;

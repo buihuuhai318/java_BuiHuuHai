@@ -6,7 +6,7 @@ import repository.teacher.TeacherRepository;
 import static view.Main.input;
 
 public class TeacherService implements ITeacherService {
-    static TeacherRepository teacherRepository = new TeacherRepository();
+    TeacherRepository teacherRepository = new TeacherRepository();
 
     @Override
     public void addNew() {
@@ -54,9 +54,6 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public int searchId(int id) {
-        if (id >= TeacherRepository.teachers.size()) {
-            return -1;
-        }
         for (int i = 0; i < TeacherRepository.teachers.size(); i++) {
             if (id == TeacherRepository.teachers.get(i).getId()) {
                 return i;

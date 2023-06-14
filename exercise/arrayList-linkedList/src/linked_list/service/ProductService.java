@@ -1,47 +1,28 @@
-package linked_list;
+package linked_list.service;
 
-import class_product.Product;
+import linked_list.reponsitory.ProductReponsitory;
+import model.Product;
 
 import java.util.Objects;
-import java.util.Scanner;
 
-import static linked_list.Display.*;
-import static linked_list.Main.products;
+import static linked_list.reponsitory.ProductReponsitory.products;
+import static linked_list.view.Main.input;
 
-public class ProductManager {
-    static Scanner input = new Scanner(System.in);
+public class ProductService implements IProductService {
+    ProductReponsitory productReponsitory = new ProductReponsitory();
 
-    public static void addNewProduct() {
+    @Override
+    public void addNew() {
         System.out.print("Nhập tên sản phẩm: ");
         String name = input.nextLine();
         System.out.print("Nhập giá sản phẩm: ");
         int price = Integer.parseInt(input.nextLine());
-
-        products.add(new Product(name, price));
-        System.out.println("\n----- Đã thêm mới " + name + " thành công !!! -----\n");
-        System.out.println("Enter để tiếp tục !!!");
-        input.nextLine();
+        productReponsitory.addNew(new Product(name, price));
     }
 
-    public static void removeProduct() {
-        int index = search();
-        if (index == -1) {
-            System.out.println("\n - Không tìm thấy sản phẩm...");
-            continueStep();
-        } else {
-            System.out.println("\n" + products.get(index));
-            boolean answer = choice();
-            if (answer) {
-                products.remove(index);
-                doneDisplay();
-            } else {
-                cancelDisplay();
-            }
-        }
-    }
-
-    public static void editProduct() {
-        int index = search();
+    @Override
+    public void edit() {
+        int index = searchId();
         if (index == -1) {
             System.out.println("\n - Không tìm thấy sản phẩm...");
             continueStep();
@@ -50,18 +31,19 @@ public class ProductManager {
         }
     }
 
-    public static int search() {
-        System.out.print("Nhập ID sản phẩm: ");
-        int id = Integer.parseInt(input.nextLine());
-        for (Product product : products) {
-            if (product.getId() == id) {
-                return id;
-            }
-        }
-        return -1;
+    public void editDisplay(int id) {
+        int choice;
+        do {
+            System.out.println("\n1. " + products.get(id).getName());
+            System.out.println("2. " + products.get(id).getPrice());
+            System.out.println("3. Thoát");
+            System.out.print("\n - Chọn thông tin bạn muốn sửa: ");
+            choice = Integer.parseInt(input.nextLine());
+            choiceEdit(choice, id);
+        } while (choice != 3);
     }
 
-    public static void choiceEdit(int choice, int id) {
+    public void choiceEdit(int choice, int id) {
         String newName;
         String newPrice;
         switch (choice) {
@@ -102,7 +84,38 @@ public class ProductManager {
         }
     }
 
-    public static void searchByName() {
+    @Override
+    public void remove() {
+        int index = searchId();
+        if (index == -1) {
+            System.out.println("\n - Không tìm thấy sản phẩm...");
+            continueStep();
+        } else {
+            System.out.println("\n" + products.get(index));
+            boolean answer = choice();
+            if (answer) {
+                products.remove(index);
+                doneDisplay();
+            } else {
+                cancelDisplay();
+            }
+        }
+    }
+
+    @Override
+    public int searchId() {
+        System.out.print("Nhập ID sản phẩm: ");
+        int id = Integer.parseInt(input.nextLine());
+        for (int i = 0; i < ProductReponsitory.products.size(); i++) {
+            if (products.get(i).getId() == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void searchByName() {
         boolean flag = false;
         int count;
         System.out.print("Nhập tên sản phẩm: ");
@@ -134,7 +147,8 @@ public class ProductManager {
         }
     }
 
-    public static void softByPrice() {
+    @Override
+    public void softByPrice() {
         for (int i = 0; i < products.size(); i++) {
             if (Product.isArrangement()) {
                 for (int j = i + 1; j < products.size(); j++) {
@@ -153,5 +167,34 @@ public class ProductManager {
             }
         }
         Product.setArrangement(!Product.isArrangement());
+    }
+
+    @Override
+    public void display() {
+        for (Product product : products) {
+            System.out.println(product);
+        }
+    }
+
+    public void continueStep() {
+        System.out.print("\nEnter để tiếp tục.....");
+        input.nextLine();
+    }
+
+
+    public boolean choice() {
+        System.out.print("\n - Nhập YES để tiếp tục: ");
+        String answer = input.nextLine().toLowerCase();
+        return answer.equals("yes");
+    }
+
+    public void doneDisplay() {
+        System.out.println("\n-------- Done --------");
+        continueStep();
+    }
+
+    public void cancelDisplay() {
+        System.out.println("\n-------- Cancel --------");
+        continueStep();
     }
 }

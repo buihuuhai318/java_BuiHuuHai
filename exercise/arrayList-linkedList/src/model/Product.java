@@ -1,4 +1,4 @@
-package class_product;
+package model;
 
 public class Product {
     private static int countProduct;
