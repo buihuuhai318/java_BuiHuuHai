@@ -1,5 +1,5 @@
 public class Main {
-    public static final int HEIGHT = 9;
+    public static final int HEIGHT = 5;
 
     public static void main(String[] args) {
         for (int i = 1; i <= HEIGHT; i++) {
