@@ -9,10 +9,8 @@ public class Main {
     }
 
     public static void copyFile(File sourcePath, File targetPath) throws IOException {
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
-
-
+        InputStream inputStream;
+        OutputStream outputStream;
         try {
             inputStream = new FileInputStream(sourcePath);
             outputStream = new FileOutputStream(targetPath);
@@ -22,22 +20,17 @@ public class Main {
             int countByte = inputStream.available();
 
             int length;
-            while ((length = inputStream.read(buffer)) >0) {
+            while ((length = inputStream.read(buffer)) > 0) {
                 outputStream.write(buffer, 0, length);
             }
 
             System.out.println("đã copy file thành công !!!");
             System.out.println("số byte = " + countByte);
 
+            inputStream.close();
+            outputStream.close();
         } catch (Exception e) {
             System.out.println("file không có hoặc lỗi !!!");
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-            if (outputStream != null) {
-                outputStream.close();
-            }
         }
     }
 }
