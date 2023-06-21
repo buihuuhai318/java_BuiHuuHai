@@ -3,7 +3,7 @@ import java.util.Stack;
 public class Main {
     public static void main(String[] args) {
 
-        String str = "s * (s – a) * (s – b) * (s – c)";
+        String str = "s * ((s – a) * (s – b)) * (s – c)";
 
         System.out.println(checkBracket(str));
     }
@@ -15,6 +15,8 @@ public class Main {
             if (x == '(' || x == ')') {
                 if (temp.isEmpty()) {
                     temp.push(x);
+                } else if (temp.get(0) == ')') {
+                    return false;
                 } else if (temp.get(0) == '(' && x == ')') {
                     temp.pop();
                 } else {
