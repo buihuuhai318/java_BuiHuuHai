@@ -19,7 +19,6 @@ public class ReadAnhWriteFile {
             while ((line = bufferedReader.readLine()) != null) {
                 stringList.add(line);
             }
-            bufferedReader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -33,6 +32,22 @@ public class ReadAnhWriteFile {
 
             bufferedWriter.write(line);
             bufferedWriter.newLine();
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateFile(String pathFile, List<String> list) {
+        try {
+            FileWriter fileWriter = new FileWriter(pathFile, false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (String line : list) {
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
+            }
 
             bufferedWriter.close();
         } catch (IOException e) {

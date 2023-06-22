@@ -104,7 +104,7 @@ public class EmployeeService extends Service implements IEmployeeService {
                 do {
                     System.out.print("\n - Enter your property want to edit (0 : exit): ");
                     choiceStr = input.nextLine();
-                } while (!choiceStr.matches("^[0-9]{2}$"));
+                } while (!choiceStr.matches("^[0-9]{1,2}$"));
                 choice = Integer.parseInt(choiceStr);
 
                 switch (choice) {

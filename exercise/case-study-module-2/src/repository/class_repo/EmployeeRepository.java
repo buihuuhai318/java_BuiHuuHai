@@ -67,6 +67,26 @@ public class EmployeeRepository extends Repository implements IEmployeeRepositor
     @Override
     public void edit(int index, Employee employee) {
         employeeList.set(index, employee);
+        updateFile();
+    }
+
+    public void updateFile() {
+        String line;
+        List<String> list = new ArrayList<>();
+        for (Employee employee : employeeList) {
+            line = employee.getId() + "," +
+                    employee.getName() + "," +
+                    employee.getDateOfBirth() + "," +
+                    employee.isGender() + "," +
+                    employee.getIdentityId() + "," +
+                    employee.getTelephone() + "," +
+                    employee.getEmail() + "," +
+                    employee.getLevel() + "," +
+                    employee.getPosition() + "," +
+                    employee.getSalary();
+            list.add(line);
+        }
+        readAnhWriteFile.updateFile(readAnhWriteFile.EMPLOYEE_FILE, list);
     }
 
     @Override
