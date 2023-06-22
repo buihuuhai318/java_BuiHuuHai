@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CustomerRepository extends Repository implements ICustomerRepository {
+public class CustomerRepository implements ICustomerRepository {
 
     static ReadAnhWriteFile readAnhWriteFile = new ReadAnhWriteFile();
 
@@ -66,6 +66,24 @@ public class CustomerRepository extends Repository implements ICustomerRepositor
     @Override
     public void edit(int index, Customer customer) {
         customerList.set(index, customer);
+        updateFile();
+    }
+    public void updateFile() {
+        String line;
+        List<String> list = new ArrayList<>();
+        for (Customer customer : customerList) {
+            line = customer.getId() + "," +
+                    customer.getName() + "," +
+                    customer.getDateOfBirth() + "," +
+                    customer.isGender() + "," +
+                    customer.getIdentityId() + "," +
+                    customer.getTelephone() + "," +
+                    customer.getEmail() + "," +
+                    customer.getTypeOfCustomer() + "," +
+                    customer.getAddress();
+            list.add(line);
+        }
+        readAnhWriteFile.updateFile(readAnhWriteFile.CUSTOMER_FILE, list);
     }
 
 

@@ -3,11 +3,12 @@ package service.class_service;
 import model.person.Employee;
 import repository.class_repo.EmployeeRepository;
 import service.interface_service.IEmployeeService;
+import service.interface_service.IService;
 import utils.CheckValueInput;
 
 import static view.Main.input;
 
-public class EmployeeService extends Service implements IEmployeeService {
+public class EmployeeService implements IEmployeeService, IService {
 
     EmployeeRepository repository = new EmployeeRepository();
     CheckValueInput checkValueInput = new CheckValueInput();

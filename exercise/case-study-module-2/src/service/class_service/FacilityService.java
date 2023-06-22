@@ -5,13 +5,14 @@ import model.facility.Room;
 import model.facility.Villa;
 import repository.class_repo.FacilityRepository;
 import service.interface_service.IFacilityService;
+import service.interface_service.IService;
 import utils.CheckValueInput;
 
 import java.util.Objects;
 
 import static view.Main.input;
 
-public class FacilityService extends Service implements IFacilityService {
+public class FacilityService implements IFacilityService, IService {
     private FacilityRepository facilityRepository = new FacilityRepository();
     private CheckValueInput checkValueInput = new CheckValueInput();
 

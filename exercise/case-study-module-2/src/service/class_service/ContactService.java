@@ -4,11 +4,12 @@ import model.booking.Contract;
 import repository.class_repo.BookingRepository;
 import repository.class_repo.ContactRepository;
 import service.interface_service.IContactService;
+import service.interface_service.IService;
 import utils.CheckValueInput;
 
 import static view.Main.input;
 
-public class ContactService extends Service implements IContactService {
+public class ContactService implements IContactService, IService {
 
     ContactRepository contactRepository = new ContactRepository();
     BookingRepository bookingRepository = new BookingRepository();

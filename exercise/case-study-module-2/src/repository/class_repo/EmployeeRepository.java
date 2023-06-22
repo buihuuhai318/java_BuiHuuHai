@@ -7,7 +7,7 @@ import repository.interface_repo.IEmployeeRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRepository extends Repository implements IEmployeeRepository {
+public class EmployeeRepository implements IEmployeeRepository {
 
     static ReadAnhWriteFile readAnhWriteFile = new ReadAnhWriteFile();
 

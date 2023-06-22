@@ -7,7 +7,7 @@ import repository.interface_repo.IContactRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactRepository extends Repository implements IContactRepository {
+public class ContactRepository implements IContactRepository {
 
     static List<Contract> contractList = new ArrayList<>();
 

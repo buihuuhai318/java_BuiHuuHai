@@ -35,121 +35,151 @@ public class CheckValueInput {
     }
 
     public String checkIdEmployee() {
-        final String ID_EMPLOYEE_REGEX = "^NV-\\d{4}$";
-        boolean result;
-        String regex;
-        int index;
-        do {
-            System.out.print("- NV-XXXX (X: 0 - 9): ");
-            regex = input.nextLine().trim();
-            Pattern pattern = Pattern.compile(ID_EMPLOYEE_REGEX);
-            Matcher matcher = pattern.matcher(regex);
-            result = matcher.matches();
-            index = employeeRepository.checkID(regex);
-            if (index != -1) {
-                System.out.println("This ID already exist!!");
-            }
-        } while (!result || (index != -1));
-        return regex;
+        try {
+            final String ID_EMPLOYEE_REGEX = "^NV-\\d{4}$";
+            boolean result;
+            String regex;
+            int index;
+            do {
+                System.out.print("- NV-XXXX (X: 0 - 9): ");
+                regex = input.nextLine().trim();
+                Pattern pattern = Pattern.compile(ID_EMPLOYEE_REGEX);
+                Matcher matcher = pattern.matcher(regex);
+                result = matcher.matches();
+                index = employeeRepository.checkID(regex);
+                if (index != -1) {
+                    System.out.println("This ID already exist!!");
+                }
+            } while (!result || (index != -1));
+            return regex;
+        } catch (Exception e) {
+            System.out.println("----------- Input Wrong !!! -----------");
+            return checkIdEmployee();
+        }
     }
 
     public String checkIdCustomer() {
-        final String ID_CUSTOMER_REGEX = "^KH-\\d{4}$";
-        boolean result;
-        String regex;
-        int index;
-        do {
-            System.out.print("- KH-XXXX (X: 0 - 9): ");
-            regex = input.nextLine().trim();
-            Pattern pattern = Pattern.compile(ID_CUSTOMER_REGEX);
-            Matcher matcher = pattern.matcher(regex);
-            result = matcher.matches();
-            index = customerRepository.checkID(regex);
-            if (index != -1) {
-                System.out.println("This ID already exist!!");
-            }
-        } while (!result || (index != -1));
-        return regex;
+        try {
+            final String ID_CUSTOMER_REGEX = "^KH-\\d{4}$";
+            boolean result;
+            String regex;
+            int index;
+            do {
+                System.out.print("- KH-XXXX (X: 0 - 9): ");
+                regex = input.nextLine().trim();
+                Pattern pattern = Pattern.compile(ID_CUSTOMER_REGEX);
+                Matcher matcher = pattern.matcher(regex);
+                result = matcher.matches();
+                index = customerRepository.checkID(regex);
+                if (index != -1) {
+                    System.out.println("This ID already exist!!");
+                }
+            } while (!result || (index != -1));
+            return regex;
+        } catch (Exception e) {
+            System.out.println("----------- Input Wrong !!! -----------");
+            return checkIdCustomer();
+        }
     }
 
     public String checkCodeService() {
-        final String ID_SERVICE_REGEX = "^SV(VL|RO|HO)-[0-9]{4}$";
-        boolean result;
-        String regex;
-        int index;
-        do {
-            System.out.print("- SVXX-YYYY (XX = Villa: VL, House: HO, Room: RO / Y: 0 - 9): ");
-            regex = input.nextLine().trim();
-            Pattern pattern = Pattern.compile(ID_SERVICE_REGEX);
-            Matcher matcher = pattern.matcher(regex);
-            result = matcher.matches();
-            index = facilityRepository.checkID(regex);
-            if (index != -1) {
-                System.out.println("This CODE already exist!!");
-            }
-        } while (!result || (index != -1));
-        return regex;
+        try {
+            final String ID_SERVICE_REGEX = "^SV(VL|RO|HO)-[0-9]{4}$";
+            boolean result;
+            String regex;
+            int index;
+            do {
+                System.out.print("- SVXX-YYYY (XX = Villa: VL, House: HO, Room: RO / Y: 0 - 9): ");
+                regex = input.nextLine().trim();
+                Pattern pattern = Pattern.compile(ID_SERVICE_REGEX);
+                Matcher matcher = pattern.matcher(regex);
+                result = matcher.matches();
+                index = facilityRepository.checkID(regex);
+                if (index != -1) {
+                    System.out.println("This CODE already exist!!");
+                }
+            } while (!result || (index != -1));
+            return regex;
+        } catch (Exception e) {
+            System.out.println("----------- Input Wrong !!! -----------");
+            return checkCodeService();
+        }
     }
 
     public String checkName() {
-        final int CODE_A_UPPER_ASCII = 65;
-        final int CODE_Z_UPPER_ASCII = 90;
-        final int CODE_A_LOWER_ASCII = 97;
-        final int CODE_Z_LOWER_ASCII = 122;
-        final String NAME_REGEX = "^[A-Z].*";
-        boolean result = true;
-        String inputName;
-        String[] array;
-        do {
-            System.out.print("(capitalize first letter): ");
-            inputName = input.nextLine().trim();
-            if (inputName.matches(NAME_REGEX)) {
-                array = inputName.split(" ");
-                for (String s : array) {
-                    char firstChar = s.charAt(0);
-                    if (firstChar <= CODE_Z_UPPER_ASCII && firstChar >= CODE_A_UPPER_ASCII) {
-                        result = false;
-                        for (int j = 1; j < s.length(); j++) {
-                            char remainChar = s.charAt(j);
-                            if (remainChar < CODE_A_LOWER_ASCII || remainChar > CODE_Z_LOWER_ASCII) {
-                                result = true;
+        try {
+            final int CODE_A_UPPER_ASCII = 65;
+            final int CODE_Z_UPPER_ASCII = 90;
+            final int CODE_A_LOWER_ASCII = 97;
+            final int CODE_Z_LOWER_ASCII = 122;
+            final String NAME_REGEX = "^[A-Z].*";
+            boolean result = true;
+            String inputName;
+            String[] array;
+            do {
+                System.out.print("(capitalize first letter): ");
+                inputName = input.nextLine().trim();
+                if (inputName.matches(NAME_REGEX)) {
+                    array = inputName.split(" ");
+                    for (String s : array) {
+                        char firstChar = s.charAt(0);
+                        if (firstChar <= CODE_Z_UPPER_ASCII && firstChar >= CODE_A_UPPER_ASCII) {
+                            result = false;
+                            for (int j = 1; j < s.length(); j++) {
+                                char remainChar = s.charAt(j);
+                                if (remainChar < CODE_A_LOWER_ASCII || remainChar > CODE_Z_LOWER_ASCII) {
+                                    result = true;
+                                    break;
+                                }
+                            }
+                            if (result) {
                                 break;
                             }
-                        }
-                        if (result) {
-                            break;
-                        }
-                    } else result = true;
+                        } else result = true;
+                    }
                 }
-            }
-        } while (result);
-        return inputName;
+            } while (result);
+            return inputName;
+        } catch (Exception e) {
+            System.out.println("----------- Input Wrong !!! -----------");
+            return checkName();
+        }
     }
 
     public String checkBirthday() {
-        boolean result = true;
-        String inputBirthday;
-        do {
-            System.out.print("(dd/mm/yyyy): ");
-            inputBirthday = input.nextLine().trim();
-            if (isDateValid(inputBirthday) && is18Plus(inputBirthday)) {
-                result = false;
-            }
-        } while (result);
-        return inputBirthday;
+        try {
+            boolean result = true;
+            String inputBirthday;
+            do {
+                System.out.print("(dd/mm/yyyy): ");
+                inputBirthday = input.nextLine().trim();
+                if (isDateValid(inputBirthday) && is18Plus(inputBirthday)) {
+                    result = false;
+                }
+            } while (result);
+            return inputBirthday;
+        } catch (Exception e) {
+            System.out.println("----------- Input Wrong !!! -----------");
+            return checkBirthday();
+        }
     }
 
     public String checkDate() {
-        boolean result = true;
-        String inputDate;
-        do {
-            System.out.print("(dd/mm/yyyy): ");
-            inputDate = input.nextLine().trim();
-            if (isDateValid(inputDate)) {
-                result = false;
-            }
-        } while (result);
-        return inputDate;
+        try {
+            boolean result = true;
+            String inputDate;
+            do {
+                System.out.print("(dd/mm/yyyy): ");
+                inputDate = input.nextLine().trim();
+                if (isDateValid(inputDate)) {
+                    result = false;
+                }
+            } while (result);
+            return inputDate;
+        } catch (Exception e) {
+            System.out.println("----------- Input Wrong !!! -----------");
+            return checkDate();
+        }
     }
 
     public boolean isDateValid(String dateStr) {
@@ -176,32 +206,42 @@ public class CheckValueInput {
     }
 
     public String checkIdentityId() {
-        final String IDENTITY_ID_9 = "^[0-9]{9}$";
-        final String IDENTITY_ID_12 = "^[0-9]{12}$";
-        boolean result = true;
-        String inputIdentityId;
-        do {
-            System.out.print("(9 or 12 numbers): ");
-            inputIdentityId = input.nextLine().trim();
-            if (inputIdentityId.matches(IDENTITY_ID_9) || inputIdentityId.matches(IDENTITY_ID_12)) {
-                result = false;
-            }
-        } while (result);
-        return inputIdentityId;
+        try {
+            final String IDENTITY_ID_9 = "^[0-9]{9}$";
+            final String IDENTITY_ID_12 = "^[0-9]{12}$";
+            boolean result = true;
+            String inputIdentityId;
+            do {
+                System.out.print("(9 or 12 numbers): ");
+                inputIdentityId = input.nextLine().trim();
+                if (inputIdentityId.matches(IDENTITY_ID_9) || inputIdentityId.matches(IDENTITY_ID_12)) {
+                    result = false;
+                }
+            } while (result);
+            return inputIdentityId;
+        } catch (Exception e) {
+            System.out.println("----------- Input Wrong !!! -----------");
+            return checkIdentityId();
+        }
     }
 
     public String checkPhoneNumber() {
-        final String PHONE_NUMBER = "^0[0-9]{9}$";
-        boolean result = true;
-        String inputPhoneNumber;
-        do {
-            System.out.print("(start by 0 & 10 numbers): ");
-            inputPhoneNumber = input.nextLine().trim();
-            if (inputPhoneNumber.matches(PHONE_NUMBER)) {
-                result = false;
-            }
-        } while (result);
-        return inputPhoneNumber;
+        try {
+            final String PHONE_NUMBER = "^0[0-9]{9}$";
+            boolean result = true;
+            String inputPhoneNumber;
+            do {
+                System.out.print("(start by 0 & 10 numbers): ");
+                inputPhoneNumber = input.nextLine().trim();
+                if (inputPhoneNumber.matches(PHONE_NUMBER)) {
+                    result = false;
+                }
+            } while (result);
+            return inputPhoneNumber;
+        } catch (Exception e) {
+            System.out.println("----------- Input Wrong !!! -----------");
+            return checkPhoneNumber();
+        }
     }
 
     public int checkSalary() {

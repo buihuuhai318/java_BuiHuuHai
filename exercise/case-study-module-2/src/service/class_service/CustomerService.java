@@ -3,11 +3,12 @@ package service.class_service;
 import model.person.Customer;
 import repository.class_repo.CustomerRepository;
 import service.interface_service.ICustomerService;
+import service.interface_service.IService;
 import utils.CheckValueInput;
 
 import static view.Main.input;
 
-public class CustomerService extends Service implements ICustomerService {
+public class CustomerService implements ICustomerService, IService {
     CustomerRepository customerRepository = new CustomerRepository();
     CheckValueInput checkValueInput = new CheckValueInput();
 

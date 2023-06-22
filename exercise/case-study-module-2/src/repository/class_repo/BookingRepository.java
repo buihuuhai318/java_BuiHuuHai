@@ -5,7 +5,7 @@ import repository.interface_repo.IBookingRepository;
 
 import java.util.*;
 
-public class BookingRepository extends Repository implements IBookingRepository {
+public class BookingRepository implements IBookingRepository {
 
     static Set<Booking> bookingSet = new TreeSet<>();
     static Queue<Booking> bookingQueue = new PriorityQueue<>();

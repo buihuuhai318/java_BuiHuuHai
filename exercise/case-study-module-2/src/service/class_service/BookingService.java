@@ -6,6 +6,7 @@ import repository.class_repo.BookingRepository;
 import repository.class_repo.CustomerRepository;
 import repository.class_repo.FacilityRepository;
 import service.interface_service.IBookingService;
+import service.interface_service.IService;
 import utils.CheckValueInput;
 
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 import static view.Main.input;
 
-public class BookingService extends Service implements IBookingService {
+public class BookingService implements IBookingService, IService {
 
     CustomerRepository customerRepository = new CustomerRepository();
     FacilityService facilityService = new FacilityService();

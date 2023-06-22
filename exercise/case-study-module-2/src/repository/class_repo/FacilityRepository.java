@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static view.Main.input;
 
-public class FacilityRepository extends Repository implements IRepository<Facility> {
+public class FacilityRepository implements IRepository<Facility> {
 
     private static Map<Facility, Integer> facilityMap = new LinkedHashMap<>();
     private static List<Facility> facilityList = new ArrayList<>();
