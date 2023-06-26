@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Field;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -7,21 +8,27 @@ public class Main {
 
     public static void copyFile(String source, String target) throws IOException {
 
-        BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(source));
-        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(target));
+        File fileSource = new File(source);
+        File fileTarget = new File(target);
+        FileReader fileReader = new FileReader(fileSource);
+        FileWriter fileWriter = new FileWriter(fileTarget);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-        int fileSize = inputStream.available();
 
-        int length;
+        int fileSize = (int) fileSource.length();
+
+        String length;
 
         try {
-            while ((length = inputStream.read()) != -1) {
-                outputStream.write(length);
+            while ((length = bufferedReader.readLine()) != null) {
+                bufferedWriter.write(length);
+                bufferedWriter.newLine();
             }
             System.out.println("đã copy file thành công !!!");
             System.out.println("số ký tự = " + fileSize);
-            inputStream.close();
-            outputStream.close();
+            bufferedReader.close();
+            bufferedWriter.close();
         } catch (IOException e) {
             System.out.println("file không có hoặc lỗi !!!");
         }
