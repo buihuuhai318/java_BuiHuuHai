@@ -108,35 +108,14 @@ public class CheckValueInput {
 
     public String checkName() {
         try {
-            final int CODE_A_UPPER_ASCII = 65;
-            final int CODE_Z_UPPER_ASCII = 90;
-            final int CODE_A_LOWER_ASCII = 97;
-            final int CODE_Z_LOWER_ASCII = 122;
-            final String NAME_REGEX = "^[A-Z].*";
+            final String NAME_REGEX = "^([A-Z]([a-z]+ ))+[A-Z][a-z]+$";
             boolean result = true;
             String inputName;
-            String[] array;
             do {
                 System.out.print("(capitalize first letter): ");
                 inputName = input.nextLine().trim();
                 if (inputName.matches(NAME_REGEX)) {
-                    array = inputName.split(" ");
-                    for (String s : array) {
-                        char firstChar = s.charAt(0);
-                        if (firstChar <= CODE_Z_UPPER_ASCII && firstChar >= CODE_A_UPPER_ASCII) {
-                            result = false;
-                            for (int j = 1; j < s.length(); j++) {
-                                char remainChar = s.charAt(j);
-                                if (remainChar < CODE_A_LOWER_ASCII || remainChar > CODE_Z_LOWER_ASCII) {
-                                    result = true;
-                                    break;
-                                }
-                            }
-                            if (result) {
-                                break;
-                            }
-                        } else result = true;
-                    }
+                    result = false;
                 }
             } while (result);
             return inputName;
