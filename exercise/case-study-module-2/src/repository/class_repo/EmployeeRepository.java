@@ -10,8 +10,6 @@ import java.util.List;
 public class EmployeeRepository implements IEmployeeRepository {
 
     static ReadAnhWriteFile readAnhWriteFile = new ReadAnhWriteFile();
-
-//    static List<Employee> employeeList = new ArrayList<>();
     static List<Employee> employeeList = new ArrayList<>();
 
     static {

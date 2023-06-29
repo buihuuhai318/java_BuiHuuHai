@@ -190,7 +190,7 @@ public class FuramaController {
                 do {
                     actionChoice();
                     choiceStr = input.nextLine();
-                } while (!choiceStr.matches("^[1-3]$"));
+                } while (!choiceStr.matches("^[1-4]$"));
                 choice = Integer.parseInt(choiceStr);
 
                 switch (choice) {

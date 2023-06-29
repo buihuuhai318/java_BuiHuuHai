@@ -4,6 +4,7 @@ import model.facility.Facility;
 import model.facility.House;
 import model.facility.Room;
 import model.facility.Villa;
+import repository.interface_repo.IFacilityRepository;
 import repository.interface_repo.IRepository;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 import static view.Main.input;
 
-public class FacilityRepository implements IRepository<Facility> {
+public class FacilityRepository implements IRepository<Facility>, IFacilityRepository {
 
     private static Map<Facility, Integer> facilityMap = new LinkedHashMap<>();
     private static List<Facility> facilityList = new ArrayList<>();
