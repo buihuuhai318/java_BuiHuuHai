@@ -8,5 +8,5 @@ public interface IEmployeeRepository extends IRepository<Employee> {
 
     void edit(int index, Employee employee);
 
-
+    void updateFile();
 }

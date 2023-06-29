@@ -29,10 +29,6 @@ public class PromotionRepository implements IPromotionRepository {
     }
 
     @Override
-    public void customerUsed() {
-
-    }
-
     public Set<Customer> showInYear() {
         Set<Customer> customerInYear = new LinkedHashSet<>();
         System.out.println("\n - Enter Year: ");
@@ -51,6 +47,7 @@ public class PromotionRepository implements IPromotionRepository {
         return customerInYear;
     }
 
+    @Override
     public Set<Customer> inMonth() {
         Set<Customer> customerInMonth = new LinkedHashSet<>();
         String dateNow = String.valueOf(LocalDate.now());
@@ -71,10 +68,5 @@ public class PromotionRepository implements IPromotionRepository {
 
     public void addVoucher(List<Voucher> list) {
         voucherList.addAll(list);
-    }
-
-    @Override
-    public void customerGet() {
-
     }
 }

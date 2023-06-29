@@ -1,4 +1,9 @@
 package service.interface_service;
 
-public interface IContactService extends IService{
+import model.booking.Contract;
+
+public interface IContactService extends IService {
+    void edit();
+
+    Contract changeValueEdit(Contract contract);
 }

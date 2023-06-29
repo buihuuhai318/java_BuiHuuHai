@@ -35,6 +35,7 @@ public class ContactService implements IContactService, IService {
         contactRepository.addNew(contract);
     }
 
+    @Override
     public void edit() {
         display();
         System.out.print("\n - Enter ID: ");
@@ -59,6 +60,7 @@ public class ContactService implements IContactService, IService {
         }
     }
 
+    @Override
     public Contract changeValueEdit(Contract contract) {
         String idBo = contract.getBookingCode();
         int deposit = contract.getDepositForRent();

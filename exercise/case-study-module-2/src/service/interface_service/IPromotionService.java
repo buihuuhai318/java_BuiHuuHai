@@ -4,4 +4,6 @@ public interface IPromotionService {
     void customerUsed();
 
     void customerGet();
+
+    void showVoucher();
 }

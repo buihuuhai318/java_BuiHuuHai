@@ -53,6 +53,7 @@ public class BookingRepository implements IBookingRepository {
         }
     }
 
+    @Override
     public void bookingHead() {
         System.out.printf("\n|%8s|%9s|%11s|%11s|%10s|%11s|\n",
                 "-- Code --", "--ID_KH--", "--Service--", "--Date Book--", "-Start Rent-", "--Stop Rent--");
@@ -64,6 +65,7 @@ public class BookingRepository implements IBookingRepository {
         return bookings.get(index);
     }
 
+    @Override
     public Booking getElementQueue() {
         return bookingQueue.peek();
     }

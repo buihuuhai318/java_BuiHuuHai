@@ -1,6 +1,6 @@
 package repository.class_repo;
 
-import data.ReadAnhWriteFile;
+import utils.ReadAnhWriteFile;
 import model.person.Customer;
 import repository.interface_repo.ICustomerRepository;
 
@@ -44,14 +44,14 @@ public class CustomerRepository implements ICustomerRepository {
     @Override
     public void addNew(Customer customer) {
         String line = customer.getId() + "," +
-                    customer.getName() + "," +
-                    customer.getDateOfBirth() + "," +
-                    customer.isGender() + "," +
-                    customer.getIdentityId() + "," +
-                    customer.getTelephone() + "," +
-                    customer.getEmail() + "," +
-                    customer.getTypeOfCustomer() + "," +
-                   customer.getAddress();
+                customer.getName() + "," +
+                customer.getDateOfBirth() + "," +
+                customer.isGender() + "," +
+                customer.getIdentityId() + "," +
+                customer.getTelephone() + "," +
+                customer.getEmail() + "," +
+                customer.getTypeOfCustomer() + "," +
+                customer.getAddress();
         customerList.add(customer);
         readAnhWriteFile.writeFile(readAnhWriteFile.CUSTOMER_FILE, line);
     }
@@ -68,6 +68,8 @@ public class CustomerRepository implements ICustomerRepository {
         customerList.set(index, customer);
         updateFile();
     }
+
+    @Override
     public void updateFile() {
         String line;
         List<String> list = new ArrayList<>();
@@ -102,6 +104,7 @@ public class CustomerRepository implements ICustomerRepository {
         return customerList.get(index);
     }
 
+    @Override
     public void formHead() {
         System.out.printf(
                 "\n| %8s | %20s | %8s | %13s | %10s | %11s | %12s | %20s | %25s |\n",

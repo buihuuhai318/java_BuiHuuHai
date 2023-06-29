@@ -6,5 +6,6 @@ public interface IRepository<E> {
     void display();
 
     E getElement(int index);
+
     int checkID(String id);
 }

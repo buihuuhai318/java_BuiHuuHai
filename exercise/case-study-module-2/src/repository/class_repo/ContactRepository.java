@@ -35,11 +35,13 @@ public class ContactRepository implements IContactRepository {
         bookingRepository.pollBooking();
     }
 
+    @Override
     public void peekBooking() {
         bookingRepository.bookingHead();
         System.out.println(bookingRepository.getElementQueue());
     }
 
+    @Override
     public Booking getPeekBooking() {
         return bookingRepository.getElementQueue();
     }
@@ -51,6 +53,7 @@ public class ContactRepository implements IContactRepository {
         }
     }
 
+    @Override
     public void head() {
         System.out.printf("\n|%8s|%8s|%11s|%9s|\n",
                 "---HD---", "---BO---", "--Deposit--", "--Total--");
@@ -71,6 +74,7 @@ public class ContactRepository implements IContactRepository {
         return -1;
     }
 
+    @Override
     public void edit(Contract contract, int index) {
         contractList.set(index, contract);
     }

@@ -1,7 +1,15 @@
 package repository.interface_repo;
 
-public interface IPromotionRepository {
-    void customerUsed();
+import model.booking.Voucher;
+import model.person.Customer;
 
-    void customerGet();
+import java.util.List;
+import java.util.Set;
+
+public interface IPromotionRepository {
+    Set<Customer> showInYear();
+
+    Set<Customer> inMonth();
+
+    void addVoucher(List<Voucher> list);
 }
