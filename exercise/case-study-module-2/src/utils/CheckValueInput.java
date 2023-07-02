@@ -130,7 +130,7 @@ public class CheckValueInput {
             boolean result = true;
             String inputBirthday;
             do {
-                System.out.print("(dd/mm/yyyy): ");
+                System.out.print("(yyyy-MM-dd): ");
                 inputBirthday = input.nextLine().trim();
                 if (isDateValid(inputBirthday) && is18Plus(inputBirthday)) {
                     result = false;
@@ -148,7 +148,7 @@ public class CheckValueInput {
             boolean result = true;
             String inputDate;
             do {
-                System.out.print("(dd/mm/yyyy): ");
+                System.out.print("(yyyy-MM-dd): ");
                 inputDate = input.nextLine().trim();
                 if (isDateValid(inputDate)) {
                     result = false;
@@ -162,14 +162,14 @@ public class CheckValueInput {
     }
 
     public boolean isDateValid(String dateStr) {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateFormat.setLenient(false);
+        final String DATE_REGEX = "^20(((([248][048])|([13579][26]))-(((0[13578]|1[02])-([0-2][0-9]|3[01]))|" +
+                "((0[469]|11)-([0-2][0-9]|30))|(02-([0-2][0-9]))))|((([248][1-35-79])|([13579][013-57-9]))-(((0[13578]|" +
+                "1[02])-([0-2][0-9]|3[01]))|((0[469]|11)-([0-2][0-9]|30))|(02-((([01])[0-9])|(2[0-8]))))))$";
         try {
-            dateFormat.parse(dateStr);
-        } catch (ParseException e) {
+            return dateStr.matches(DATE_REGEX);
+        } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     public boolean is18Plus(String dateStr) {

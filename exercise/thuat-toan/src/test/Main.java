@@ -4,32 +4,39 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        int[] num = {8, 8, 8, 8};
+        System.out.println(check(num));
 
-        Queue<String> queue = new LinkedList<String>();
-        queue.add("Ha Noi ");
-        queue.add("Hai Phong ");
-        queue.add("Da Nang ");
-        queue.add("TPHCM ");
-        queue.add("Can Tho ");
-        queue.peek();
-
-        System.out.print(queue.poll());
-        System.out.print(queue.peek());
-        System.out.print(queue.poll());
-
-        queue.poll();
-        queue.peek();
-
-        System.out.print(queue.poll());
-    }
-    public static int recursion (int x, int y) {
-        if (x == 1)
-            return y;
-        else
-            return y * recursion(y, x - 1);
     }
 
-
-
-
+    public static int check(int[] num) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int max = num[0];
+        for (int i = 0; i < num.length; i++) {
+            map.put(num[i], 1);
+            if (max < num[i]) {
+                max = num[i];
+            }
+        }
+        System.out.println(map);
+        map.remove(max);
+        if (map.isEmpty()) {
+            return -1;
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            max = entry.getKey();
+            break;
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (max < entry.getKey()) {
+                max = entry.getKey();
+            }
+        }
+        for (int i = 0; i < num.length; i++) {
+            if (num[i] == max) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

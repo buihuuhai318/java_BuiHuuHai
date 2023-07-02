@@ -1,5 +1,7 @@
 package model.person;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +9,7 @@ public class Employee extends Person {
     private int level;
     private int position;
     private int salary;
-
+    private static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     static Map<Integer, String> levelMap = new HashMap<>();
     static Map<Integer, String> positionMap = new HashMap<>();
 
@@ -66,8 +68,9 @@ public class Employee extends Person {
         } else {
             sex = "nữ";
         }
+        LocalDate birthday = LocalDate.parse(dateOfBirth);
         return String.format(
                 "| %8s | %20s | %8s | %13s | %10s | %11s | %14s | %8s | %11s | %20s |",
-                id, name, sex, identityId, dateOfBirth, telephone, positionMap.get(position), salary, levelMap.get(level), email);
+                id, name, sex, identityId, birthday.format(dateFormat), telephone, positionMap.get(position), salary, levelMap.get(level), email);
     }
 }

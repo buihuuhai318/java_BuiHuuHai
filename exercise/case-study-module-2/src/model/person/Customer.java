@@ -2,21 +2,18 @@ package model.person;
 
 import utils.ColorInConsole;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Customer extends Person {
     private int typeOfCustomer;
     private String address;
-
     static Map<Integer, String> typeOfCustomerMap = new HashMap<>();
+    private static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     static {
-//        typeOfCustomerMap.put(1, ColorInConsole.ANSI_RED + "Diamond" + ColorInConsole.ANSI_RESET);
-//        typeOfCustomerMap.put(2, ColorInConsole.ANSI_PURPLE + "Platinum" + ColorInConsole.ANSI_RESET);
-//        typeOfCustomerMap.put(3, ColorInConsole.ANSI_YELLOW + "Gold" + ColorInConsole.ANSI_RESET);
-//        typeOfCustomerMap.put(4, ColorInConsole.ANSI_BLUE + "Silver" + ColorInConsole.ANSI_RESET);
-//        typeOfCustomerMap.put(5, "Member");
         typeOfCustomerMap.put(1, "Diamond");
         typeOfCustomerMap.put(2, "Platinum");
         typeOfCustomerMap.put(3, "Gold");
@@ -57,8 +54,9 @@ public class Customer extends Person {
         } else {
             sex = "nữ";
         }
+        LocalDate birthday = LocalDate.parse(dateOfBirth);
         return String.format(
                 "| %8s | %20s | %8s | %13s | %10s | %11s | %12s | %20s | %25s |",
-                id, name, sex, identityId, dateOfBirth, telephone, typeOfCustomerMap.get(typeOfCustomer), email, address);
+                id, name, sex, identityId, birthday.format(dateFormat), telephone, typeOfCustomerMap.get(typeOfCustomer), email, address);
     }
 }

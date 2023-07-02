@@ -32,12 +32,14 @@ public class BookingService implements IBookingService, IService {
     public void addNew() {
         try {
             System.out.println();
+            customerRepository.formHead();
             customerRepository.display();
             System.out.print("\n - Enter ID of Customer: ");
             String customerId = input.nextLine();
             int indexCustomer = customerRepository.checkID(customerId);
             if (indexCustomer == -1) {
-                System.out.println("------ This ID not found !!! ------");
+                System.out.println("\n------ This ID not found !!! ------");
+                addNew();
             } else {
                 System.out.println();
                 customerRepository.formHead();
@@ -47,7 +49,8 @@ public class BookingService implements IBookingService, IService {
                 String facilityId = input.nextLine();
                 int indexFacility = facilityRepository.checkID(facilityId);
                 if (indexFacility == -1) {
-                    System.out.println("------ This CODE not found !!! ------");
+                    System.out.println("\n------ This CODE not found !!! ------");
+                    addNew();
                 } else {
                     Facility facility = facilityRepository.getElement(indexFacility);
                     if (facility.getCodeService().matches("^SVVL.*")) {
@@ -59,18 +62,21 @@ public class BookingService implements IBookingService, IService {
                     }
                     System.out.println(facility);
                     System.out.println("\n---------------- New Booking ------------------\n");
-                    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     String date = LocalDate.now().format(myFormatObj);
                     System.out.print(" - from ");
                     String startTime = checkValueInput.checkDate();
                     System.out.print(" - to ");
                     String endTime = checkValueInput.checkDate();
                     Booking booking = new Booking(date, startTime, endTime, customerId, facilityId);
+                    bookingRepository.bookingHead();
+                    System.out.println(booking);
                     bookingRepository.addNew(booking);
                 }
             }
         } catch (Exception e) {
-            System.out.println("----------- Input Wrong !!! -----------");
+            System.out.println("\n----------- Input Wrong !!! -----------");
+            addNew();
         }
     }
 }

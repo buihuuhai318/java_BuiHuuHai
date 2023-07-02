@@ -44,7 +44,7 @@ public class FuramaController {
                     case 1 -> displayEmployeeMenu();
                     case 2 -> displayCustomerMenu();
                     case 3 -> displayFacilityMenu();
-                    case 4 -> displayBookingmenu();
+                    case 4 -> displayBookingMenu();
                     case 5 -> displayPromotionMenu();
                     case 6 -> System.exit(0);
                 }
@@ -141,7 +141,7 @@ public class FuramaController {
         }
     }
 
-    public void displayBookingmenu() {
+    public void displayBookingMenu() {
         try {
             int choice;
             do {
