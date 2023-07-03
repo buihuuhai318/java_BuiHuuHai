@@ -1,9 +1,6 @@
 package bai7;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,31 +11,29 @@ public class Main {
                 {1, 2, 6, 51}
         };
         System.out.println(Arrays.toString(check(arr)));
+        int[] newArr = check(arr);
     }
 
     public static int[] check(int[][] arr) {
-        List<Integer> num = new ArrayList<>();
-        int count = 0;
+        Set<Integer> set = new TreeSet<>();
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
-                if (isPrime(arr[i][j]) && !num.contains(arr[i][j])) {
-                    num.add(arr[i][j]);
-                    count++;
+                if (isPrime(arr[i][j])) {
+                    set.add(arr[i][j]);
                 }
             }
         }
-        int[] newArr = {};
-        if (count > 0) {
-            newArr = new int[count];
-            Collections.sort(num);
-            for (int i = 0; i < newArr.length; i++) {
-                newArr[i] = num.get(i);
-            }
-            return newArr;
-        } else {
-            return newArr;
+        int[] newArr = new int[set.size()];
+//        List<Integer> list = new ArrayList<>(set);
+        int index = 0;
+        for (Integer integer : set) {
+            newArr[index] = integer;
+            index++;
         }
-
+//        for (int i = 0; i < newArr.length; i++) {
+//            newArr[i] = list.get(i);
+//        }
+        return newArr;
     }
 
     public static boolean isPrime(int num) {

@@ -4,39 +4,28 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        int[] num = {8, 8, 8, 8};
-        System.out.println(check(num));
-
+        String[] str = {"iphone 14", "iphone 13 pro max", "iphone 12 pro max", "samsung filip", "samsung sida", "iphone sida"};
+        System.out.println(Arrays.toString(check(str)));
     }
 
-    public static int check(int[] num) {
-        Map<Integer, Integer> map = new HashMap<>();
-        int max = num[0];
-        for (int i = 0; i < num.length; i++) {
-            map.put(num[i], 1);
-            if (max < num[i]) {
-                max = num[i];
+    public static String[] check(String[] str) {
+        System.out.println("nhap ten muon tim kiem");
+        Scanner input = new Scanner(System.in);
+        String name = input.nextLine();
+
+        List<String> stringList = new ArrayList<>();
+        int count = 0;
+        for (int i = 0; i < str.length; i++) {
+            if (str[i].contains(name)) {
+                count++;
+                stringList.add(str[i]);
             }
         }
-        System.out.println(map);
-        map.remove(max);
-        if (map.isEmpty()) {
-            return -1;
+        int index = 0;
+        String[] newStr = new String[count];
+        for (int i = 0; i < newStr.length; i++) {
+            newStr[i] = stringList.get(i);
         }
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            max = entry.getKey();
-            break;
-        }
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            if (max < entry.getKey()) {
-                max = entry.getKey();
-            }
-        }
-        for (int i = 0; i < num.length; i++) {
-            if (num[i] == max) {
-                return i;
-            }
-        }
-        return -1;
+        return newStr;
     }
 }

@@ -1,6 +1,6 @@
 package util;
 
-import model.Player;
+import model.Book;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,42 +8,35 @@ import java.util.List;
 
 public class ReadAndWrite {
 
-    public static final String PATH_FILE = "src/data/player.csv";
-    public void write(String path, List<Player> list, boolean append) {
-        File file = new File(path);
-        FileWriter fileWriter = null;
-        BufferedWriter bufferedWriter = null;
-
+    public static final String pathFile = "src/data/book.csv";
+    public static void write(String pathFile, List<Book> bookList) {
         try {
-            fileWriter = new FileWriter(file, append);
-            bufferedWriter = new BufferedWriter(fileWriter);
+            File file = new File(pathFile);
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            for (Player player: list) {
-                bufferedWriter.write(player.infoToFile());
+            for (Book book : bookList) {
+                bufferedWriter.write(book.toFile());
                 bufferedWriter.newLine();
             }
 
             bufferedWriter.close();
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("khong tim thay file");
+            throw new RuntimeException(e);
         }
     }
 
-    public List<String> read(String path) {
+    public static List<String> read(String pathFile) {
         List<String> stringList = new ArrayList<>();
-
-        File file = new File(path);
-        FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
-
         try {
-            fileReader = new FileReader(file);
-            bufferedReader = new BufferedReader(fileReader);
+            File file = new File(pathFile);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             String line;
 
-            while ((line = bufferedReader.readLine()) != null) {
+            while((line = bufferedReader.readLine()) != null) {
                 stringList.add(line);
             }
 
@@ -52,7 +45,6 @@ public class ReadAndWrite {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         return stringList;
     }
 }
