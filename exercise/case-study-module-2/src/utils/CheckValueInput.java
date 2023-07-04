@@ -7,6 +7,9 @@ import repository.class_repo.FacilityRepository;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -17,7 +20,6 @@ import static view.Main.input;
 public class CheckValueInput {
     EmployeeRepository employeeRepository = new EmployeeRepository();
     CustomerRepository customerRepository = new CustomerRepository();
-
     FacilityRepository facilityRepository = new FacilityRepository();
 
     public boolean checkGender() {
@@ -126,17 +128,22 @@ public class CheckValueInput {
     }
 
     public String checkBirthday() {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             boolean result = true;
             String inputBirthday;
-            do {
-                System.out.print("(yyyy-MM-dd): ");
-                inputBirthday = input.nextLine().trim();
-                if (isDateValid(inputBirthday) && is18Plus(inputBirthday)) {
-                    result = false;
-                }
-            } while (result);
-            return inputBirthday;
+
+            System.out.print("(yyyy-MM-dd): ");
+            inputBirthday = input.nextLine().trim();
+
+            LocalDate checkDay = LocalDate.parse(inputBirthday);
+            checkDay.format(dateFormat);
+
+            if (isDateValid(inputBirthday) && is18Plus(inputBirthday)) {
+                return inputBirthday;
+            } else {
+                return checkBirthday();
+            }
         } catch (Exception e) {
             System.out.println("----------- Input Wrong !!! -----------");
             return checkBirthday();
@@ -144,17 +151,20 @@ public class CheckValueInput {
     }
 
     public String checkDate() {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            boolean result = true;
             String inputDate;
-            do {
-                System.out.print("(yyyy-MM-dd): ");
-                inputDate = input.nextLine().trim();
-                if (isDateValid(inputDate)) {
-                    result = false;
-                }
-            } while (result);
-            return inputDate;
+            System.out.print("(yyyy-MM-dd): ");
+            inputDate = input.nextLine().trim();
+
+            LocalDate checkDay = LocalDate.parse(inputDate);
+            checkDay.format(dateFormat);
+
+            if (isDateValid(inputDate)) {
+                return inputDate;
+            } else {
+                return checkDate();
+            }
         } catch (Exception e) {
             System.out.println("----------- Input Wrong !!! -----------");
             return checkDate();
@@ -162,9 +172,7 @@ public class CheckValueInput {
     }
 
     public boolean isDateValid(String dateStr) {
-        final String DATE_REGEX = "^20(((([248][048])|([13579][26]))-(((0[13578]|1[02])-([0-2][0-9]|3[01]))|" +
-                "((0[469]|11)-([0-2][0-9]|30))|(02-([0-2][0-9]))))|((([248][1-35-79])|([13579][013-57-9]))-(((0[13578]|" +
-                "1[02])-([0-2][0-9]|3[01]))|((0[469]|11)-([0-2][0-9]|30))|(02-((([01])[0-9])|(2[0-8]))))))$";
+        final String DATE_REGEX = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
         try {
             return dateStr.matches(DATE_REGEX);
         } catch (Exception e) {
@@ -173,15 +181,16 @@ public class CheckValueInput {
     }
 
     public boolean is18Plus(String dateStr) {
-        String[] array = dateStr.split("/");
-        Calendar calendar = Calendar.getInstance();
-        int year = Integer.parseInt(array[2]) + 18;
-        int month = Integer.parseInt(array[1]);
-        int day = Integer.parseInt(array[0]);
-        calendar.set(year, month, day);
-        Date date = new Date();
-        int compare = date.compareTo(calendar.getTime());
-        return compare >= 0;
+        LocalDate currentDate = LocalDate.now();
+        LocalDate birthDate = LocalDate.parse(dateStr);
+        Period period = Period.between(birthDate, currentDate);
+        int age = period.getYears();
+        if (age >= 18) {
+            return true;
+        } else {
+            System.out.println("Not enough 18 !!!");
+            return false;
+        }
     }
 
     public String checkIdentityId() {
