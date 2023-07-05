@@ -422,6 +422,18 @@ public class CheckValueInput {
             return checkTypeOfRent();
         }
     }
+
+    public static int inputInt() {
+        int num;
+        try {
+            num = Integer.parseInt(input.nextLine());
+
+        } catch (Exception e) {
+            System.out.println("--------Input Wrong--------");
+            return inputInt();
+        }
+        return num;
+    }
 }
 
 

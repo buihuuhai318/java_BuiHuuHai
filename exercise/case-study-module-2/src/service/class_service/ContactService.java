@@ -91,8 +91,8 @@ public class ContactService implements IContactService, IService {
             contactRepository.head();
             System.out.println(contractHolder);
             System.out.print("\n - Continue ? (yes / no) : ");
-            String anwser = input.nextLine().toLowerCase().trim();
-            if (anwser.equals("no")) {
+            String answer = input.nextLine().toLowerCase().trim();
+            if (answer.equals("no")) {
                 System.out.print(" - Do you want to Save ? (yes / no) : ");
                 String save = input.nextLine().trim().toLowerCase();
                 if (save.equals("no")) {
@@ -101,7 +101,7 @@ public class ContactService implements IContactService, IService {
                     System.out.println("---------------DONE---------------");
                     return contractHolder;
                 }
-            } else if (anwser.equals("yes")) {
+            } else if (answer.equals("yes")) {
                 flag = true;
             }
         } while (flag);

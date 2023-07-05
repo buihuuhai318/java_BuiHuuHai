@@ -37,13 +37,13 @@ public class PromotionService implements IPromotionService {
             int voucher50;
 
             do {
-                System.out.print("\n - Enter amoung of Voucher 10%: ");
+                System.out.print("\n - Enter amount of Voucher 10%: ");
                 voucher10 = Integer.parseInt(input.nextLine());
 
-                System.out.print("\n - Enter amoung of Voucher 20%: ");
+                System.out.print("\n - Enter amount of Voucher 20%: ");
                 voucher20 = Integer.parseInt(input.nextLine());
 
-                System.out.print("\n - Enter amoung of Voucher 50%: ");
+                System.out.print("\n - Enter amount of Voucher 50%: ");
                 voucher50 = Integer.parseInt(input.nextLine());
 
                 voucher = voucher10 + voucher20 + voucher50;

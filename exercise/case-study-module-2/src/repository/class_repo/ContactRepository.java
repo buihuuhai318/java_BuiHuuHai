@@ -11,19 +11,6 @@ public class ContactRepository implements IContactRepository {
 
     static List<Contract> contractList = new ArrayList<>();
 
-    static {
-//        contractList.add(new Contract("BO-0", 10, 10));
-//        contractList.add(new Contract("BO-1", 10, 10));
-//        contractList.add(new Contract("BO-2", 10, 10));
-//        contractList.add(new Contract("BO-3", 10, 10));
-//        contractList.add(new Contract("BO-4", 10, 10));
-//        contractList.add(new Contract("BO-5", 10, 10));
-//        contractList.add(new Contract("BO-6", 10, 10));
-//        contractList.add(new Contract("BO-7", 10, 10));
-//        contractList.add(new Contract("BO-8", 10, 10));
-//        contractList.add(new Contract("BO-9", 10, 10));
-    }
-
     BookingRepository bookingRepository = new BookingRepository();
     FacilityRepository facilityRepository = new FacilityRepository();
 

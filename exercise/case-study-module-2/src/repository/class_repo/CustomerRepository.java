@@ -15,24 +15,6 @@ public class CustomerRepository implements ICustomerRepository {
     static List<Customer> customerList = new ArrayList<>();
 
     static {
-//        customerList.add(new Customer("KH-0000", "Bùi Hữu Hải", "31/08/96", true, "222222222", "0942409424", "hai@gmail.com", 1, "asd"));
-//        customerList.add(new Customer("KH-0001", "Nguyễn Hoàng Nguyên", "31/08/96", true, "222222222", "0942409424", "hai@gmail.com", 2, "asd"));
-//        customerList.add(new Customer("KH-0002", "Lê Công Hoàn Thiện", "31/08/96", true, "222222222", "0942409424", "hai@gmail.com", 3, "asd"));
-//        customerList.add(new Customer("KH-0003", "David Nộp", "31/08/96", true, "222222222", "0942409424", "hai@gmail.com", 3, "asd"));
-//        customerList.add(new Customer("KH-0004", "Tôm Đú", "31/08/96", true, "222222222", "0942409424", "hai@gmail.com", 3, "asd"));
-//        String line;
-//        for (Customer customer : customerList) {
-//            line = customer.getId() + "," +
-//                    customer.getName() + "," +
-//                    customer.getDateOfBirth() + "," +
-//                    customer.isGender() + "," +
-//                    customer.getIdentityId() + "," +
-//                    customer.getTelephone() + "," +
-//                    customer.getEmail() + "," +
-//                    customer.getTypeOfCustomer() + "," +
-//                   customer.getAddress();
-//            readAnhWriteFile.writeFile(readAnhWriteFile.CUSTOMER_FILE, line);
-//        }
         List<String> customerArrList = readAnhWriteFile.readFile(readAnhWriteFile.CUSTOMER_FILE);
         String[] line;
         for (String s : customerArrList) {
