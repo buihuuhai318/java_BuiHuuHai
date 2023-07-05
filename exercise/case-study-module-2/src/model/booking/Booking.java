@@ -1,6 +1,9 @@
 package model.booking;
 
 
+import model.facility.Facility;
+import model.person.Customer;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -12,21 +15,21 @@ public class Booking implements Comparable<Booking> {
     private String dateOfBook;
     private String dateStartRent;
     private String dateStopRent;
-    private String customerId;
-    private String serviceCode;
+    private Customer customer;
+    private Facility facility;
     private static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Booking() {
         this.bookingCode = "BO-" + countBooking++;
     }
 
-    public Booking(String dateOfBook, String dateStartRent, String dateStopRent, String customerId, String serviceCode) {
+    public Booking(String dateOfBook, String dateStartRent, String dateStopRent, Customer customer, Facility facility) {
         this.bookingCode = "BO-" + countBooking++;
         this.dateOfBook = dateOfBook;
         this.dateStartRent = dateStartRent;
         this.dateStopRent = dateStopRent;
-        this.customerId = customerId;
-        this.serviceCode = serviceCode;
+        this.customer = customer;
+        this.facility = facility;
     }
 
     public String getBookingCode() {
@@ -61,20 +64,20 @@ public class Booking implements Comparable<Booking> {
         this.dateStopRent = dateStopRent;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public String getServiceCode() {
-        return serviceCode;
+    public Facility getFacility() {
+        return facility;
     }
 
-    public void setServiceCode(String serviceCode) {
-        this.serviceCode = serviceCode;
+    public void setFacility(Facility facility) {
+        this.facility = facility;
     }
 
     @Override
@@ -84,7 +87,7 @@ public class Booking implements Comparable<Booking> {
         LocalDate dateStop = LocalDate.parse(dateStopRent);
         return String.format(
                 "| %-8s | %7s | %9s | %11s | %10s | %11s |",
-                bookingCode, customerId, serviceCode, dateBook.format(dateFormat), dateStart.format(dateFormat), dateStop.format(dateFormat));
+                bookingCode, customer.getId(), facility.getCodeService(), dateBook.format(dateFormat), dateStart.format(dateFormat), dateStop.format(dateFormat));
     }
 
     public static class SortByDate implements Comparator<Booking> {

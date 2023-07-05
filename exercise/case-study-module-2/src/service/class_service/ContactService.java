@@ -1,7 +1,7 @@
 package service.class_service;
 
+import model.booking.Booking;
 import model.booking.Contract;
-import repository.class_repo.BookingRepository;
 import repository.class_repo.ContactRepository;
 import service.interface_service.IContactService;
 import service.interface_service.IService;
@@ -12,7 +12,6 @@ import static view.Main.input;
 public class ContactService implements IContactService, IService {
 
     ContactRepository contactRepository = new ContactRepository();
-    BookingRepository bookingRepository = new BookingRepository();
     CheckValueInput checkValueInput = new CheckValueInput();
 
     @Override
@@ -24,12 +23,12 @@ public class ContactService implements IContactService, IService {
     @Override
     public void addNew() {
         contactRepository.peekBooking();
-        String idBooking = contactRepository.getPeekBooking().getBookingCode();
+        Booking booking = contactRepository.getPeekBooking();
         System.out.print("\n - Enter deposit ");
         int depositForRent = checkValueInput.checkPrice();
         System.out.print(" - Enter total ");
         int totalForRent = checkValueInput.checkPrice();
-        Contract contract = new Contract(idBooking, depositForRent, totalForRent);
+        Contract contract = new Contract(booking, depositForRent, totalForRent);
         contactRepository.head();
         System.out.println(contract);
         contactRepository.addNew(contract);
@@ -62,7 +61,7 @@ public class ContactService implements IContactService, IService {
 
     @Override
     public Contract changeValueEdit(Contract contract) {
-        String idBo = contract.getBookingCode();
+        Booking booking = contract.getBooking();
         int deposit = contract.getDepositForRent();
         int total = contract.getTotalForRent();
 
@@ -88,7 +87,7 @@ public class ContactService implements IContactService, IService {
                 case 0 -> flag = false;
             }
 
-            Contract contractHolder = new Contract(idBo, deposit, total);
+            Contract contractHolder = new Contract(booking, deposit, total);
             contactRepository.head();
             System.out.println(contractHolder);
             System.out.print("\n - Continue ? (yes / no) : ");

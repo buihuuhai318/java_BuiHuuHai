@@ -1,20 +1,22 @@
 package model.booking;
 
+import model.person.Customer;
+
 public class Voucher {
     private String code;
     private int sale;
-    private String customerId;
+    private Customer customer;
 
-    static int countVoucer = 0;
+    static int countVoucher = 0;
 
     public Voucher() {
-        code = "FU_VOUCHER_" + countVoucer++;
+        code = "FU_VOUCHER_" + countVoucher++;
     }
 
-    public Voucher(int sale, String customerId) {
-        this.code = "FU_VOUCHER_" + countVoucer++;
+    public Voucher(int sale, Customer customer) {
+        this.code = "FU_VOUCHER_" + countVoucher++;
         this.sale = sale;
-        this.customerId = customerId;
+        this.customer = customer;
     }
 
     public String getCode() {
@@ -33,20 +35,12 @@ public class Voucher {
         this.sale = sale;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public static int getCountVoucer() {
-        return countVoucer;
-    }
-
-    public static void setCountVoucer(int countVoucer) {
-        Voucher.countVoucer = countVoucer;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -54,7 +48,7 @@ public class Voucher {
         return "Voucher{" +
                 "code='" + code + '\'' +
                 ", sale=" + sale +
-                ", customerId='" + customerId + '\'' +
+                ", customerId='" + customer.getId() + '\'' +
                 '}';
     }
 }

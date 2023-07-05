@@ -56,13 +56,13 @@ public class PromotionService implements IPromotionService {
             List<Voucher> voucherList = new ArrayList<>();
 
             for (int i = 0; i < voucher10; i++) {
-                voucherList.add(new Voucher(50, customerQueue.poll().getId()));
+                voucherList.add(new Voucher(50, customerQueue.poll()));
             }
             for (int i = 0; i < voucher20; i++) {
-                voucherList.add(new Voucher(20, customerQueue.poll().getId()));
+                voucherList.add(new Voucher(20, customerQueue.poll()));
             }
             for (int i = 0; i < voucher50; i++) {
-                voucherList.add(new Voucher(10, customerQueue.poll().getId()));
+                voucherList.add(new Voucher(10, customerQueue.poll()));
             }
 
             System.out.println();

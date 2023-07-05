@@ -18,10 +18,10 @@ public class PromotionRepository implements IPromotionRepository {
     static List<Voucher> voucherList = new ArrayList<>();
 
     static {
-        voucherList.add(new Voucher(10, "KH-0002"));
-        voucherList.add(new Voucher(20, "KH-0001"));
-        voucherList.add(new Voucher(20, "KH-0003"));
-        voucherList.add(new Voucher(50, "KH-0004"));
+//        voucherList.add(new Voucher(10, "KH-0002"));
+//        voucherList.add(new Voucher(20, "KH-0001"));
+//        voucherList.add(new Voucher(20, "KH-0003"));
+//        voucherList.add(new Voucher(50, "KH-0004"));
     }
 
     public List<Voucher> showVoucher() {
@@ -36,11 +36,11 @@ public class PromotionRepository implements IPromotionRepository {
         customerRepository.formHead();
         String date;
         for (Contract contract : ContactRepository.contractList) {
-            String indexCon = contract.getBookingCode();
+            String indexCon = contract.getBooking().getBookingCode();
             date = bookingRepository.getElement(bookingRepository.checkID(indexCon)).getDateStartRent();
             String[] array = date.split("-");
             if (Objects.equals(array[0], year)) {
-                int index = customerRepository.checkID(bookingRepository.getElement(bookingRepository.checkID(contract.getBookingCode())).getCustomerId());
+                int index = customerRepository.checkID(bookingRepository.getElement(bookingRepository.checkID(contract.getBooking().getBookingCode())).getCustomer().getId());
                 customerInYear.add(customerRepository.getElement(index));
             }
         }
@@ -55,11 +55,11 @@ public class PromotionRepository implements IPromotionRepository {
         String date;
         customerRepository.formHead();
         for (Contract contract : ContactRepository.contractList) {
-            String indexCon = contract.getBookingCode();
+            String indexCon = contract.getBooking().getBookingCode();
             date = bookingRepository.getElement(bookingRepository.checkID(indexCon)).getDateStartRent();
             String[] array = date.split("-");
             if (Objects.equals(array[0], arrayDateNow[0]) && Objects.equals(array[1], arrayDateNow[1])) {
-                int index = customerRepository.checkID(bookingRepository.getElement(bookingRepository.checkID(contract.getBookingCode())).getCustomerId());
+                int index = customerRepository.checkID(bookingRepository.getElement(bookingRepository.checkID(contract.getBooking().getBookingCode())).getCustomer().getId());
                 customerInMonth.add(customerRepository.getElement(index));
             }
         }

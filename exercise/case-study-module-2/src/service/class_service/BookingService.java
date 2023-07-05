@@ -2,6 +2,7 @@ package service.class_service;
 
 import model.booking.Booking;
 import model.facility.Facility;
+import model.person.Customer;
 import repository.class_repo.BookingRepository;
 import repository.class_repo.CustomerRepository;
 import repository.class_repo.FacilityRepository;
@@ -43,7 +44,8 @@ public class BookingService implements IBookingService, IService {
             } else {
                 System.out.println();
                 customerRepository.formHead();
-                System.out.println(customerRepository.getElement(indexCustomer));
+                Customer customer = customerRepository.getElement(indexCustomer);
+                System.out.println(customer);
                 facilityService.display();
                 System.out.print("\n - Enter Code of Facility: ");
                 String facilityId = input.nextLine();
@@ -68,7 +70,7 @@ public class BookingService implements IBookingService, IService {
                     String startTime = checkValueInput.checkDate();
                     System.out.print(" - to ");
                     String endTime = checkValueInput.checkDate();
-                    Booking booking = new Booking(date, startTime, endTime, customerId, facilityId);
+                    Booking booking = new Booking(date, startTime, endTime, customer, facility);
                     bookingRepository.bookingHead();
                     System.out.println(booking);
                     bookingRepository.addNew(booking);

@@ -4,7 +4,7 @@ public class Contract {
 
     private static int countContract = 0;
     private String id;
-    private String bookingCode;
+    private Booking booking;
 
     private int depositForRent;
 
@@ -14,9 +14,9 @@ public class Contract {
         this.id = "HD-" + countContract++;
     }
 
-    public Contract(String bookingCode, int depositForRent, int totalForRent) {
+    public Contract(Booking booking, int depositForRent, int totalForRent) {
         this.id = "HD-" + countContract++;
-        this.bookingCode = bookingCode;
+        this.booking = booking;
         this.depositForRent = depositForRent;
         this.totalForRent = totalForRent;
     }
@@ -29,12 +29,12 @@ public class Contract {
         this.id = id;
     }
 
-    public String getBookingCode() {
-        return bookingCode;
+    public Booking getBooking() {
+        return booking;
     }
 
-    public void setBookingCode(String bookingCode) {
-        this.bookingCode = bookingCode;
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
     public int getDepositForRent() {
@@ -57,6 +57,6 @@ public class Contract {
     public String toString() {
         return String.format(
                 "| %-6s | %-6s | %7s $ | %5s $ |",
-                id, bookingCode, depositForRent, totalForRent);
+                id, booking.getBookingCode(), depositForRent, totalForRent);
     }
 }
