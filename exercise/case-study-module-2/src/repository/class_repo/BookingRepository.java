@@ -10,35 +10,6 @@ public class BookingRepository implements IBookingRepository {
     static Set<Booking> bookingSet = new TreeSet<>();
     static Queue<Booking> bookingQueue = new PriorityQueue<>();
 
-    static {
-//        bookingSet.add(new Booking("2022-06-12", "2022-05-21", "2022-06-08", "KH-0003", "SVRO-0001"));
-//        bookingSet.add(new Booking("2022-06-12", "2022-05-21", "2022-06-07", "KH-0004", "SVRO-0000"));
-//        bookingSet.add(new Booking("2022-06-12", "2022-05-15", "2022-06-09", "KH-0002", "SVHO-0001"));
-//
-//        bookingSet.add(new Booking("2023-05-16", "2023-05-11", "2023-06-04", "KH-0004", "SVVL-0001"));
-//        bookingSet.add(new Booking("2023-05-16", "2023-05-21", "2023-06-05", "KH-0001", "SVHO-0000"));
-//        bookingSet.add(new Booking("2023-05-16", "2023-05-24", "2023-06-11", "KH-0003", "SVRO-0001"));
-//        bookingSet.add(new Booking("2023-05-16", "2023-05-26", "2023-06-12", "KH-0000", "SVRO-0000"));
-//
-//        bookingSet.add(new Booking("2023-06-16", "2023-06-20", "2023-06-25", "KH-0000", "SVVL-0000"));
-//        bookingSet.add(new Booking("2023-06-16", "2023-06-21", "2023-06-25", "KH-0001", "SVVL-0000"));
-//        bookingSet.add(new Booking("2023-06-16", "2023-06-19", "2023-06-25", "KH-0002", "SVVL-0000"));
-//
-//        bookingSet.add(new Booking("2023-06-20", "2023-06-23", "2023-06-27", "KH-0000", "SVVL-0000"));
-//        bookingSet.add(new Booking("2023-06-20", "2023-06-22", "2023-06-24", "KH-0001", "SVVL-0001"));
-//        bookingSet.add(new Booking("2023-06-20", "2023-06-26", "2023-06-26", "KH-0002", "SVHO-0001"));
-//        bookingSet.add(new Booking("2023-06-20", "2023-05-23", "2023-06-25", "KH-0003", "SVHO-0001"));
-////        Collections.sort(bookingSet);
-//        bookingQueue.addAll(bookingSet);
-//        bookingQueue.poll();
-//        bookingQueue.poll();
-//        bookingQueue.poll();
-//        bookingQueue.poll();
-//        bookingQueue.poll();
-//        bookingQueue.poll();
-//        bookingQueue.poll();
-    }
-
     @Override
     public void addNew(Booking booking) {
         bookingSet.add(booking);

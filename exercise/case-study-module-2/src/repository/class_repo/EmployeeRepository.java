@@ -19,23 +19,6 @@ public class EmployeeRepository implements IEmployeeRepository {
             line = s.split(",");
             employeeList.add(new Employee(line[0], line[1], line[2], Boolean.parseBoolean(line[3]), line[4], line[5], line[6], Integer.parseInt(line[7]), Integer.parseInt(line[8]), Integer.parseInt(line[9])));
         }
-//        employeeList.add(new Employee("NV-0000", "Bùi Hữu Hải", "31/08/96", true, "222222222", "0942409424", "hai@gmail.com", 1, 5, 1000));
-//        employeeList.add(new Employee("NV-0001", "Nguyễn Hoàng Nguyên", "31/08/96", true, "222222222", "0942409424", "hai@gmail.com", 2, 4, 1000));
-//        employeeList.add(new Employee("NV-0002", "Lê Công Hoàn Thiện", "31/08/96", true, "222222222", "0942409424", "hai@gmail.com", 3, 3, 1000));
-//        String line;
-//        for (Employee employee : employeeList) {
-//            line = employee.getId() + "," +
-//                    employee.getName() + "," +
-//                    employee.getDateOfBirth() + "," +
-//                    employee.isGender() + "," +
-//                    employee.getIdentityId() + "," +
-//                    employee.getTelephone() + "," +
-//                    employee.getEmail() + "," +
-//                    employee.getLevel() + "," +
-//                    employee.getPosition() + "," +
-//                    employee.getSalary();
-//            readAnhWriteFile.writeFile(readAnhWriteFile.EMPLOYEE_FILE, line);
-//        }
     }
 
     @Override

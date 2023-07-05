@@ -34,7 +34,7 @@ public class EmployeeService implements IEmployeeService, IService {
             String id = checkValueInput.checkIdEmployee();
             System.out.print("Enter Name ");
             String name = checkValueInput.checkName();
-            System.out.print("Enter Brithday ");
+            System.out.print("Enter Birthday ");
             String date = checkValueInput.checkBirthday();
             System.out.print("Enter Gender:  ");
             boolean gender = checkValueInput.checkGender();
@@ -119,7 +119,7 @@ public class EmployeeService implements IEmployeeService, IService {
                         name = checkValueInput.checkName();
                     }
                     case 3 -> {
-                        System.out.print("Enter Brithday ");
+                        System.out.print("Enter Birthday ");
                         date = checkValueInput.checkBirthday();
                     }
                     case 4 -> {
@@ -157,8 +157,8 @@ public class EmployeeService implements IEmployeeService, IService {
                 formHead();
                 System.out.println(employeeHolder);
                 System.out.print("\n - continue ? (yes / no) : ");
-                String anwser = input.nextLine().toLowerCase().trim();
-                if (anwser.equals("no")) {
+                String answer = input.nextLine().toLowerCase().trim();
+                if (answer.equals("no")) {
                     System.out.print(" - Do you want to Save ? (yes / no) : ");
                     String save = input.nextLine().trim().toLowerCase();
                     if (save.equals("no")) {
@@ -167,7 +167,7 @@ public class EmployeeService implements IEmployeeService, IService {
                         System.out.println("---------------DONE---------------");
                         return employeeHolder;
                     }
-                } else if (anwser.equals("yes")) {
+                } else if (answer.equals("yes")) {
                     flag = true;
                 }
             } while (flag);

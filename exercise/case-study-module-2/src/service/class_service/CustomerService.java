@@ -109,7 +109,7 @@ public class CustomerService implements ICustomerService, IService {
                         name = checkValueInput.checkName();
                     }
                     case 3 -> {
-                        System.out.print("Enter Brithday ");
+                        System.out.print("Enter Birthday ");
                         date = checkValueInput.checkBirthday();
                     }
                     case 4 -> {
@@ -143,8 +143,8 @@ public class CustomerService implements ICustomerService, IService {
                 customerRepository.formHead();
                 System.out.println(customerHolder);
                 System.out.print("\n - continue ? (yes / no) : ");
-                String anwser = input.nextLine().toLowerCase().trim();
-                if (anwser.equals("no")) {
+                String answer = input.nextLine().toLowerCase().trim();
+                if (answer.equals("no")) {
                     System.out.print(" - Do you want to Save ? (yes / no) : ");
                     String save = input.nextLine().trim().toLowerCase();
                     if (save.equals("no")) {
@@ -153,7 +153,7 @@ public class CustomerService implements ICustomerService, IService {
                         System.out.println("---------------DONE---------------");
                         return customerHolder;
                     }
-                } else if (anwser.equals("yes")) {
+                } else if (answer.equals("yes")) {
                     flag = true;
                 }
             } while (flag);

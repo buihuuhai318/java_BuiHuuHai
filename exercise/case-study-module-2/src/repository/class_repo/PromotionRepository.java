@@ -17,13 +17,6 @@ public class PromotionRepository implements IPromotionRepository {
 
     static List<Voucher> voucherList = new ArrayList<>();
 
-    static {
-//        voucherList.add(new Voucher(10, "KH-0002"));
-//        voucherList.add(new Voucher(20, "KH-0001"));
-//        voucherList.add(new Voucher(20, "KH-0003"));
-//        voucherList.add(new Voucher(50, "KH-0004"));
-    }
-
     public List<Voucher> showVoucher() {
         return voucherList;
     }
