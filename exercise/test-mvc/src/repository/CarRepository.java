@@ -37,7 +37,7 @@ public class CarRepository implements ICarRepository {
         String[] info;
         for (String line : stringList) {
             info = line.split(",");
-            
+
             carList.add(new Car(Integer.parseInt(info[0]), info[1], Integer.parseInt(info[2]), Integer.parseInt(info[3])));
         }
         return carList;
