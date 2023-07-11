@@ -187,16 +187,34 @@ insert into hop_dong_chi_tiet value
 select ma_nhan_vien, ho_ten from nhan_vien where ho_ten regexp '^[HTK]+' and char_length(ho_ten) <= 15;
 
 select ma_khach_hang, ho_ten, ngay_sinh, dia_chi 
-from khach_hang where dia_chi 
-regexp 
-'(Đà Nẵng)|(Quảng Trị)' 
+from khach_hang 
+where 
+dia_chi regexp '(Đà Nẵng)|(Quảng Trị)' 
 and 
 ((YEAR(CURDATE()) - YEAR(ngay_sinh)) - (RIGHT(CURDATE(), 5) < RIGHT(ngay_sinh, 5))) >= 18 
 and
 ((YEAR(CURDATE()) - YEAR(ngay_sinh)) - (RIGHT(CURDATE(), 5) < RIGHT(ngay_sinh, 5))) <= 50;
 
+select ma_khach_hang, ho_ten, ten_loai_khach
+from khach_hang
+inner join loai_khach on khach_hang.ma_loai_khach = loai_khach.ma_loai_khach
+where
+ten_loai_khach = "Diamond";
 
 
+select ma_khach_hang, count(hop_dong.ma_khach_hang) as so_lan_dat_phong
+from hop_dong
+group by ma_khach_hang
+order by so_lan_dat_phong;
+
+select hop_dong.ma_khach_hang, khach_hang.ho_ten, count(hop_dong.ma_khach_hang) as so_lan_dat_phong
+from hop_dong
+join khach_hang on hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
+join loai_khach on khach_hang.ma_loai_khach = loai_khach.ma_loai_khach
+where
+loai_khach.ten_loai_khach = "Diamond"
+group by ma_khach_hang
+order by so_lan_dat_phong;
 
 
 
