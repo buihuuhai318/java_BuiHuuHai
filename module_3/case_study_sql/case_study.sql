@@ -210,13 +210,15 @@ order by so_lan_dat_phong;
 -- bài 5
 select distinct khach_hang.ma_khach_hang, khach_hang.ho_ten, loai_khach.ten_loai_khach, hop_dong.ma_hop_dong, 
 dich_vu.ten_dich_vu, hop_dong.ngay_lam_hop_dong, hop_dong.ngay_ket_thuc, 
-ifnull((dich_vu_di_kem.gia * hop_dong_chi_tiet.so_luong + dich_vu.chi_phi_thue), 0) as tong_tien
+ifnull(dich_vu_di_kem.gia * hop_dong_chi_tiet.so_luong , 0) + dich_vu.chi_phi_thue as tong_tien
 from khach_hang
 left join loai_khach on khach_hang.ma_loai_khach = loai_khach.ma_loai_khach
 left join hop_dong on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
 left join dich_vu on hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
 left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
-left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem;
+left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+group by hop_dong.ma_hop_dong, hop_dong.ma_khach_hang
+order by khach_hang.ma_khach_hang;
 
 -- bài 6
 select distinct dich_vu.ma_dich_vu, dich_vu.ten_dich_vu, dich_vu.dien_tich, dich_vu.chi_phi_thue, loai_dich_vu.ten_loai_dich_vu
@@ -247,14 +249,49 @@ select distinct ho_ten
 from khach_hang
 where ho_ten in ('Nguyễn Thị Hào');
 
+-- bài 9
+select month(hop_dong.ngay_lam_hop_dong) as thang, count(hop_dong.ma_khach_hang) as so_luong_khach_hang
+from hop_dong
+where year(ngay_lam_hop_dong) = 2021
+group by thang
+order by thang;
 
+-- bai 10
+select hop_dong.ma_hop_dong, hop_dong.ngay_lam_hop_dong, hop_dong.ngay_ket_thuc, hop_dong.tien_dat_coc, ifnull(sum(hop_dong_chi_tiet.so_luong), 0) as so_luong_dich_vu_di_kem
+from hop_dong
+left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+group by ma_hop_dong
+order by ma_hop_dong;
 
+-- bai 11
+select dich_vu_di_kem.ma_dich_vu_di_kem, dich_vu_di_kem.ten_dich_vu_di_kem
+from dich_vu_di_kem
+join hop_dong_chi_tiet on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+join hop_dong on hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+join khach_hang on hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
+join loai_khach on khach_hang.ma_loai_khach = loai_khach.ma_loai_khach
+where loai_khach.ten_loai_khach = "Diamond" and khach_hang.dia_chi regexp "(Vinh)|(Quảng Ngãi)";
 
+-- bài 12
+select hop_dong.ma_hop_dong, nhan_vien.ho_ten, khach_hang.ho_ten, khach_hang.so_dien_thoai, dich_vu.ten_dich_vu, ifnull(sum(hop_dong_chi_tiet.so_luong), 0) as so_luong_dich_vu_di_kem, hop_dong.tien_dat_coc
+from dich_vu
+left join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+left join khach_hang on hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
+left join nhan_vien on hop_dong.ma_nhan_vien = nhan_vien.ma_nhan_vien
+where hop_dong.ma_hop_dong in (select hop_dong.ma_hop_dong from hop_dong where year(ngay_lam_hop_dong) = 2020 and month(ngay_lam_hop_dong) in (10, 11, 12))
+and hop_dong.ma_hop_dong not in (select hop_dong.ma_hop_dong from hop_dong where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3, 4, 5, 6))
+group by ma_hop_dong;
 
-
-
-
-
+-- bai 13
+select dich_vu_di_kem.ma_dich_vu_di_kem, dich_vu_di_kem.ten_dich_vu_di_kem, sum(hop_dong_chi_tiet.so_luong) as so_luong_dich_vu_di_kem, max(hop_dong_chi_tiet.so_luong)
+from dich_vu
+left join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+group by ma_dich_vu_di_kem
+order by so_luong_dich_vu_di_kem desc
+;
 
 
 
