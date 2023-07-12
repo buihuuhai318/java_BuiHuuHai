@@ -283,20 +283,57 @@ where hop_dong.ma_hop_dong in (select hop_dong.ma_hop_dong from hop_dong where y
 and hop_dong.ma_hop_dong not in (select hop_dong.ma_hop_dong from hop_dong where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3, 4, 5, 6))
 group by ma_hop_dong;
 
--- bai 13
+-- bài 13
 select dich_vu_di_kem.ma_dich_vu_di_kem, dich_vu_di_kem.ten_dich_vu_di_kem,sum(hop_dong_chi_tiet.so_luong) as so_luong_dich_vu_di_kem
 from dich_vu
 join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
 join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
 join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
-group by ma_dich_vu_di_kem having so_luong_dich_vu_di_kem = sum(hop_dong_chi_tiet.so_luong)
+group by ma_dich_vu_di_kem having so_luong_dich_vu_di_kem = (select max(hop_dong_chi_tiet.so_luong) from hop_dong_chi_tiet)
 order by so_luong_dich_vu_di_kem desc;
 
+-- bài 14
+select hop_dong.ma_hop_dong, loai_dich_vu.ten_loai_dich_vu, dich_vu_di_kem.ten_dich_vu_di_kem, count(hop_dong_chi_tiet.ma_dich_vu_di_kem) as so_lan_su_dung
+from dich_vu
+join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+group by ten_dich_vu_di_kem having so_lan_su_dung = 1
+order by ma_hop_dong;
 
+-- bài 15
+select nhan_vien.ma_nhan_vien, ho_ten, ten_trinh_do, ten_bo_phan, so_dien_thoai, dia_chi
+from nhan_vien
+join trinh_do on nhan_vien.ma_trinh_do = trinh_do.ma_trinh_do
+join bo_phan on nhan_vien.ma_bo_phan = bo_phan.ma_bo_phan
+join hop_dong on nhan_vien.ma_nhan_vien = hop_dong.ma_nhan_vien
+group by ma_nhan_vien having count(hop_dong.ma_nhan_vien) <= 3
+order by ma_nhan_vien;
 
+-- bài 16
+select nhan_vien.ma_nhan_vien, ho_ten, count(hop_dong.ma_nhan_vien) as so_lan_lam_hop_dong
+from nhan_vien
+left join hop_dong on nhan_vien.ma_nhan_vien = hop_dong.ma_nhan_vien
+group by ma_nhan_vien having so_lan_lam_hop_dong = 0
+order by so_lan_lam_hop_dong;
 
+select distinct ma_nhan_vien
+from hop_dong
+where ma_nhan_vien = hop_dong.ma_nhan_vien;
 
+select *
+from nhan_vien;
 
+delete from nhan_vien
+where not exists (select distinct ma_nhan_vien
+from hop_dong
+where ma_nhan_vien = hop_dong.ma_nhan_vien);
+
+-- bài 17
+-- bài 18
+-- bài 19
+-- bài 20
 
 
 
