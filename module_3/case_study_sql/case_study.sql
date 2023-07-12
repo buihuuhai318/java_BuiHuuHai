@@ -184,8 +184,10 @@ insert into hop_dong_chi_tiet value
 (7, 2, 1, 2),
 (8, 2, 12, 2);
 
+-- bài 2
 select ma_nhan_vien, ho_ten from nhan_vien where ho_ten regexp '^[HTK]+' and char_length(ho_ten) <= 15;
 
+-- bài 3
 select ma_khach_hang, ho_ten, ngay_sinh, dia_chi 
 from khach_hang 
 where 
@@ -195,6 +197,7 @@ and
 and
 ((year(curdate()) - year(ngay_sinh)) - (right(curdate(), 5) < right(ngay_sinh, 5))) <= 50;
 
+-- bài 4
 select hop_dong.ma_khach_hang, khach_hang.ho_ten, count(hop_dong.ma_khach_hang) as so_lan_dat_phong
 from hop_dong
 join khach_hang on hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
@@ -204,6 +207,7 @@ loai_khach.ten_loai_khach = "Diamond"
 group by ma_khach_hang
 order by so_lan_dat_phong;
 
+-- bài 5
 select distinct khach_hang.ma_khach_hang, khach_hang.ho_ten, loai_khach.ten_loai_khach, hop_dong.ma_hop_dong, 
 dich_vu.ten_dich_vu, hop_dong.ngay_lam_hop_dong, hop_dong.ngay_ket_thuc, 
 ifnull((dich_vu_di_kem.gia * hop_dong_chi_tiet.so_luong + dich_vu.chi_phi_thue), 0) as tong_tien
@@ -214,13 +218,36 @@ left join dich_vu on hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
 left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
 left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem;
 
-
+-- bài 6
 select distinct dich_vu.ma_dich_vu, dich_vu.ten_dich_vu, dich_vu.dien_tich, dich_vu.chi_phi_thue, loai_dich_vu.ten_loai_dich_vu
 from dich_vu
 join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
 join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
 where month(ngay_lam_hop_dong) >= 4
 and hop_dong.ma_dich_vu not in (select distinct hop_dong.ma_dich_vu from hop_dong where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3));
+
+-- bài 7
+select distinct dich_vu.ma_dich_vu, dich_vu.ten_dich_vu, dich_vu.dien_tich, dich_vu.so_nguoi_toi_da, dich_vu.chi_phi_thue, loai_dich_vu.ten_loai_dich_vu
+from dich_vu
+join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+where year(ngay_lam_hop_dong) = 2020
+and hop_dong.ma_dich_vu not in (select distinct hop_dong.ma_dich_vu from hop_dong where year(ngay_lam_hop_dong) = 2021);
+
+-- bài 8
+select distinct ho_ten
+from khach_hang
+where ho_ten like '%Hào%';
+
+select distinct ho_ten
+from khach_hang
+where ho_ten regexp 'Hào';
+
+select distinct ho_ten
+from khach_hang
+where ho_ten in ('Nguyễn Thị Hào');
+
+
 
 
 
