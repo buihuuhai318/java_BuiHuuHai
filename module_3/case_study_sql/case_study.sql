@@ -325,10 +325,12 @@ where ma_nhan_vien = hop_dong.ma_nhan_vien;
 select *
 from nhan_vien;
 
+set SQL_SAFE_UPDATES = 0;
 delete from nhan_vien
-where not exists (select distinct ma_nhan_vien
+where ma_nhan_vien not in (select distinct ma_nhan_vien
 from hop_dong
 where ma_nhan_vien = hop_dong.ma_nhan_vien);
+set SQL_SAFE_UPDATES = 1;
 
 -- bài 17
 -- bài 18
