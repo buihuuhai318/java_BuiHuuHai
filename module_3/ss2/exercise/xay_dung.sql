@@ -2,8 +2,6 @@ create database xay_dung;
 
 use xay_dung;
 
-
-
 create table nha_cung_cap (
 	ma_nha_cung_cap		int primary key	auto_increment,
     ten_nha_cung_cap	varchar(50) not null,
