@@ -284,16 +284,13 @@ and hop_dong.ma_hop_dong not in (select hop_dong.ma_hop_dong from hop_dong where
 group by ma_hop_dong;
 
 -- bai 13
-select dich_vu_di_kem.ma_dich_vu_di_kem, dich_vu_di_kem.ten_dich_vu_di_kem, sum(hop_dong_chi_tiet.so_luong) as so_luong_dich_vu_di_kem, max(hop_dong_chi_tiet.so_luong)
+select dich_vu_di_kem.ma_dich_vu_di_kem, dich_vu_di_kem.ten_dich_vu_di_kem,sum(hop_dong_chi_tiet.so_luong) as so_luong_dich_vu_di_kem
 from dich_vu
-left join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
-left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
-left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
-group by ma_dich_vu_di_kem
-order by so_luong_dich_vu_di_kem desc
-;
-
-
+join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+group by ma_dich_vu_di_kem having so_luong_dich_vu_di_kem = sum(hop_dong_chi_tiet.so_luong)
+order by so_luong_dich_vu_di_kem desc;
 
 
 
