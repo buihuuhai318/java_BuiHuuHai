@@ -85,40 +85,6 @@ join mark on student.student_id = mark.student_id
 join subject on mark.sub_id = subject.sub_id
 order by mark;
 
-select address, count(student_id) as 'số lượng học viên'
-from student
-group by address;
-
-select address, count(student_id) as so_luong_hoc_vien
-from student
-group by address;
-
-select s.student_id, s.student_name, avg(mark) as avg_mark
-from student s
-join mark m on s.student_id = m.student_id
-group by s.student_id, s.student_name;
-
-select s.student_id, s.student_name, avg(mark) as avg_mark
-from student s
-join mark m on s.student_id = m.student_id
-group by s.student_id, s.student_name
-having avg_mark > 15;
-
-select s.student_id, s.student_name, avg(mark) as avg_mark
-from student s
-join mark m on s.student_id = m.student_id
-group by s.student_id, s.student_name;
-
-select s.student_id, s.student_name, avg(mark) as avg_mark
-from student s
-join mark m on s.student_id = m.student_id
-group by s.student_id, s.student_name
-having avg_mark >= all (select avg(mark) from mark group by student_id);
-
-
-
-
-
 
 
 

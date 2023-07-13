@@ -382,14 +382,14 @@ from hop_dong
 where year(ngay_lam_hop_dong) = 2020);
 set SQL_SAFE_UPDATES = 1;
 
-set FOREIGN_KEY_CHECKS=0;
+set FOREIGN_KEY_CHECKS = 0;
 alter table hop_dong
 add constraint hop_dong_ibfk_2
 foreign key (ma_khach_hang)
 references khach_hang (ma_khach_hang)
 on delete no action
 on update no action;
-set FOREIGN_KEY_CHECKS=1;
+set FOREIGN_KEY_CHECKS = 1;
 
 select *
 from khach_hang;
@@ -416,23 +416,39 @@ from khach_hang;
 
 -- bài 21
 
-create view v_nhan_vien as (
+create view v_nhan_vien as
 select nhan_vien.ma_nhan_vien, nhan_vien.ho_ten, nhan_vien.dia_chi
 from nhan_vien
-left join hop_dong on nhan_vien.ma_nhan_vien = hop_dong.ma_nhan_vien
-where dia_chi regexp 'Đà Nẵng' and date(hop_dong.ngay_lam_hop_dong) = "2021-04-25"
-);
+join hop_dong on nhan_vien.ma_nhan_vien = hop_dong.ma_nhan_vien
+where dia_chi regexp 'Hà Tĩnh' and date(hop_dong.ngay_lam_hop_dong) = "2021-04-25";
+
+
 drop view v_nhan_vien;
 
-select * from v_nhan_vien
-
-
+select * from v_nhan_vien;
 
 -- bài 22
+update v_nhan_vien
+set dia_chi = replace(dia_chi, 'Hà Tĩnh', 'Đà Nẵng');
+
+
+
 -- bài 23
 -- bài 24
 -- bài 25
 -- bài 26
 -- bài 27
 -- bài 28
+
+
+
+
+
+
+
+
+
+
+
+
 
