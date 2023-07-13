@@ -229,7 +229,8 @@ where month(ngay_lam_hop_dong) >= 4
 and hop_dong.ma_dich_vu not in (
 select distinct hop_dong.ma_dich_vu 
 from hop_dong 
-where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3));
+where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3))
+order by ten_loai_dich_vu;
 
 -- bài 7
 select distinct dich_vu.ma_dich_vu, dich_vu.ten_dich_vu, dich_vu.dien_tich, dich_vu.so_nguoi_toi_da, dich_vu.chi_phi_thue, loai_dich_vu.ten_loai_dich_vu
@@ -407,6 +408,31 @@ set gia = gia * 2
 where ma_dich_vu_di_kem = (select ma_dich_vu_di_kem from so_lan_su_dung);
 
 -- bài 20
+select ma_nhan_vien as id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi
+from nhan_vien
+union
+select ma_khach_hang, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi
+from khach_hang;
+
+-- bài 21
+
+create view v_nhan_vien as (
+select nhan_vien.ma_nhan_vien, nhan_vien.ho_ten, nhan_vien.dia_chi
+from nhan_vien
+left join hop_dong on nhan_vien.ma_nhan_vien = hop_dong.ma_nhan_vien
+where dia_chi regexp 'Đà Nẵng' and date(hop_dong.ngay_lam_hop_dong) = "2021-04-25"
+);
+drop view v_nhan_vien;
+
+select * from v_nhan_vien
 
 
+
+-- bài 22
+-- bài 23
+-- bài 24
+-- bài 25
+-- bài 26
+-- bài 27
+-- bài 28
 
