@@ -122,7 +122,7 @@ insert into nhan_vien value
 
 select * from nhan_vien;
 
-insert into loai_khach(ten_loai_khach) value ("Diamond"), ("Platinium"), ("Gold"), ("Silver"), ("Member");
+insert into loai_khach(ten_loai_khach) value ("Diamond"), ("Platinum"), ("Gold"), ("Silver"), ("Member");
 
 insert into khach_hang value
 (1, "Nguyễn Thị Hào", "1970-11-07", 0, "643431213", "0945423362", "thihao07@gmail.com", "23 Nguyễn Hoàng, Đà Nẵng", 5),
@@ -208,7 +208,7 @@ group by ma_khach_hang
 order by so_lan_dat_phong;
 
 -- bài 5
-select distinct khach_hang.ma_khach_hang, khach_hang.ho_ten, loai_khach.ten_loai_khach, hop_dong.ma_hop_dong, 
+select khach_hang.ma_khach_hang, khach_hang.ho_ten, loai_khach.ten_loai_khach, hop_dong.ma_hop_dong, 
 dich_vu.ten_dich_vu, hop_dong.ngay_lam_hop_dong, hop_dong.ngay_ket_thuc, 
 ifnull(dich_vu_di_kem.gia * hop_dong_chi_tiet.so_luong , 0) + dich_vu.chi_phi_thue as tong_tien
 from khach_hang
@@ -226,7 +226,10 @@ from dich_vu
 join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
 join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
 where month(ngay_lam_hop_dong) >= 4
-and hop_dong.ma_dich_vu not in (select distinct hop_dong.ma_dich_vu from hop_dong where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3));
+and hop_dong.ma_dich_vu not in (
+select distinct hop_dong.ma_dich_vu 
+from hop_dong 
+where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3));
 
 -- bài 7
 select distinct dich_vu.ma_dich_vu, dich_vu.ten_dich_vu, dich_vu.dien_tich, dich_vu.so_nguoi_toi_da, dich_vu.chi_phi_thue, loai_dich_vu.ten_loai_dich_vu
@@ -234,7 +237,10 @@ from dich_vu
 join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
 join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
 where year(ngay_lam_hop_dong) = 2020
-and hop_dong.ma_dich_vu not in (select distinct hop_dong.ma_dich_vu from hop_dong where year(ngay_lam_hop_dong) = 2021);
+and hop_dong.ma_dich_vu not in (
+select distinct hop_dong.ma_dich_vu 
+from hop_dong 
+where year(ngay_lam_hop_dong) = 2021);
 
 -- bài 8
 select distinct ho_ten
@@ -279,8 +285,14 @@ left join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
 left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
 left join khach_hang on hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
 left join nhan_vien on hop_dong.ma_nhan_vien = nhan_vien.ma_nhan_vien
-where hop_dong.ma_hop_dong in (select hop_dong.ma_hop_dong from hop_dong where year(ngay_lam_hop_dong) = 2020 and month(ngay_lam_hop_dong) in (10, 11, 12))
-and hop_dong.ma_hop_dong not in (select hop_dong.ma_hop_dong from hop_dong where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3, 4, 5, 6))
+where hop_dong.ma_hop_dong in (
+select hop_dong.ma_hop_dong 
+from hop_dong 
+where year(ngay_lam_hop_dong) = 2020 and month(ngay_lam_hop_dong) in (10, 11, 12))
+and hop_dong.ma_hop_dong not in (
+select hop_dong.ma_hop_dong 
+from hop_dong 
+where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3, 4, 5, 6))
 group by ma_hop_dong;
 
 -- bài 13
@@ -289,7 +301,8 @@ from dich_vu
 join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
 join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
 join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
-group by ma_dich_vu_di_kem having so_luong_dich_vu_di_kem = (select max(hop_dong_chi_tiet.so_luong) from hop_dong_chi_tiet)
+group by ma_dich_vu_di_kem having so_luong_dich_vu_di_kem = (
+select max(hop_dong_chi_tiet.so_luong) from hop_dong_chi_tiet)
 order by so_luong_dich_vu_di_kem desc;
 
 -- bài 14
@@ -318,10 +331,6 @@ left join hop_dong on nhan_vien.ma_nhan_vien = hop_dong.ma_nhan_vien
 group by ma_nhan_vien having so_lan_lam_hop_dong = 0
 order by so_lan_lam_hop_dong;
 
-select distinct ma_nhan_vien
-from hop_dong
-where ma_nhan_vien = hop_dong.ma_nhan_vien;
-
 select *
 from nhan_vien;
 
@@ -333,15 +342,71 @@ where ma_nhan_vien = hop_dong.ma_nhan_vien);
 set SQL_SAFE_UPDATES = 1;
 
 -- bài 17
+select khach_hang.ma_khach_hang, khach_hang.ho_ten, loai_khach.ten_loai_khach, (dich_vu_di_kem.gia * hop_dong_chi_tiet.so_luong + dich_vu.chi_phi_thue) as tong_tien
+from khach_hang
+left join loai_khach on khach_hang.ma_loai_khach = loai_khach.ma_loai_khach
+left join hop_dong on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
+left join dich_vu on hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+where year(ngay_lam_hop_dong) = 2021 and ten_loai_khach = "Platinum" and (dich_vu_di_kem.gia * hop_dong_chi_tiet.so_luong + dich_vu.chi_phi_thue) > 100000;
+
+set SQL_SAFE_UPDATES = 0;
+update khach_hang
+left join loai_khach on khach_hang.ma_loai_khach = loai_khach.ma_loai_khach
+left join hop_dong on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
+left join dich_vu on hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+left join hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+set khach_hang.ma_loai_khach = 1
+where khach_hang.ma_khach_hang = (
+select khach_hang.ma_khach_hang
+from loai_khach
+where year(ngay_lam_hop_dong) = 2021 and ten_loai_khach = "Platinum" and (dich_vu_di_kem.gia * hop_dong_chi_tiet.so_luong + dich_vu.chi_phi_thue) > 100000);
+set SQL_SAFE_UPDATES = 1;
+
 -- bài 18
+select khach_hang.ma_khach_hang
+from khach_hang
+join hop_dong on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
+where year(ngay_lam_hop_dong) = 2020;
+
+alter table hop_dong
+drop constraint hop_dong_ibfk_2;
+
+set SQL_SAFE_UPDATES = 0;
+delete from khach_hang
+where khach_hang.ma_khach_hang in (select hop_dong.ma_khach_hang
+from hop_dong
+where year(ngay_lam_hop_dong) = 2020);
+set SQL_SAFE_UPDATES = 1;
+
+set FOREIGN_KEY_CHECKS=0;
+alter table hop_dong
+add constraint hop_dong_ibfk_2
+foreign key (ma_khach_hang)
+references khach_hang (ma_khach_hang)
+on delete no action
+on update no action;
+set FOREIGN_KEY_CHECKS=1;
+
+select *
+from khach_hang;
+
 -- bài 19
+with so_lan_su_dung as (
+select dich_vu_di_kem.ma_dich_vu_di_kem, dich_vu_di_kem.ten_dich_vu_di_kem, dich_vu_di_kem.gia, hop_dong.ngay_lam_hop_dong, hop_dong_chi_tiet.so_luong as so_lan_su_dung
+from hop_dong
+left join hop_dong_chi_tiet on hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+where year(hop_dong.ngay_lam_hop_dong) = 2020 and hop_dong_chi_tiet.so_luong > 10
+)
+
+update dich_vu_di_kem
+set gia = gia * 2
+where ma_dich_vu_di_kem = (select ma_dich_vu_di_kem from so_lan_su_dung);
+
 -- bài 20
-
-
-
-
-
-
 
 
 
