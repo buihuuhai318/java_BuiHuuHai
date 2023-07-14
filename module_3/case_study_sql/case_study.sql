@@ -454,13 +454,225 @@ update v_nhan_vien
 set dia_chi = replace(dia_chi, 'Hà Tĩnh', 'Đà Nẵng');
 
 -- bài 23
+delimiter //
+create procedure sp_xoa_khach_hang (in id_cus int)
+begin
+update khach_hang
+set is_delete = 1
+where ma_khach_hang = id_cus;
+end 
+// delimiter ;
 
+delimiter //
+create procedure sp_backup_khach_hang (in id_cus int)
+begin
+update khach_hang
+set is_delete = 0
+where ma_khach_hang = id_cus;
+end 
+// delimiter ;
+
+set SQL_SAFE_UPDATES = 0;
+call sp_xoa_khach_hang(2);
+call sp_backup_khach_hang(2);
+set SQL_SAFE_UPDATES = 1;
 
 -- bài 24
+delimiter //
+create procedure sp_them_moi_hop_dong (
+in ma_hop_dong int ,
+in ngay_lam_hop_dong date,
+in ngay_ket_thuc date,
+in tien_dat_coc double,
+in ma_nhan_vien int,
+in ma_khach_hang int,
+in ma_dich_vu int)
+begin
+declare is_valid int default 1;
+
+if exists (
+select 1
+from hop_dong where ma_hop_dong = ma_hop_dong)
+then 
+set is_valid = 0;
+
+elseif (
+select 1
+from nhan_vien where ma_nhan_vien = ma_nhan_vien)
+then 
+set is_valid = 0;
+
+elseif (
+select 1
+from khach_hang where ma_khach_hang = ma_khach_hang)
+then 
+set is_valid = 0;
+
+elseif (
+select 1
+from dich_vu where ma_dich_vu = ma_dich_vu)
+then 
+set is_valid = 0;
+
+elseif 
+ngay_lam_hop_dong is null or
+ngay_ket_thuc is null or
+tien_dat_coc is null
+then
+set is_valid = 0;
+end if;
+
+if is_valid = 1 then
+insert into hop_dong value (ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, ma_nhan_vien, ma_khach_hang, ma_dich_vu);
+end if;
+end
+// delimiter ;
+
+call sp_them_moi_hop_dong(20, '2023-12-12', '2023-12-14', 100, 3, 1, 3);
+
 -- bài 25
+alter table hop_dong
+add column is_delete bit(1) not null default 0; 
+
+delimiter //
+create trigger tr_xoa_hop_dong
+after update on hop_dong
+for each row
+begin
+declare total_rows int;
+select count(*) into total_rows from hop_dong where is_delete = 0;
+insert into log (message) values (concat('tổng số lượng bản ghi còn lại trong bảng hop_dong: ', total_rows));
+end
+// delimiter ;
+
+create table log (
+id int auto_increment primary key,
+message varchar(255),
+created_at timestamp default current_timestamp
+);
+
+drop trigger tr_xoa_hop_dong;
+
+select * from log;
+
+update hop_dong
+set is_delete = 0
+where ma_hop_dong = 1;
+
 -- bài 26
+delimiter //
+create trigger tr_cap_nhat_hop_dong
+before update on hop_dong
+for each row
+begin
+    declare ngay_lam date;
+    declare ngay_ket_thuc date;
+    
+    set ngay_lam = old.ngay_lam_hop_dong;
+    set ngay_ket_thuc = new.ngay_ket_thuc;
+    
+    if datediff(ngay_ket_thuc, ngay_lam) < 2 then
+        signal sqlstate '45000' set message_text = 'ngày kết thúc hợp đồng phải lớn hơn ngày làm hợp đồng ít nhất là 2 ngày';
+	else
+		set new.ngay_ket_thuc = ngay_ket_thuc;
+    end if;
+end //
+delimiter ;
+
+drop trigger tr_cap_nhat_hop_dong;
+
+update hop_dong
+set ngay_ket_thuc = "2020-12-10"
+where ma_hop_dong = 1;
+
+select * from log;
+
 -- bài 27
+-- a
+delimiter //
+create function func_dem_dich_vu() returns int
+deterministic
+reads sql data
+begin
+declare count_result int;
+    
+select count(distinct ma_dich_vu) into count_result
+from hop_dong
+where ma_dich_vu in (
+select count(*)
+from dich_vu
+inner join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+group by dich_vu.ma_dich_vu
+having sum(dich_vu.chi_phi_thue) > 2000000);
+
+return count_result;
+end //
+delimiter ;
+
+drop function func_dem_dich_vu;
+
+select func_dem_dich_vu();
+
+-- b
+delimiter //
+create function func_tinh_thoi_gian_hop_dong(ma_khach_hang int) returns int
+begin
+declare max_duration int;
+select max(datediff(ngay_ket_thuc, ngay_lam_hop_dong)) into max_duration
+from hop_dong
+where hop_dong.ma_khach_hang = ma_khach_hang;
+return max_duration;
+end //
+delimiter ;
+
+drop function func_tinh_thoi_gian_hop_dong;
+
+select func_tinh_thoi_gian_hop_dong(3);
+
 -- bài 28
+
+alter table dich_vu
+add column is_delete bit(1) not null default 0; 
+
+
+DELIMITER //
+CREATE PROCEDURE sp_xoa_dich_vu_va_hd_room()
+BEGIN
+    CREATE TEMPORARY TABLE temp_ma_dich_vu
+    SELECT dich_vu.ma_dich_vu
+    FROM dich_vu
+    join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+    WHERE YEAR(hop_dong.ngay_lam_hop_dong) >= 2015 AND YEAR(hop_dong.ngay_lam_hop_dong) <= 2019 AND dich_vu.ma_loai_dich_vu = (
+        SELECT ma_loai_dich_vu FROM loai_dich_vu WHERE ten_loai_dich_vu = 'Room'
+    );
+
+    UPDATE dich_vu
+    SET is_delete = 1
+    WHERE ma_dich_vu IN (SELECT ma_dich_vu FROM temp_ma_dich_vu);
+
+    UPDATE hop_dong
+    SET is_delete = 1
+    WHERE ma_dich_vu IN (SELECT ma_dich_vu FROM temp_ma_dich_vu);
+
+    DROP TEMPORARY TABLE IF EXISTS temp_ma_dich_vu;
+END //
+DELIMITER ;
+
+drop procedure sp_xoa_dich_vu_va_hd_room;
+
+call sp_xoa_dich_vu_va_hd_room;
+
+set SQL_SAFE_UPDATES = 1;
+
+
+
+
+
+
+
+
+
+
 
 
 
