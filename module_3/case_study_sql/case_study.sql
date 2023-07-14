@@ -245,16 +245,17 @@ where year(ngay_lam_hop_dong) = 2021);
 
 -- bài 8
 select distinct ho_ten
-from khach_hang
-where ho_ten like '%Hào%';
+from khach_hang;
 
-select distinct ho_ten
+select ho_ten
 from khach_hang
-where ho_ten regexp 'Hào';
+group by ho_ten;
 
-select distinct ho_ten
+select ho_ten
 from khach_hang
-where ho_ten in ('Nguyễn Thị Hào');
+group by ho_ten
+having count(*) = 1;
+
 
 -- bài 9
 select month(hop_dong.ngay_lam_hop_dong) as thang, count(hop_dong.ma_khach_hang) as so_luong_khach_hang
@@ -335,12 +336,20 @@ order by so_lan_lam_hop_dong;
 select *
 from nhan_vien;
 
+alter table nhan_vien
+add column is_delete bit(1) not null default 0; 
+
 set SQL_SAFE_UPDATES = 0;
-delete from nhan_vien
+update nhan_vien
+set is_delete = 1
 where ma_nhan_vien not in (select distinct ma_nhan_vien
 from hop_dong
 where ma_nhan_vien = hop_dong.ma_nhan_vien);
 set SQL_SAFE_UPDATES = 1;
+
+select *
+from nhan_vien
+where is_delete = 1;
 
 -- bài 17
 select khach_hang.ma_khach_hang, khach_hang.ho_ten, loai_khach.ten_loai_khach, (dich_vu_di_kem.gia * hop_dong_chi_tiet.so_luong + dich_vu.chi_phi_thue) as tong_tien
@@ -372,27 +381,40 @@ from khach_hang
 join hop_dong on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
 where year(ngay_lam_hop_dong) = 2020;
 
-alter table hop_dong
-drop constraint hop_dong_ibfk_2;
+alter table khach_hang
+add column is_delete bit(1) not null default 0; 
 
 set SQL_SAFE_UPDATES = 0;
-delete from khach_hang
+update khach_hang
+set is_delete = 1
 where khach_hang.ma_khach_hang in (select hop_dong.ma_khach_hang
 from hop_dong
 where year(ngay_lam_hop_dong) = 2020);
 set SQL_SAFE_UPDATES = 1;
 
-set FOREIGN_KEY_CHECKS = 0;
-alter table hop_dong
-add constraint hop_dong_ibfk_2
-foreign key (ma_khach_hang)
-references khach_hang (ma_khach_hang)
-on delete no action
-on update no action;
-set FOREIGN_KEY_CHECKS = 1;
-
 select *
-from khach_hang;
+from khach_hang
+where is_delete = 1;
+
+-- alter table hop_dong
+-- drop constraint hop_dong_ibfk_2;
+
+-- set SQL_SAFE_UPDATES = 0;
+-- delete from khach_hang
+-- where khach_hang.ma_khach_hang in (select hop_dong.ma_khach_hang
+-- from hop_dong
+-- where year(ngay_lam_hop_dong) = 2020);
+-- set SQL_SAFE_UPDATES = 1;
+
+-- set FOREIGN_KEY_CHECKS = 0;
+-- alter table hop_dong
+-- add constraint hop_dong_ibfk_2
+-- foreign key (ma_khach_hang)
+-- references khach_hang (ma_khach_hang)
+-- on delete no action
+-- on update no action;
+-- set FOREIGN_KEY_CHECKS = 1;
+
 
 -- bài 19
 with so_lan_su_dung as (
@@ -431,9 +453,9 @@ select * from v_nhan_vien;
 update v_nhan_vien
 set dia_chi = replace(dia_chi, 'Hà Tĩnh', 'Đà Nẵng');
 
-
-
 -- bài 23
+
+
 -- bài 24
 -- bài 25
 -- bài 26
