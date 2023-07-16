@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <style>
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .gallery-item {
+            width: 50%; /* Hiển thị 2 ảnh trên cùng một dòng */
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        @media screen and (min-width: 700px) {
+            .gallery-item {
+                width: 25%; /* Hiển thị 4 ảnh trên cùng một dòng */
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            .gallery-item {
+                width: 100%; /* Hiển thị 1 ảnh trên một dòng */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="gallery">
+    <div class="gallery-item">
+        <img src="image1.jpg" alt="Image 1">
+    </div>
+    <div class="gallery-item">
+        <img src="image2.jpg" alt="Image 2">
+    </div>
+    <div class="gallery-item">
+        <img src="image3.jpg" alt="Image 3">
+    </div>
+    <div class="gallery-item">
+        <img src="image4.jpg" alt="Image 4">
+    </div>
+    <div class="gallery-item">
+        <img src="image5.jpg" alt="Image 5">
+    </div>
+    <div class="gallery-item">
+        <img src="image6.jpg" alt="Image 6">
+    </div>
+</div>
+</body>
+</html>
