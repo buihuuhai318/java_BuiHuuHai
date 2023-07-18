@@ -7,9 +7,13 @@
 <body>
 
     <form action="/display-discount" method="post">
-        <input type="text" name="description">
-        <input type="text" name="price">
-        <input type="text" name="discount">
+        <label>description: </label><br>
+        <input type="text" name="description"><br><br>
+        <label>price: </label><br>
+        <input type="text" name="price"><br><br>
+        <label>discount</label><br>
+        <input type="text" name="discount"><br><br>
+        <input type="submit" id="submit">
     </form>
 
 </body>
