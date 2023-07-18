@@ -185,7 +185,7 @@ insert into hop_dong_chi_tiet value
 (8, 2, 12, 2);
 
 -- bài 2
-select ma_nhan_vien, ho_ten from nhan_vien where ho_ten regexp '^[HTK]+' and char_length(ho_ten) <= 15;
+select ma_nhan_vien, ho_ten from nhan_vien where substring_index(ho_ten, ' ', -1) regexp '^[HTK]' and char_length(ho_ten) <= 15;
 
 -- bài 3
 select ma_khach_hang, ho_ten, ngay_sinh, dia_chi 
@@ -225,11 +225,12 @@ select distinct dich_vu.ma_dich_vu, dich_vu.ten_dich_vu, dich_vu.dien_tich, dich
 from dich_vu
 join loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
 join hop_dong on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
-where month(ngay_lam_hop_dong) >= 4
-and hop_dong.ma_dich_vu not in (
+where hop_dong.ma_dich_vu not in 
+(
 select distinct hop_dong.ma_dich_vu 
 from hop_dong 
-where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3))
+where year(ngay_lam_hop_dong) = 2021 and month(ngay_lam_hop_dong) in (1, 2, 3)
+)
 order by ten_loai_dich_vu;
 
 -- bài 7
