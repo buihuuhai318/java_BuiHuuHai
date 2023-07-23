@@ -148,15 +148,16 @@
 							   role="button" aria-haspopup="true" aria-expanded="false"><i
 									class="dropdown-toggle"></i>Welcome ${sessionScope.get('username')}<span
 									class="tf-ion-ios-arrow-down"></span></a>
-							<div id="navbar" class="navbar-collapse collapse text-center">
+							<div class="dropdown-menu">
 								<div class="row">
 									<!-- Basic -->
 									<div class="col-lg-12 col-md-6 mb-sm-3">
 										<ul>
-                                            <li role="separator" class="divider"></li>
 											<li><a href="shop.html">Thông tin tài khoản</a></li>
+											<li role="separator" class="divider"></li>
 											<li><a href="shop.html">Đổi mật khẩu</a></li>
-											<li><a href="shop.html">Log out</a></li>
+											<li role="separator" class="divider"></li>
+											<li><a href="AccountServlet?action=logout">Log out</a></li>
 										</ul>
 									</div>
 								</div><!-- / .row -->

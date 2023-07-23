@@ -65,8 +65,11 @@ public class AccountServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private void showLogout(HttpServletRequest request, HttpServletResponse response) {
-
+    private void showLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void showResetPassword(HttpServletRequest request, HttpServletResponse response) {
@@ -96,9 +99,6 @@ public class AccountServlet extends HttpServlet {
                 break;
             case "res":
                 accountResetPass(request, response);
-                break;
-            case "logout":
-                accountLogout(request, response);
                 break;
             case "login":
                 accountLogin(request, response);
@@ -138,10 +138,6 @@ public class AccountServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
         }
-    }
-
-    private void accountLogout(HttpServletRequest request, HttpServletResponse response) {
-
     }
 
     private void accountResetPass(HttpServletRequest request, HttpServletResponse response) {
