@@ -1,4 +1,3 @@
-<%@ page import="com.example.team1.model.accounts.Accounts" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
@@ -54,7 +53,7 @@
 <!-- Start Top Header Bar -->
 <jsp:include page="header-bar.jsp"></jsp:include>
 
-<div class="hero-slider">
+<div class="hero-slider" style="transition: 1s ease">
   <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-1.png);">
     <div class="container">
       <div class="row">
@@ -66,7 +65,7 @@
       </div>
     </div>
   </div>
-    <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-2.png);">
+    <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-3.png);">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 text-right">
@@ -77,7 +76,7 @@
             </div>
         </div>
     </div>
-  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-3.png);">
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-2.png);">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 text-left">

@@ -141,8 +141,7 @@
 							</li>
 						</ul>
 					</li><!-- / Search -->
-
-					<c:if test="${not empty sessionScope.get('accounts')}">
+					<c:if test="${not empty sessionScope.get('accounts')}" var="accounts">
 						<li class="dropdown dropdown-slide">
 							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
 							   role="button" aria-haspopup="true" aria-expanded="false"><i
@@ -153,9 +152,9 @@
 									<!-- Basic -->
 									<div class="col-lg-12 col-md-6 mb-sm-3">
 										<ul>
-											<li><a href="shop.html">Thông tin tài khoản</a></li>
+											<li><a href="CustomerServlet?action=view&id=${sessionScope.get('id_account')}">Thông tin tài khoản</a></li>
 											<li role="separator" class="divider"></li>
-											<li><a href="shop.html">Đổi mật khẩu</a></li>
+											<li><a href="AccountServlet?action=change">Đổi mật khẩu</a></li>
 											<li role="separator" class="divider"></li>
 											<li><a href="AccountServlet?action=logout">Log out</a></li>
 										</ul>

@@ -10,10 +10,15 @@ public interface IAccountRepository {
     Accounts selectAccount(int id);
 
     Map<String, Accounts> selectAllAccount();
+    public Map<String, Accounts> selectAllAccountByEmail();
 
     void deleteAccount(int id);
 
     void updateAccount(int id, Accounts accounts);
 
     boolean checkLogin(String username, String password);
+
+    boolean checkAccount(String email, String username);
+
+    void forgetPass(String email);
 }

@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 
 <!--
@@ -43,32 +45,57 @@
 </head>
 
 <body id="body">
+<!-- Start Top Header Bar -->
+<jsp:include page="header-bar.jsp"></jsp:include>
 
-<section class="forget-password-page account">
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Dashboard</h1>
+					<ol class="breadcrumb">
+						<li><a href="index.jsp">Home</a></li>
+						<li class="active">my account</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="user-dashboard page-wrapper">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="block text-center">
-          <a class="logo" href="index.jsp">
-            <img src="images/logo.png" alt="">
-          </a>
-          <h2 class="text-center">Welcome Back</h2>
-          <form class="text-left clearfix">
-            <p>Please enter the email address for your account. A verification code will be sent to you. Once you have received the verification code, you will be able to choose a new password for your account.</p>
-            <div class="form-group">
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Account email address">
+      <div class="col-md-12">
+        <ul class="list-inline dashboard-menu text-center">
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="order.html">Orders</a></li>
+          <li><a href="address.html">Address</a></li>
+          <li><a class="active"  href="profile-details.jsp">Profile Details</a></li>
+        </ul>
+        <div class="dashboard-wrapper dashboard-user-profile">
+          <div class="media">
+            <div class="pull-left text-center" href="#!">
+              <img class="media-object user-img" src="image-customers/${requestScope['customers'].getImage()}" alt="Image">
+              <a href="CustomerServlet?action=edit" class="btn btn-transparent mt-20">Change Info</a>
             </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-main text-center">Request password reset</button>
+            <div class="media-body">
+              <ul class="user-profile-list">
+                <li><span>Full Name:</span>${requestScope['customers'].getName()}</li>
+                <li><span>phone</span>${requestScope['customers'].getPhone()}</li>
+                <li><span>Email:</span>${requestScope['customers'].getEmail()}</li>
+                <li><span>Address:</span>${requestScope['customers'].getAddress()}</li>
+                <li><span>Date of Birth:</span>${requestScope['customers'].getBirthday()}</li>
+              </ul>
             </div>
-          </form>
-          <p class="mt-20"><a href="login.jsp">Back to log in</a></p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<jsp:include page="footer-bar.jsp"></jsp:include>
     <!-- 
     Essential Scripts
     =====================================-->
