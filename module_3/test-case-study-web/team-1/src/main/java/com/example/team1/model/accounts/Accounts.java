@@ -1,19 +1,23 @@
 package com.example.team1.model.accounts;
 
+import com.example.team1.repository.accounts.RoleRepository;
+
 import java.time.LocalDate;
 
 public class Accounts {
 
-    private static final int ADMIN = 1;
-    private static final int EMPLOYEE = 2;
-    private static final int CUSTOMER = 3;
+    private static RoleRepository roleRepository = new RoleRepository();
+
+    public static final int CUSTOMER = 3;
+    public static final int ADNIN = 1;
+    public static final int EMPLOYEE = 2;
     private int id;
     private String email;
     private String username;
     private String password;
     private String createDate;
-    private int status;
-    private int role;
+    private int availableAccount;
+    private Roles role;
 
     public Accounts() {
     }
@@ -23,26 +27,26 @@ public class Accounts {
         this.username = username;
         this.password = password;
         this.createDate = String.valueOf(LocalDate.now());
-        this.status = 0;
-        this.role = CUSTOMER;
+        this.availableAccount = 0;
+        this.role = roleRepository.selectRole(CUSTOMER);
     }
 
-    public Accounts(String email, String username, String password, int role) {
+    public Accounts(String email, String username, String password, Roles role) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.createDate = String.valueOf(LocalDate.now());
-        this.status = 0;
+        this.availableAccount = 0;
         this.role = role;
     }
 
-    public Accounts(int id, String email, String username, String password, String createDate, int status, int role) {
+    public Accounts(int id, String email, String username, String password, String createDate, int available, Roles role) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
         this.createDate = createDate;
-        this.status = status;
+        this.availableAccount = available;
         this.role = role;
     }
 
@@ -78,19 +82,19 @@ public class Accounts {
         this.createDate = createDate;
     }
 
-    public int isStatus() {
-        return status;
+    public int isAvailable() {
+        return availableAccount;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setAvailable(int available) {
+        this.availableAccount = available;
     }
 
-    public int getRole() {
+    public Roles getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Roles role) {
         this.role = role;
     }
 

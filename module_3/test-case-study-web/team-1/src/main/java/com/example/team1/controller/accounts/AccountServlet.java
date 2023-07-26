@@ -1,19 +1,34 @@
 package com.example.team1.controller.accounts;
 
 import com.example.team1.model.accounts.Accounts;
+import com.example.team1.model.accounts.Roles;
+import com.example.team1.model.customers.Customers;
+import com.example.team1.model.customers.Types;
+import com.example.team1.repository.customer.ICustomerRepository;
 import com.example.team1.service.accounts.AccountService;
 import com.example.team1.service.accounts.IAccountService;
+import com.example.team1.service.accounts.IRoleService;
+import com.example.team1.service.accounts.RoleService;
+import com.example.team1.service.customer.CustomerService;
+import com.example.team1.service.customer.ICustomerService;
 import com.example.team1.util.Email;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 
 @WebServlet(name = "AccountServlet", value = "/AccountServlet")
 public class AccountServlet extends HttpServlet {
     private final IAccountService accountService = new AccountService();
+    private final ICustomerService customerService = new CustomerService();
+
+    private final IRoleService roleService = new RoleService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +41,7 @@ public class AccountServlet extends HttpServlet {
                 showCreate(request, response);
                 break;
             case "delete":
-                showDelete(request, response);
+                delete(request, response);
                 break;
             case "edit":
                 showEdit(request, response);
@@ -40,8 +55,11 @@ public class AccountServlet extends HttpServlet {
             case "login":
                 showLogin(request, response);
                 break;
-            default:
+            case "view":
                 showIndex(request, response);
+                break;
+            case "list":
+                showList(request, response);
                 break;
         }
     }
@@ -56,16 +74,24 @@ public class AccountServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private void showList(HttpServletRequest request, HttpServletResponse response) {
+    private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Accounts> accountsList = new ArrayList<>(accountService.selectAllAccount().values());
+        System.out.println(accountsList);
 
+        request.setAttribute("accountsList", accountsList);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/account-list.jsp");
+        dispatcher.forward(request, response);
     }
 
-    private void showEdit(HttpServletRequest request, HttpServletResponse response) {
-
-    }
-
-    private void showDelete(HttpServletRequest request, HttpServletResponse response) {
-
+    private void showEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Accounts accounts = accountService.selectAccount(id);
+        List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
+        request.setAttribute("accounts", accounts);
+        request.setAttribute("rolesList", rolesList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-account.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -98,9 +124,6 @@ public class AccountServlet extends HttpServlet {
         switch (action) {
             case "create":
                 create(request, response);
-                break;
-            case "delete":
-                delete(request, response);
                 break;
             case "edit":
                 edit(request, response);
@@ -141,12 +164,40 @@ public class AccountServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void edit(HttpServletRequest request, HttpServletResponse response) {
+    private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String pass = request.getParameter("pass");
+        int available = Integer.parseInt(request.getParameter("available"));
+        Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
 
+        Accounts accounts = accountService.selectAccount(id);
+        Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
+
+        if (accounts.getRole().getId() != Accounts.ADNIN) {
+            accounts.setRole(roles);
+            accounts.setPassword(pass);
+            accounts.setAvailable(available);
+            if (customers != null) {
+                customerService.deleteCustomer(customers.getId(), available == 1);
+            }
+            accountService.updateAccount(id, accounts);
+        }
+        response.sendRedirect("AccountServlet?action=list");
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) {
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
 
+        Accounts accounts = accountService.selectAccount(id);
+        Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
+
+        if (accounts.getRole().getId() != Accounts.ADNIN) {
+            accountService.deleteAccount(id, true);
+            if (customers != null) {
+                customerService.deleteCustomer(customers.getId(), true);
+            }
+        }
+        response.sendRedirect("AccountServlet?action=list");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -176,8 +227,15 @@ public class AccountServlet extends HttpServlet {
             session.setAttribute("username", accounts.getUsername());
             session.setAttribute("id_account", accounts.getId());
 
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher;
+            if (accounts.getRole().getId() == Roles.CUSTOMER) {
+                dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            } else {
+                dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");
+            }
             dispatcher.forward(request, response);
+
+
         } else {
             request.setAttribute("mess", "fail");
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");

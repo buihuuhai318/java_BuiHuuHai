@@ -30,8 +30,8 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void deleteAccount(int id) {
-
+    public void deleteAccount(int id, boolean available) {
+        accountRepository.deleteAccount(id, available);
     }
 
     @Override

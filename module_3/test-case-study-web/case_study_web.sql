@@ -116,11 +116,34 @@ select * from accounts;
 insert into customers value (1, "bui huu hai", 0, "1996-08-31", "0942409424", "buihuuhai318@gmail.com", "da nang", 0, "", 1, 1);
 
 
+INSERT INTO `thehome`.`item_types` (`item_type_id`, `item_type_name`) VALUES ('1', 'Bracelet');					
+INSERT INTO `thehome`.`item_types` (`item_type_id`, `item_type_name`) VALUES ('2', 'Earrings');					
+INSERT INTO `thehome`.`item_types` (`item_type_id`, `item_type_name`) VALUES ('3', 'Necklace');					
+INSERT INTO `thehome`.`item_types` (`item_type_id`, `item_type_name`) VALUES ('4', 'Ring');					
 
+select * from item_types;
 
-
-
-
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('1', 'BL-001', 'Cuban Twinkle', '50', '10', 'a', '1');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('2', 'BL-002', 'Gold Bracelet', '50', '10', 'a', '1');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('3', 'BL-003', 'Original Tram Huong', '50', '10', 'a', '1');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('4', 'BL-004', 'Skull Bling', '50', '10', 'a', '1');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('5', 'BL-005', 'Tennis Bracelet', '50', '10', 'a', '1');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('6', 'ER-001', 'Ancient Earrings', '5', '10', 'a', '2');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('7', 'ER-002', 'Athena Silver', '50', '10', 'a', '2');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('8', 'ER-003', 'Caba Silver', '50', '10', 'a', '2');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('9', 'ER-004', 'Clytze', '50', '10', 'a', '2');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('10', 'ER-005', 'CTB Bling', '5', '10', 'a', '2');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('11', 'NL-001', 'Cross Shi', '0', '10', 'a', '3');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('12', 'NL-002', 'Crucifix', '50', '10', 'a', '3');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('13', 'NL-003', 'Cuban Necklet', '50', '10', 'a', '3');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('14', 'NL-004', 'Pearl Pure', '50', '10', 'a', '3');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('15', 'NL-005', 'Tennis Necklet', '50', '10', 'a', '3');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('16', 'R-001', 'Lapis Lazuli', '50', '10', 'a', '4');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('17', 'R-002', 'Lotus Silver', '50', '10', 'a', '4');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('18', 'R-003', 'Minimal Star', '50', '10', 'a', '4');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('19', 'R-004', 'Six-mantra', '50', '10', 'a', '4');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('20', 'R-005', 'Snowflake', '50', '10', 'a', '4');											
+INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`, `item_inventory`, `item_decreption`, `item_type_id`) VALUES ('21', 'R-006', 'Way Bling', '50', '10', 'a', '4');											
 
 
 

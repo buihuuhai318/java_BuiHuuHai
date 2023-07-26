@@ -12,7 +12,7 @@ public interface IAccountRepository {
     Map<String, Accounts> selectAllAccount();
     public Map<String, Accounts> selectAllAccountByEmail();
 
-    void deleteAccount(int id);
+    void deleteAccount(int id, boolean available);
 
     void updateAccount(int id, Accounts accounts);
 

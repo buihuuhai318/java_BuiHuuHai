@@ -1,6 +1,6 @@
 package com.example.team1.service.customer;
 
-import com.example.team1.model.Customer.Customers;
+import com.example.team1.model.customers.Customers;
 import com.example.team1.repository.customer.CustomerRepository;
 import com.example.team1.repository.customer.ICustomerRepository;
 
@@ -16,12 +16,12 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customers selectCustomer(int id) {
-        return null;
+        return customerRepository.selectCustomer(id);
     }
 
     @Override
     public Map<Integer, Customers> selectAllCustomer() {
-        return null;
+        return customerRepository.selectAllCustomer();
     }
 
     @Override
@@ -30,8 +30,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void deleteCustomer(int id) {
-
+    public void deleteCustomer(int id, boolean available) {
+        customerRepository.deleteCustomer(id, available);
     }
 
     @Override
