@@ -62,7 +62,7 @@
 
 
     <li class="nav-item active">
-        <a class="nav-link" href="item.jsp">
+        <a class="nav-link" href="ItemServlet?action=list">
             <i class="fas fa-fw fa-table"></i>
             <span>Item</span></a>
     </li>

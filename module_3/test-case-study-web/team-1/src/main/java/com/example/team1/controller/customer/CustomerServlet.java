@@ -54,7 +54,7 @@ public class CustomerServlet extends HttpServlet {
         List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
         request.setAttribute("customers", customers);
         request.setAttribute("typesList", typesList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-user.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-customer.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -142,7 +142,6 @@ public class CustomerServlet extends HttpServlet {
             }
             customerService.updateCustomer(customers.getId(), customers);
         }
-
         response.sendRedirect("CustomerServlet?action=list");
     }
 

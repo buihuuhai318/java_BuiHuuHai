@@ -29,6 +29,19 @@ public class Employees {
         this.account = account;
     }
 
+    public Employees(String name, int salary, int gender, String birthday, String phone, String address, int status, String image, Accounts account) {
+        this.name = name;
+        this.salary = salary;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = account.getEmail();
+        this.address = address;
+        this.status = status;
+        this.image = image;
+        this.account = account;
+    }
+
     public Employees(String name, int salary, int gender, String birthday, String phone, String address, String image, Accounts account) {
         this.name = name;
         this.salary = salary;

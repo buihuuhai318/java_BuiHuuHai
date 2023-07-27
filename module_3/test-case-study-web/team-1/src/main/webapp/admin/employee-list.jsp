@@ -50,7 +50,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Customer Accounts</h1>
+                <h1 class="h3 mb-2 text-gray-800">Employee Info</h1>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -101,7 +101,7 @@
                                         </td>
                                         <td>${employee.getAccount().username}</td>
                                         <td>
-                                            <a href="CustomerServlet?action=editList&id=${employee.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
+                                            <a href="EmployeeServlet?action=editList&id=${employee.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
                                                 <i class="fas fa-user-edit"></i>
                                             </a>
                                             <a href="#" class="btn btn-danger btn-circle" data-target="#delete${employee.getId()}" data-toggle="modal" style="margin-left: 8%">

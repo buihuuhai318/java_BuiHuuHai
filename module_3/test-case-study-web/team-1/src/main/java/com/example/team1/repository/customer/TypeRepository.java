@@ -1,6 +1,5 @@
 package com.example.team1.repository.customer;
 
-import com.example.team1.model.accounts.Roles;
 import com.example.team1.model.customers.Types;
 import com.example.team1.repository.Base;
 

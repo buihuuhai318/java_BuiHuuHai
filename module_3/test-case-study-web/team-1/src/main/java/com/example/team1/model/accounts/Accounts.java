@@ -31,6 +31,15 @@ public class Accounts {
         this.role = roleRepository.selectRole(CUSTOMER);
     }
 
+    public Accounts(String email, String username, String password, int availableAccount, Roles role) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.createDate = String.valueOf(LocalDate.now());
+        this.availableAccount = availableAccount;
+        this.role = role;
+    }
+
     public Accounts(String email, String username, String password, Roles role) {
         this.email = email;
         this.username = username;

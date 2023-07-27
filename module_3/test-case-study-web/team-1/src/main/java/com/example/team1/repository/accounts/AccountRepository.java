@@ -33,7 +33,7 @@ public class AccountRepository implements IAccountRepository {
             preparedStatement.setString(2, accounts.getUsername());
             preparedStatement.setString(3, accounts.getPassword());
             preparedStatement.setString(4, accounts.getCreateDate());
-            preparedStatement.setString(5, accounts.getRole().getName());
+            preparedStatement.setInt(5, accounts.getRole().getId());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {

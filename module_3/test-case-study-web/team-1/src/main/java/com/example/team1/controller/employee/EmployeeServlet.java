@@ -1,6 +1,8 @@
 package com.example.team1.controller.employee;
 
+import com.example.team1.model.accounts.Accounts;
 import com.example.team1.model.customers.Customers;
+import com.example.team1.model.customers.Types;
 import com.example.team1.model.employee.Employees;
 import com.example.team1.service.accounts.AccountService;
 import com.example.team1.service.accounts.IAccountService;
@@ -47,12 +49,24 @@ public class EmployeeServlet extends HttpServlet {
 
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) {
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Employees employees = employeeService.selectEmployee(id);
+        Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getEmail());
 
+        if (accounts.getRole().getId() != Accounts.ADNIN) {
+            accountService.deleteAccount(accounts.getId(), true);
+            employeeService.deleteEmployee(id, true);
+        }
+        response.sendRedirect("EmployeeServlet?action=list");
     }
 
-    private void showEditList(HttpServletRequest request, HttpServletResponse response) {
-
+    private void showEditList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Employees employees = employeeService.selectEmployee(id);
+        request.setAttribute("employees", employees);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-employee.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -85,8 +99,36 @@ public class EmployeeServlet extends HttpServlet {
         }
     }
 
-    private void editList(HttpServletRequest request, HttpServletResponse response) {
+    private void editList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String birthday = request.getParameter("birthday");
+        int gender = Integer.parseInt(request.getParameter("gender"));
+        int salary = Integer.parseInt(request.getParameter("salary"));
+        int available = Integer.parseInt(request.getParameter("available"));
+        String phone = request.getParameter("phone");
+        String image = request.getParameter("image");
 
+        Employees employees = employeeService.selectEmployee(id);
+        Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getEmail());
+
+        if (accounts.getRole().getId() != Accounts.ADNIN) {
+            accountService.deleteAccount(accounts.getId(), available == 1);
+            employees.setId(id);
+            employees.setSalary(salary);
+            employees.setName(name);
+            employees.setAddress(address);
+            employees.setBirthday(birthday);
+            employees.setGender(gender);
+            employees.setStatus(available);
+            employees.setPhone(phone);
+            if (!image.equals("")) {
+                employees.setImage(image);
+            }
+            employeeService.updateEmployee(employees.getId(), employees);
+        }
+        response.sendRedirect("EmployeeServlet?action=list");
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) {

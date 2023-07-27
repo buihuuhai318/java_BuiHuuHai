@@ -36,7 +36,6 @@ public class CustomerRepository implements ICustomerRepository {
     @Override
     public void insertCustomer(Customers customers) {
         Connection connection = Base.getConnection();
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
             preparedStatement.setString(1, customers.getName());
