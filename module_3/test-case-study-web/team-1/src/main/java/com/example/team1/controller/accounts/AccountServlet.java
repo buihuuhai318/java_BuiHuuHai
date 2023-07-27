@@ -61,11 +61,14 @@ public class AccountServlet extends HttpServlet {
             case "list":
                 showList(request, response);
                 break;
+            case "res":
+                showResetPassword(request, response);
+                break;
         }
     }
 
     private void showChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/change-pass.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/change-pass.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -95,7 +98,7 @@ public class AccountServlet extends HttpServlet {
     }
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/login.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -106,12 +109,13 @@ public class AccountServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void showResetPassword(HttpServletRequest request, HttpServletResponse response) {
-
+    private void showResetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/forget-password.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void showCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/signin.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/signin.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -160,7 +164,7 @@ public class AccountServlet extends HttpServlet {
         } else {
             request.setAttribute("fail", "fail");
         }
-        dispatcher = request.getRequestDispatcher("/change-pass.jsp");
+        dispatcher = request.getRequestDispatcher("/shop/change-pass.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -211,7 +215,7 @@ public class AccountServlet extends HttpServlet {
             requestDispatcher.forward(request, response);
         } else {
             request.setAttribute("mess", "fail");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/signin.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/signin.jsp");
             dispatcher.forward(request, response);
         }
 
@@ -238,7 +242,7 @@ public class AccountServlet extends HttpServlet {
 
         } else {
             request.setAttribute("mess", "fail");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/login.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -250,11 +254,11 @@ public class AccountServlet extends HttpServlet {
             accountService.forgetPass(email);
             Email.sendEmail(email, "Thehome - Reset Password", "Hi " + accounts.getUsername() + " ! <br> Password mới của bạn là: 123 <br> Good day !!!");
             request.setAttribute("done", "done");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/forget-password.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/forget-password.jsp");
             dispatcher.forward(request, response);
         } else {
             request.setAttribute("mess", "fail");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/forget-password.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/forget-password.jsp");
             dispatcher.forward(request, response);
         }
     }

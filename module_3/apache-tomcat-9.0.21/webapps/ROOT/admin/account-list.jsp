@@ -98,11 +98,11 @@
                                         <td>
                                             <a href="AccountServlet?action=edit&id=${account1.getId()}"
                                                class="btn btn-info btn-circle"
-                                               style="margin-right: 8%; margin-left: 8%">
+                                               style="margin-left: 8%; margin-bottom: 4%">
                                                 <i class="fas fa-user-edit"></i>
                                             </a>
                                             <a href="#" class="btn btn-danger btn-circle"
-                                               data-target="#delete${account1.getId()}" data-toggle="modal">
+                                               data-target="#delete${account1.getId()}" data-toggle="modal" style="margin-left: 8%">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>

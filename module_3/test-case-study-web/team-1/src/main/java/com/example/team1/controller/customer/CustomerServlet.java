@@ -65,23 +65,20 @@ public class CustomerServlet extends HttpServlet {
         Accounts accounts = accountService.selectAccount(id);
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
 
-
         RequestDispatcher requestDispatcher;
 
         if (customers == null) {
-            requestDispatcher = request.getRequestDispatcher("/create-info-customer.jsp");
+            requestDispatcher = request.getRequestDispatcher("/shop/create-info-customer.jsp");
         } else {
             request.setAttribute("customers", customers);
-            requestDispatcher = request.getRequestDispatcher("/profile-details.jsp");
+            requestDispatcher = request.getRequestDispatcher("/shop/profile-details.jsp");
         }
         requestDispatcher.forward(request, response);
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Customers> customersList = new ArrayList<>(customerService.selectAllCustomer().values());
-
         request.setAttribute("customersList", customersList);
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin/customer-list.jsp");
         dispatcher.forward(request, response);
     }
@@ -93,7 +90,7 @@ public class CustomerServlet extends HttpServlet {
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
 
         request.setAttribute("customers", customers);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/edit-info-customer.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/edit-info-customer.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -170,7 +167,7 @@ public class CustomerServlet extends HttpServlet {
         customerService.updateCustomer(customers.getId(), customers);
         request.setAttribute("customers", customers);
         request.setAttribute("done", "done");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/profile-details.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/shop/profile-details.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -202,7 +199,7 @@ public class CustomerServlet extends HttpServlet {
         customerService.insertCustomer(customers);
         request.setAttribute("done", "done");
         request.setAttribute("customers", customers);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/profile-details.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/profile-details.jsp");
         requestDispatcher.forward(request, response);
     }
 }

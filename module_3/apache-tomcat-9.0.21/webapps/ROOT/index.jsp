@@ -51,7 +51,7 @@
 <body id="body">
 
 <!-- Start Top Header Bar -->
-<jsp:include page="header-bar.jsp"></jsp:include>
+<jsp:include page="shop/header-bar.jsp"></jsp:include>
 
 <div class="hero-slider" style="transition: 1s ease">
   <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-1.png);">
@@ -60,7 +60,7 @@
         <div class="col-lg-8 text-center">
           <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">#Thehome - Ring</p>
           <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Elegant.....</h1>
-          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop/shop.html">Shop Now</a>
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@
                 <div class="col-lg-8 text-right">
                     <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">#Thehome - Necklace</p>
                     <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Stylish.....</h1>
-                    <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+                    <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop/shop.html">Shop Now</a>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
         <div class="col-lg-8 text-left">
           <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">#Thehome - Earring</p>
           <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Cool.....</h1>
-          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop/shop.html">Shop Now</a>
         </div>
       </div>
     </div>
@@ -160,7 +160,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="product-single.html">Reef Boardsport</a></h4>
+						<h4><a href="shop/product-single.html">Reef Boardsport</a></h4>
 						<p class="price">$200</p>
 					</div>
 				</div>
@@ -186,7 +186,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="product-single.html">Rainbow Shoes</a></h4>
+						<h4><a href="shop/product-single.html">Rainbow Shoes</a></h4>
 						<p class="price">$200</p>
 					</div>
 				</div>
@@ -212,7 +212,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="product-single.html">Strayhorn SP</a></h4>
+						<h4><a href="shop/product-single.html">Strayhorn SP</a></h4>
 						<p class="price">$230</p>
 					</div>
 				</div>
@@ -238,7 +238,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="product-single.html">Bradley Mid</a></h4>
+						<h4><a href="shop/product-single.html">Bradley Mid</a></h4>
 						<p class="price">$200</p>
 					</div>
 				</div>
@@ -264,7 +264,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="product-single.html">Rainbow Shoes</a></h4>
+						<h4><a href="shop/product-single.html">Rainbow Shoes</a></h4>
 						<p class="price">$200</p>
 					</div>
 				</div>
@@ -290,7 +290,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="product-single.html">Rainbow Shoes</a></h4>
+						<h4><a href="shop/product-single.html">Rainbow Shoes</a></h4>
 						<p class="price">$200</p>
 					</div>
 				</div>
@@ -317,7 +317,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="product-single.html">Rainbow Shoes</a></h4>
+						<h4><a href="shop/product-single.html">Rainbow Shoes</a></h4>
 						<p class="price">$200</p>
 					</div>
 				</div>
@@ -343,7 +343,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="product-single.html">Rainbow Shoes</a></h4>
+						<h4><a href="shop/product-single.html">Rainbow Shoes</a></h4>
 						<p class="price">$200</p>
 					</div>
 				</div>
@@ -369,7 +369,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="product-single.html">Rainbow Shoes</a></h4>
+						<h4><a href="shop/product-single.html">Rainbow Shoes</a></h4>
 						<p class="price">$200</p>
 					</div>
 				</div>
@@ -396,8 +396,8 @@
 			        				<p class="product-short-description">
 			        					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem iusto nihil cum. Illo laborum numquam rem aut officia dicta cumque.
 			        				</p>
-			        				<a href="cart.html" class="btn btn-main">Add To Cart</a>
-			        				<a href="product-single.html" class="btn btn-transparent">View Product Details</a>
+			        				<a href="shop/cart.html" class="btn btn-main">Add To Cart</a>
+			        				<a href="shop/product-single.html" class="btn btn-transparent">View Product Details</a>
 			        			</div>
 			        		</div>
 			        	</div>
@@ -452,7 +452,7 @@ Start Call To Action
 </section>
 
 
-<jsp:include page="footer-bar.jsp"></jsp:include>
+<jsp:include page="shop/footer-bar.jsp"></jsp:include>
 
     <!--
     Essential Scripts

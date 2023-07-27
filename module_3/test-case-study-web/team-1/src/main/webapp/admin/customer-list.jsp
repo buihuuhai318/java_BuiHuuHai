@@ -90,7 +90,7 @@
                                         <td>${customer.getName()}</td>
                                         <td>
                                             <c:if test="${customer.isGender() == 0}">Female</c:if>
-                                            <c:if test="${customer.isGender() == 1}">male</c:if>
+                                            <c:if test="${customer.isGender() == 1}">Male</c:if>
                                         </td>
                                         <td>${customer.getPhone()}</td>
                                         <td>${customer.getAddress()}</td>
@@ -105,10 +105,10 @@
                                         </td>
                                         <td>${customer.getAccount().username}</td>
                                         <td>
-                                            <a href="CustomerServlet?action=editList&id=${customer.getId()}" class="btn btn-info btn-circle" style="margin-right: 8%; margin-left: 8%">
+                                            <a href="CustomerServlet?action=editList&id=${customer.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
                                                 <i class="fas fa-user-edit"></i>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-circle" data-target="#delete${customer.getId()}" data-toggle="modal">
+                                            <a href="#" class="btn btn-danger btn-circle" data-target="#delete${customer.getId()}" data-toggle="modal" style="margin-left: 8%">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>

@@ -14,7 +14,6 @@ import java.util.Map;
 
 public class CustomerRepository implements ICustomerRepository {
     private static final String INSERT = "insert into customers (customer_name, customer_gender, customer_birthday, customer_phone, account_email, customer_address, customer_image, customer_type_id, account_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    private static final String SELECT_BY_ID = "select * from customers where customer_id = ?;";
     private static final String SELECT_ALL = "select * from customers";
     private static final String DELETE = "update customers set customer_status = 1 where customer_id = ?";
     private static final String AVAILABLE = "update customers set customer_status = 0 where customer_id = ?";
@@ -28,6 +27,8 @@ public class CustomerRepository implements ICustomerRepository {
             "customer_status = ?, " +
             "customer_address = ? " +
             "where customer_id = ?";
+
+    //    private static final String SELECT_BY_ID = "select * from customers where customer_id = ?;";
 
     IAccountRepository accountRepository = new AccountRepository();
     ITypeRepository typeRepository = new TypeRepository();
