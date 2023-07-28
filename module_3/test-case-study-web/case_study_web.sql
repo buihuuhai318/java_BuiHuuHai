@@ -159,5 +159,156 @@ INSERT INTO `thehome`.`employees` (`employee_id`, `employee_name`, `employee_sal
 INSERT INTO `thehome`.`employees` (`employee_id`, `employee_name`, `employee_salary`, `employee_gender`, `employee_phone`, `employee_address`, `employee_status`, `employee_image`, `account_id`) VALUES ('5', 'Vo Nhan Tri', '10000000', '1', '123456789', 'Da Nang', '0', 'a', '5');																						
 
 
-
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('Cuban-
+Twinkle.PNG', '1');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('Cuban-
+Twinkle-1.PNG', '1');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('Cuban-
+Twinkle-2.PNG', '1');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('gold-
+bracelet.PNG', '2');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('gold-
+bracelet-1.PNG', '2');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('gold-
+bracelet-2.PNG', '2');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('original-
+tramhuong.PNG', '3');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('original-
+tramhuong-1.PNG', '3');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('original-
+tramhuong-2.PNG', '3');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES 
+('SkullBling-1.PNG', '4');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES 
+('SkullBling-2.PNG', '4');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES 
+('SkullBling-3.PNG', '4');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('Tennis 
+bracelet - 2.PNG', '5');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('Tennis 
+bracelet - 3.PNG', '5');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('Tennis 
+bracelet.PNG', '5');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES 
+('ancient.PNG', '6');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('ancient-
+1.PNG', '6');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('ancient-
+2.PNG', '6');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('ancient-
+3.PNG', '6');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('athena-
+silver.PNG', '7');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('athena-
+silver-1.PNG', '7');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('athena-
+silver-2.PNG', '7');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('caba-
+silver.PNG', '8');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('caba-
+silver-1.PNG', '8');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('caba-
+silver-2.PNG', '8');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('caba-
+silver-3.PNG', '8');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES 
+('clytze.PNG', '9');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('clytze-
+1.PNG', '9');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('clytze-
+2.PNG', '9');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('clytze-
+3.PNG', '9');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('ctb-
+bling.PNG', '10');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('ctb-bling-
+1.PNG', '10');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('ctb-bling-
+2.PNG', '10');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('ctb-bling-
+3.PNG', '10');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('cross-
+shi.PNG', '11');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('cross-shi-
+1.PNG', '11');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('cross-shi-
+2.PNG', '11');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('cross-shi-
+3.PNG', '11');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES 
+('crucifix.PNG', '12');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('crucifix-
+1.PNG', '12');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('crucifix-
+2.PNG', '12');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('crucifix-
+3.PNG', '12');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('cuban-
+twinkle.PNG', '13');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('cuban-
+twinkle-1.PNG', '13');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('cuban-
+twinkle-2.PNG', '13');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('cuban-
+twinkle-3.PNG', '13');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('pearl-
+pure.PNG', '14');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('pearl-
+pure-1.PNG', '14');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('pearl-
+pure-2.PNG', '14');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('pearl-
+pure-3.PNG', '14');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('tennis-
+silver.PNG', '15');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('tennis-
+silver-1.PNG', '15');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('tennis-
+silver-2.PNG', '15');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('tennis-
+silver-3.PNG', '15');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('lapis-
+lazuli.PNG', '16');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('lapis-
+lazuli-1.PNG', '16');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('lapis-
+lazuli-2.PNG', '16');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('lotus-
+silver.PNG', '17');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('lotus-
+silver-1.PNG', '17');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('lotus-
+silver-2.PNG', '17');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('lotus-
+silver-3.PNG', '17');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('minimal-
+star.PNG', '18');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('minimal-
+star-1.PNG', '18');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('minimal-
+star-2.PNG', '18');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('minimal-
+star-3.PNG', '18');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('six-
+mantra.PNG', '19');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('six-
+mantra-1.PNG', '19');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('six-
+mantra-2.PNG', '19');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('six-
+mantra-3.PNG', '19');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES 
+('snowflake.PNG', '20');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES 
+('snowflake-1.PNG', '20');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES 
+('snowflake-2.PNG', '20');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('way-
+bling.PNG', '21');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('way-
+bling-1.PNG', '21');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('way-
+bling-2.PNG', '21');
+INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('way-
+bling-3.PNG', '21');
 
