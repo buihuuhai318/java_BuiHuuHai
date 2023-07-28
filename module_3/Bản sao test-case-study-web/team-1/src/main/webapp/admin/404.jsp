@@ -1,92 +1,98 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-
-<!--
-// WEBSITE: https://themefisher.com
-// TWITTER: https://twitter.com/themefisher
-// FACEBOOK: https://www.facebook.com/themefisher
-// GITHUB: https://github.com/themefisher/
--->
-
 <html lang="en">
+
 <head>
 
-    <!-- Basic Page Needs
-    ================================================== -->
     <meta charset="utf-8">
-    <title>Aviato | E-commerce template</title>
-
-    <!-- Mobile Specific Metas
-    ================================================== -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Construction Html5 Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="author" content="Themefisher">
-    <meta name="generator" content="Themefisher Constra HTML Template v1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+    <title>SB Admin 2 - 404</title>
 
-    <!-- Themefisher Icon font -->
-    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
-    <!-- bootstrap.min css -->
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
 
-    <!-- Animate css -->
-    <link rel="stylesheet" href="plugins/animate/animate.css">
-    <!-- Slick Carousel -->
-    <link rel="stylesheet" href="plugins/slick/slick.css">
-    <link rel="stylesheet" href="plugins/slick/slick-theme.css">
-
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
-<body id="body">
-<section class="page-404">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="index.jsp">
-                    <img src="images/logo.png" style="width: 60%;" alt="">
-                </a>
-                <h1>404</h1>
-                <h2>Page Not Found</h2>
-                <a href="index.jsp" class="btn btn-main"><i class="tf-ion-android-arrow-back"></i> Go Home</a>
-                <p class="copyright-text">© 2018 Themefisher All Rights Reserved</p>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <jsp:include page="nav.jsp"></jsp:include>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <jsp:include page="header.jsp"></jsp:include>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- 404 Error Text -->
+                <div class="text-center">
+                    <div class="error mx-auto" data-text="404">404</div>
+                    <p class="lead text-gray-800 mb-5">Page Not Found</p>
+                    <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
+                    <a href="index.jsp">&larr; Back to Dashboard</a>
+                </div>
+
             </div>
+            <!-- /.container-fluid -->
+
         </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
     </div>
-</section>
-<!--
-Essential Scripts
-=====================================-->
+    <!-- End of Content Wrapper -->
 
-<!-- Main jQuery -->
-<script src="plugins/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.1 -->
-<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-<!-- Bootstrap Touchpin -->
-<script src="plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
-<!-- Instagram Feed Js -->
-<script src="plugins/instafeed/instafeed.min.js"></script>
-<!-- Video Lightbox Plugin -->
-<script src="plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
-<!-- Count Down Js -->
-<script src="plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+</div>
+<!-- End of Page Wrapper -->
 
-<!-- slick Carousel -->
-<script src="plugins/slick/slick.min.js"></script>
-<script src="plugins/slick/slick-animation.min.js"></script>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 
-<!-- Google Mapl -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-<script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+<!-- Logout Modal-->
 
-<!-- Main Js File -->
-<script src="js/script.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
 
 </body>
+
 </html>

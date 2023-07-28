@@ -15,6 +15,7 @@ item_name varchar(50) not null,
 item_price int not null,
 item_inventory int not null default 0,
 item_decreption varchar(200),
+item_available int default 0,
 item_type_id int,
 foreign key (item_type_id) references item_types(item_type_id)
 );
@@ -50,7 +51,7 @@ employee_gender int not null,
 employee_birthday date,
 employee_phone varchar(20) not null,
 account_email varchar(100) not null,
-employee_adress varchar(100),
+employee_address varchar(100),
 employee_status int not null default 0,
 employee_image varchar(100),
 account_id int unique not null,
@@ -113,6 +114,9 @@ insert into accounts value (1, "buihuuhai318@gmail.com", "admin", "123", "2023-0
 
 select * from customers;
 select * from accounts;
+select * from employees;
+
+delete from item_images where image_id = 1;
 insert into customers value (1, "bui huu hai", 0, "1996-08-31", "0942409424", "buihuuhai318@gmail.com", "da nang", 0, "", 1, 1);
 
 
@@ -148,7 +152,11 @@ INSERT INTO `thehome`.`items` (`item_id`, `item_code`, `item_name`, `item_price`
 
 
 
-
+INSERT INTO `thehome`.`employees` (`employee_id`, `employee_name`, `employee_salary`, `employee_gender`, `employee_phone`, `employee_address`, `employee_status`, `employee_image`, `account_id`) VALUES ('1', 'Le Cong Hoan Thien', '10000000', '1', '123456789', 'Hue', '0', 'a', '1');																						
+INSERT INTO `thehome`.`employees` (`employee_id`, `employee_name`, `employee_salary`, `employee_gender`, `employee_phone`, `employee_address`, `employee_status`, `employee_image`, `account_id`) VALUES ('2', 'Bui Huu Hai', '10000000', '1', '123456789', 'Da Nang', '0', 'a', '2');																						
+INSERT INTO `thehome`.`employees` (`employee_id`, `employee_name`, `employee_salary`, `employee_gender`, `employee_phone`, `employee_address`, `employee_status`, `employee_image`, `account_id`) VALUES ('3', 'Nguyen Phan Xuan Nghia', '10000000', '1', '123456789', 'Da Nang', '0', 'a', '3');																						
+INSERT INTO `thehome`.`employees` (`employee_id`, `employee_name`, `employee_salary`, `employee_gender`, `employee_phone`, `employee_address`, `employee_status`, `employee_image`, `account_id`) VALUES ('4', 'Dinh Thanh Hai', '10000000', '1', '123456789', 'Da Nang', '0', 'a', '4');																						
+INSERT INTO `thehome`.`employees` (`employee_id`, `employee_name`, `employee_salary`, `employee_gender`, `employee_phone`, `employee_address`, `employee_status`, `employee_image`, `account_id`) VALUES ('5', 'Vo Nhan Tri', '10000000', '1', '123456789', 'Da Nang', '0', 'a', '5');																						
 
 
 

@@ -34,11 +34,8 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin/index.jsp">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="AccountServlet?action=list">
+        <div class="sidebar-brand-text mx-3">#Thehome</div>
     </a>
 
     <!-- Divider -->
@@ -65,7 +62,7 @@
 
 
     <li class="nav-item active">
-        <a class="nav-link" href="item.jsp">
+        <a class="nav-link" href="ItemServlet?action=list">
             <i class="fas fa-fw fa-table"></i>
             <span>Item</span></a>
     </li>

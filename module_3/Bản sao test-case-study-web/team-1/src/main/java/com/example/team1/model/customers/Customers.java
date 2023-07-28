@@ -32,6 +32,19 @@ public class Customers {
         this.account = account;
     }
 
+    public Customers(String name, int gender, String birthday, String phone, String address, int status, String image, Types type, Accounts account) {
+        this.name = name;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = account.getEmail();
+        this.address = address;
+        this.status = status;
+        this.image = image;
+        this.type = type;
+        this.account = account;
+    }
+
     public Customers(String name, int gender, String birthday, String phone, String address, String image, Types type, Accounts account) {
         this.name = name;
         this.gender = gender;

@@ -4,6 +4,7 @@ import com.example.team1.model.accounts.Accounts;
 import com.example.team1.model.accounts.Roles;
 import com.example.team1.model.customers.Customers;
 import com.example.team1.model.customers.Types;
+import com.example.team1.model.employee.Employees;
 import com.example.team1.repository.customer.ICustomerRepository;
 import com.example.team1.service.accounts.AccountService;
 import com.example.team1.service.accounts.IAccountService;
@@ -11,6 +12,10 @@ import com.example.team1.service.accounts.IRoleService;
 import com.example.team1.service.accounts.RoleService;
 import com.example.team1.service.customer.CustomerService;
 import com.example.team1.service.customer.ICustomerService;
+import com.example.team1.service.customer.ITypeService;
+import com.example.team1.service.customer.TypeService;
+import com.example.team1.service.employee.EmployeeService;
+import com.example.team1.service.employee.IEmployeeService;
 import com.example.team1.util.Email;
 
 import javax.servlet.*;
@@ -27,8 +32,9 @@ import java.util.Map;
 public class AccountServlet extends HttpServlet {
     private final IAccountService accountService = new AccountService();
     private final ICustomerService customerService = new CustomerService();
-
+    private final IEmployeeService employeeService = new EmployeeService();
     private final IRoleService roleService = new RoleService();
+    private final ITypeService typeService = new TypeService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +45,9 @@ public class AccountServlet extends HttpServlet {
         switch (action) {
             case "create":
                 showCreate(request, response);
+                break;
+            case "createNew":
+                showCreateNew(request, response);
                 break;
             case "delete":
                 delete(request, response);
@@ -61,11 +70,21 @@ public class AccountServlet extends HttpServlet {
             case "list":
                 showList(request, response);
                 break;
+            case "res":
+                showResetPassword(request, response);
+                break;
         }
     }
 
+    private void showCreateNew(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
+        request.setAttribute("rolesList", rolesList);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/create-new-account.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
     private void showChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/change-pass.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/change-pass.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -95,7 +114,7 @@ public class AccountServlet extends HttpServlet {
     }
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/login.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -106,12 +125,13 @@ public class AccountServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void showResetPassword(HttpServletRequest request, HttpServletResponse response) {
-
+    private void showResetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/forget-password.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void showCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/signin.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/signin.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -137,6 +157,65 @@ public class AccountServlet extends HttpServlet {
             case "change":
                 changePassword(request, response);
                 break;
+            case "createNew":
+                createNew(request, response);
+                break;
+            case "newProfile":
+                createNewProfile(request, response);
+                break;
+        }
+    }
+
+    private void createNewProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String email = request.getParameter("email");
+        Accounts accounts = accountService.selectAllAccountByEmail().get(email);
+
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String date = request.getParameter("birthday");
+        int gender = Integer.parseInt(request.getParameter("gender"));
+        String phone = request.getParameter("phone");
+        String image = request.getParameter("image");
+        int available = Integer.parseInt(request.getParameter("available"));
+
+        if (accounts.getRole().getId() == Roles.CUSTOMER) {
+            Types types = typeService.selectType(Integer.parseInt(request.getParameter("customerTypes")));
+            Customers customers = new Customers(name, gender, date, phone, address, available, image, types, accounts);
+            customerService.insertCustomer(customers);
+            response.sendRedirect("CustomerServlet?action=list");
+        } else {
+            int salary = Integer.parseInt(request.getParameter("salary"));
+            Employees employees = new Employees(name, salary, gender, date, phone, address, available, image, accounts);
+            employeeService.insertEmployee(employees);
+            response.sendRedirect("EmployeeServlet?action=list");
+        }
+    }
+
+    private void createNew(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
+        RequestDispatcher dispatcher;
+        if (accountService.checkAccount(email, username)) {
+            Accounts accounts = new Accounts(email, username, password, roles);
+            accountService.insertAccount(accounts);
+            request.setAttribute("accounts", accounts);
+            if (roles.getId() == Roles.CUSTOMER) {
+                request.setAttribute("cus", "cus");
+            } else {
+                request.setAttribute("emp", "emp");
+            }
+            List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
+            request.setAttribute("typesList", typesList);
+            dispatcher = request.getRequestDispatcher("admin/new-profile.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            request.setAttribute("fail", "fail");
+            List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
+            request.setAttribute("rolesList", rolesList);
+            dispatcher = getServletContext().getRequestDispatcher("/admin/create-new-account.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -160,7 +239,7 @@ public class AccountServlet extends HttpServlet {
         } else {
             request.setAttribute("fail", "fail");
         }
-        dispatcher = request.getRequestDispatcher("/change-pass.jsp");
+        dispatcher = request.getRequestDispatcher("/shop/change-pass.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -207,14 +286,13 @@ public class AccountServlet extends HttpServlet {
         if (accountService.checkAccount(email, username)) {
             Accounts accounts = new Accounts(email, username, password);
             accountService.insertAccount(accounts);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("create-done.jsp");
-            requestDispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/shop/create-done.jsp");
+            dispatcher.forward(request, response);
         } else {
             request.setAttribute("mess", "fail");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/signin.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/signin.jsp");
             dispatcher.forward(request, response);
         }
-
     }
 
     private void accountLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -238,7 +316,7 @@ public class AccountServlet extends HttpServlet {
 
         } else {
             request.setAttribute("mess", "fail");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/login.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -250,11 +328,11 @@ public class AccountServlet extends HttpServlet {
             accountService.forgetPass(email);
             Email.sendEmail(email, "Thehome - Reset Password", "Hi " + accounts.getUsername() + " ! <br> Password mới của bạn là: 123 <br> Good day !!!");
             request.setAttribute("done", "done");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/forget-password.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/forget-password.jsp");
             dispatcher.forward(request, response);
         } else {
             request.setAttribute("mess", "fail");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/forget-password.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/forget-password.jsp");
             dispatcher.forward(request, response);
         }
     }
