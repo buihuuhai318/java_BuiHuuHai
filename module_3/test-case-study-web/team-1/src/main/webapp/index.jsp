@@ -146,7 +146,7 @@
                     <div class="product-item">
                         <div class="product-thumb">
                             <span class="bage">Hot</span>
-                            <img class="img-responsive" style="height: 30em" src="http://localhost:8080/shop/product-single.html" alt="product-img"/>
+                            <img class="img-responsive" style="height: 30em" src="item-image/${items.getItemType().getName()}/${items.getImageList().get(0).getUrl()}" alt="product-img"/>
                             <div class="preview-meta">
                                 <ul>
                                     <li>
@@ -193,7 +193,7 @@
                                                 ${items.getDecreption()}
                                             </p>
                                             <a href="shop/cart.html" class="btn btn-main">Add To Cart</a>
-                                            <a href="shop/product-single.html" class="btn btn-transparent">View Product
+                                            <a href="ShopServlet?action=viewDetail&id=${items.getId()}" class="btn btn-transparent">View Product
                                                 Details</a>
                                         </div>
                                     </div>
