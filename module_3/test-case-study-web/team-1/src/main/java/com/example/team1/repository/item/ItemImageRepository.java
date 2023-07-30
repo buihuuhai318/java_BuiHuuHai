@@ -15,9 +15,24 @@ public class ItemImageRepository implements IItemImageRepository {
     private static final String INSERT = "insert into item_images (image_url, item_id) values (?, ?);";
     private static final String SELECT_BY_ITEM_ID = "select * from item_images where item_id = ?;";
     private static final String DELETE = "delete from item_images where image_id = ?;";
+    private static final String DELETE_BY_ITEM_ID = "delete from item_images where item_id = ?;";
 
     @Override
     public void insertImage(ItemImage itemImage) {
+        Connection connection = Base.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
+            preparedStatement.setString(1, itemImage.getUrl());
+            preparedStatement.setInt(2, itemImage.getItems().getId());
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateImage(int id, ItemImage itemImage) {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
@@ -42,6 +57,8 @@ public class ItemImageRepository implements IItemImageRepository {
                 String url = resultSet.getString("image_url");
                 imageList.add(new ItemImage(url));
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -53,6 +70,19 @@ public class ItemImageRepository implements IItemImageRepository {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteImageByItem(int id) {
+        Connection connection = Base.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ITEM_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             connection.close();

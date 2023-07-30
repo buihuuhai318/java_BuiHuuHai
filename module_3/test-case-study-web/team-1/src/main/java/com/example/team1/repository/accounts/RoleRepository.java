@@ -28,6 +28,8 @@ public class RoleRepository implements IRoleRepository {
                 String name = resultSet.getString("role_name");
                 roles = new Roles(id, name);
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -47,6 +49,8 @@ public class RoleRepository implements IRoleRepository {
                 String name = resultSet.getString("role_name");
                 rolesMap.put(id, new Roles(id, name));
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

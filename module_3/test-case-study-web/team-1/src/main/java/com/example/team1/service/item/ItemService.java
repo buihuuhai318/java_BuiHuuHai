@@ -1,5 +1,6 @@
 package com.example.team1.service.item;
 
+import com.example.team1.model.item.ItemType;
 import com.example.team1.model.item.Items;
 import com.example.team1.repository.item.IItemRepository;
 import com.example.team1.repository.item.ItemRepository;
@@ -25,6 +26,11 @@ public class ItemService implements IItemService {
     }
 
     @Override
+    public Map<String, Items> selectAllItemByCode() {
+        return itemRepository.selectAllItemByCode();
+    }
+
+    @Override
     public void availableItem(int id, boolean available) {
         itemRepository.availableItem(id, available);
     }
@@ -32,5 +38,15 @@ public class ItemService implements IItemService {
     @Override
     public void updateItem(int id, Items items) {
         itemRepository.updateItem(id, items);
+    }
+
+    @Override
+    public Map<Integer, Items> selectItemHot() {
+        return itemRepository.selectItemHot();
+    }
+
+    @Override
+    public Map<Integer, Items> selectItemByType(int typeId) {
+        return itemRepository.selectItemByType(typeId);
     }
 }

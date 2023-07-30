@@ -1,5 +1,6 @@
 package com.example.team1.repository.item;
 
+import com.example.team1.model.item.ItemType;
 import com.example.team1.model.item.Items;
 
 import java.util.Map;
@@ -10,6 +11,12 @@ public interface IItemRepository {
     Items selectItem(int id);
 
     Map<Integer, Items> selectAllItem();
+
+    Map<Integer, Items> selectItemHot();
+
+    Map<Integer, Items> selectItemByType(int typeId);
+
+    Map<String, Items> selectAllItemByCode();
 
     void availableItem(int id, boolean available);
 

@@ -55,7 +55,7 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <a href="ItemServlet?action=createNew" class="btn btn-success btn-block">Create New Item</a>
+                        <a href="ItemServlet?action=create" class="btn btn-success btn-block">Create New Item</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -101,7 +101,7 @@
 
 
                                         <td>
-                                            <a href="ItemServlet?action=editList&id=${items.getId()}"
+                                            <a href="ItemServlet?action=edit&id=${items.getId()}"
                                                class="btn btn-info btn-circle"
                                                style="margin-left: 8%; margin-bottom: 4%">
                                                 <i class="fas fa-user-edit"></i>

@@ -229,10 +229,10 @@
                                     <ul>
                                         <li class="dropdown-header">Necklace</li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="shop.html">Dây Chuyền Bạc 925</a></li>
-                                        <li><a href="shop.html">Mặt Dây Chuyền Bạc 925</a></li>
-                                        <li><a href="shop.html">Dây Chuyền Thời Trang</a></li>
-                                        <li><a href="shop.html">Tất Cả</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=3">Dây Chuyền Bạc 925</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=3">Mặt Dây Chuyền Bạc 925</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=3">Dây Chuyền Thời Trang</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=3">Tất Cả</a></li>
                                     </ul>
                                 </div>
 
@@ -241,9 +241,9 @@
                                     <ul>
                                         <li class="dropdown-header">Bracelet</li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="shop.html">Vòng Tay Bạc 925</a></li>
-                                        <li><a href="shop.html">Vòng Tay Thời Trang</a></li>
-                                        <li><a href="shop.html">Tất Cả</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=1">Vòng Tay Bạc 925</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=1">Vòng Tay Thời Trang</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=1">Tất Cả</a></li>
                                     </ul>
                                 </div>
 
@@ -251,9 +251,9 @@
                                     <ul>
                                         <li class="dropdown-header">Ring</li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="shop.html">Nhẫn Bạc Nam</a></li>
-                                        <li><a href="shop.html">Nhẫn Thời Trang</a></li>
-                                        <li><a href="shop.html">Tất Cả</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=4">Nhẫn Bạc Nam</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=4">Nhẫn Thời Trang</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=4">Tất Cả</a></li>
                                     </ul>
                                 </div>
 
@@ -261,7 +261,7 @@
                                     <ul>
                                         <li class="dropdown-header">Earring</li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="shop.html">KHuyên Tai Bạc Nam</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=2">KHuyên Tai Bạc Nam</a></li>
                                     </ul>
                                 </div>
 

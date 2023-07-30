@@ -27,6 +27,8 @@ public class ItemTypeRepository implements IItemTypeRepository {
                 String name = resultSet.getString("item_type_name");
                 itemType = new ItemType(id, name);
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -46,6 +48,8 @@ public class ItemTypeRepository implements IItemTypeRepository {
                 String name = resultSet.getString("item_type_name");
                 typesMap.put(id, new ItemType(id, name));
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

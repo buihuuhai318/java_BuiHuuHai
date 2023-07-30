@@ -28,6 +28,8 @@ public class TypeRepository implements ITypeRepository {
                 String name = resultSet.getString("customer_type_name");
                 types = new Types(id, name);
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -47,6 +49,8 @@ public class TypeRepository implements ITypeRepository {
                 String name = resultSet.getString("customer_type_name");
                 typesMap.put(id, new Types(id, name));
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

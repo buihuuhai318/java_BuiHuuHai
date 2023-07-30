@@ -36,6 +36,16 @@ public class Items {
         this.itemType = itemType;
     }
 
+    public Items(String code, String name, int price, int inventory, int available, String decreption, ItemType itemType) {
+        this.code = code;
+        this.name = name;
+        this.price = price;
+        this.inventory = inventory;
+        this.available = available;
+        this.decreption = decreption;
+        this.itemType = itemType;
+    }
+
     public int getId() {
         return id;
     }

@@ -16,7 +16,7 @@ public class AccountRepository implements IAccountRepository {
     private static final String INSERT = "insert into accounts (account_email, account_username, account_password, account_create_date, role_id) values (?, ?, ?, ?, ?);";
     private static final String SELECT_BY_ID = "select * from accounts where account_id = ?;";
     private static final String SELECT_ALL = "select * from accounts;";
-    private static final String DELETE = "update accounts set account_status = 1 where account_id = ?";
+    private static final String DELETE = "update accounts set account_status = 1 where account_id = ?;";
     private static final String AVAILABLE = "update accounts set account_status = 0 where account_id = ?";
     private static final String UPDATE = "update accounts set account_password = ?, account_status = ?, role_id = ? where account_id = ?";
     private static final String FORGET_PASS = "update accounts set account_password = 123 where account_email = ?";
@@ -60,6 +60,8 @@ public class AccountRepository implements IAccountRepository {
                 Roles roles = roleRepository.selectRole(role);
                 accounts = new Accounts(id, email, username, password, createDate, status, roles);
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -86,6 +88,8 @@ public class AccountRepository implements IAccountRepository {
                 Roles roles = roleRepository.selectRole(roleId);
                 accountsMap.put(username, new Accounts(id, email, username, password, createDate, accountStatus, roles));
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -180,6 +184,8 @@ public class AccountRepository implements IAccountRepository {
                 Roles roles = roleRepository.selectRole(roleId);
                 accountsMap.put(email, new Accounts(id, email, username, password, createDate, accountStatus, roles));
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

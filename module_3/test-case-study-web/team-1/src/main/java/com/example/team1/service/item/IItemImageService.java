@@ -10,4 +10,8 @@ public interface IItemImageService {
     List<ItemImage> selectImageByItem(int id);
 
     void deleteImage(int id);
+
+    void deleteImageByItem(int id);
+
+    void updateImage(int id, ItemImage itemImage);
 }

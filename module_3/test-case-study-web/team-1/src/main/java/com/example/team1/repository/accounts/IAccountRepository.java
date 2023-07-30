@@ -10,7 +10,8 @@ public interface IAccountRepository {
     Accounts selectAccount(int id);
 
     Map<String, Accounts> selectAllAccount();
-    public Map<String, Accounts> selectAllAccountByEmail();
+
+    Map<String, Accounts> selectAllAccountByEmail();
 
     void deleteAccount(int id, boolean available);
 

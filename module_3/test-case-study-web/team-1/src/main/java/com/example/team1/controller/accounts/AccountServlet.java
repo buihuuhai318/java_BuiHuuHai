@@ -73,7 +73,14 @@ public class AccountServlet extends HttpServlet {
             case "res":
                 showResetPassword(request, response);
                 break;
+            case "test":
+                test(request, response);
+                break;
         }
+    }
+
+    private void test(HttpServletRequest request, HttpServletResponse response) {
+
     }
 
     private void showCreateNew(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -116,7 +116,26 @@ select * from customers;
 select * from accounts;
 select * from employees;
 
-delete from item_images where image_id = 1;
+select * from item_images where item_id = 29;
+select * from items;
+
+select items.item_id, items.item_type_id, item_images.image_url, sum(detail_quantity) from items
+join order_details on order_details.item_id = items.item_id
+join item_images on item_images.item_id = items.item_id
+group by items.item_id;
+
+select * from items where item_type_id = 1;
+
+SELECT items.item_id, items.item_type_id, GROUP_CONCAT(item_images.image_url) AS image_urls, SUM(detail_quantity) AS total_quantity
+FROM items
+left JOIN order_details ON order_details.item_id = items.item_id
+left JOIN item_images ON item_images.item_id = items.item_id
+GROUP BY items.item_id, items.item_type_id
+ORDER BY total_quantity DESC
+limit 9;
+
+
+-- delete from item_images where image_id = 1;
 insert into customers value (1, "bui huu hai", 0, "1996-08-31", "0942409424", "buihuuhai318@gmail.com", "da nang", 0, "", 1, 1);
 
 

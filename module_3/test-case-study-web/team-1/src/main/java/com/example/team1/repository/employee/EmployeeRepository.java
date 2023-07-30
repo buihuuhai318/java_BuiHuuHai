@@ -80,6 +80,8 @@ public class EmployeeRepository implements IEmployeeRepository {
 
                 employeesMap.put(id, new Employees(id, name, salary, gender, birthday, phone, address, status, image, accountRepository.selectAccount(id)));
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -109,6 +111,8 @@ public class EmployeeRepository implements IEmployeeRepository {
 
                 employeesMap.put(accounts.getEmail(), new Employees(id, name, salary, gender, birthday, phone, address, status, image, accounts));
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

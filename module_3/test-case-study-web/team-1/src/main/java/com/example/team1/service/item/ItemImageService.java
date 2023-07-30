@@ -23,4 +23,14 @@ public class ItemImageService implements IItemImageService {
     public void deleteImage(int id) {
         itemImageRepository.deleteImage(id);
     }
+
+    @Override
+    public void deleteImageByItem(int id) {
+        itemImageRepository.deleteImageByItem(id);
+    }
+
+    @Override
+    public void updateImage(int id, ItemImage itemImage) {
+        itemImageRepository.updateImage(id, itemImage);
+    }
 }

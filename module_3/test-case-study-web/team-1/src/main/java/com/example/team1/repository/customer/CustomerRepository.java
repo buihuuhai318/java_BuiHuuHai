@@ -8,7 +8,6 @@ import com.example.team1.repository.accounts.IAccountRepository;
 
 import java.sql.*;
 
-import java.time.Period;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,6 +80,8 @@ public class CustomerRepository implements ICustomerRepository {
 
                 customersMap.put(id, new Customers(id, name, gender, birthday, phone, address, status, image, typeRepository.selectType(type), accountRepository.selectAccount(accountId)));
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -108,7 +109,10 @@ public class CustomerRepository implements ICustomerRepository {
                 int accountId = resultSet.getInt("account_id");
                 Accounts accounts = accountRepository.selectAccount(accountId);
                 customersMap.put(accounts.getEmail(), new Customers(id, name, gender, birthday, phone, address, status, image, typeRepository.selectType(type), accounts));
+
             }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

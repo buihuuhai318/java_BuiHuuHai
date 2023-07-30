@@ -5,10 +5,7 @@ import com.example.team1.model.item.ItemType;
 import com.example.team1.model.item.Items;
 import com.example.team1.repository.Base;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +24,16 @@ public class ItemRepository implements IItemRepository {
             "item_available = ?, " +
             "item_type_id = ?" +
             "where item_id = ?";
+
+    private static final String HOT_SALE = "SELECT items.item_id, items.item_type_id, GROUP_CONCAT(item_images.image_url) AS image_urls, SUM(detail_quantity) AS total_quantity " +
+            "FROM items " +
+            "left JOIN order_details ON order_details.item_id = items.item_id " +
+            "left JOIN item_images ON item_images.item_id = items.item_id " +
+            "GROUP BY items.item_id, items.item_type_id " +
+            "ORDER BY total_quantity DESC " +
+            "limit 9;";
+
+    private static final String SELECT_BY_TYPE = "select * from items where item_type_id = ?";
 
     private final IItemImageRepository itemImageRepository = new ItemImageRepository();
 
@@ -77,8 +84,102 @@ public class ItemRepository implements IItemRepository {
                 List<ItemImage> imageList = itemImageRepository.selectImageByItem(id);
                 ItemType itemType = itemTypeRepository.selectItemType(typeId);
 
-                itemsMap.put(id, new Items(code, name, price, inventory, available, decreption, imageList, itemType));
+                itemsMap.put(id, new Items(id, code, name, price, inventory, available, decreption, imageList, itemType));
             }
+            resultSet.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return itemsMap;
+    }
+
+    @Override
+    public Map<Integer, Items> selectItemHot() {
+        Map<Integer, Items> itemsMap = new HashMap<>();
+        Connection connection = Base.getConnection();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(HOT_SALE);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("item_id");
+                int typeId = resultSet.getInt("item_type_id");
+                Items items = selectItem(id);
+                List<ItemImage> imageList = itemImageRepository.selectImageByItem(id);
+                ItemType itemType = itemTypeRepository.selectItemType(typeId);
+                items.setItemType(itemType);
+                items.setImageList(imageList);
+                if (items.getAvailable() == 0) {
+                    itemsMap.put(id, items);
+                }
+            }
+            resultSet.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return itemsMap;
+    }
+
+    @Override
+    public Map<Integer, Items> selectItemByType(int typeId) {
+        Map<Integer, Items> itemsMap = new HashMap<>();
+        Connection connection = Base.getConnection();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("item_id");
+                String code = resultSet.getString("item_code");
+                String name = resultSet.getString("item_name");
+                int price = resultSet.getInt("item_price");
+                int inventory = resultSet.getInt("item_inventory");
+                String decreption = resultSet.getString("item_decreption");
+                int available = resultSet.getInt("item_available");
+                int typeIdTemp = resultSet.getInt("item_type_id");
+
+                List<ItemImage> imageList = itemImageRepository.selectImageByItem(id);
+                ItemType itemType = itemTypeRepository.selectItemType(typeIdTemp);
+
+                if (typeId == typeIdTemp) {
+                    itemsMap.put(id, new Items(id, code, name, price, inventory, available, decreption, imageList, itemType));
+                }
+            }
+            resultSet.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return itemsMap;
+    }
+
+    @Override
+    public Map<String, Items> selectAllItemByCode() {
+        Map<String, Items> itemsMap = new HashMap<>();
+        Connection connection = Base.getConnection();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("item_id");
+                String code = resultSet.getString("item_code");
+                String name = resultSet.getString("item_name");
+                int price = resultSet.getInt("item_price");
+                int inventory = resultSet.getInt("item_inventory");
+                String decreption = resultSet.getString("item_decreption");
+                int available = resultSet.getInt("item_available");
+                int typeId = resultSet.getInt("item_type_id");
+
+                List<ItemImage> imageList = itemImageRepository.selectImageByItem(id);
+                ItemType itemType = itemTypeRepository.selectItemType(typeId);
+
+                itemsMap.put(code, new Items(id, code, name, price, inventory, available, decreption, imageList, itemType));
+            }
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
