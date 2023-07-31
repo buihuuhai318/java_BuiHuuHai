@@ -1,5 +1,6 @@
 package com.example.team1.controller.shop;
 
+import com.example.team1.model.customers.Types;
 import com.example.team1.model.item.ItemImage;
 import com.example.team1.model.item.ItemType;
 import com.example.team1.model.item.Items;
@@ -45,6 +46,7 @@ public class ShopServlet extends HttpServlet {
                 break;
             case "deleteCart":
                 deleteCart(request, response);
+                break;
             default:
                 showIndex(request, response);
                 break;
@@ -84,8 +86,10 @@ public class ShopServlet extends HttpServlet {
 
     private void viewByType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("idType"));
+        ItemType types = itemTypeService.selectItemType(id);
         List<Items> itemsList = new ArrayList<>(itemService.selectItemByType(id).values());
         request.setAttribute("itemsList", itemsList);
+        request.setAttribute("types", types);
         request.getRequestDispatcher("shop/shop.jsp").forward(request, response);
     }
 
