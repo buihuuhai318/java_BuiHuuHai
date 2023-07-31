@@ -101,7 +101,7 @@
                                     </c:forEach>
                                     </tbody>
                                 </table>
-                                <a href="checkout.html" class="btn btn-main pull-right">Checkout</a>
+                                <a href="/ShopServlet?action=checkOut" class="btn btn-main pull-right">Checkout</a>
                             </form>
                         </div>
                     </div>

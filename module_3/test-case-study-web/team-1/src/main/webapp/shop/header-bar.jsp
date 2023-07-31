@@ -65,7 +65,7 @@
             <div class="col-md-4 col-xs-12 col-sm-4">
                 <!-- Site Logo -->
                 <div class="logo text-center">
-                    <a href="index.jsp">
+                    <a href="/ShopServlet">
                         <!-- replace logo here -->
                         <svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1"
                              xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@
                                 <c:set var="sum" value="${0}"/>
                                 <c:forEach items="${orderList}" var="orderList">
                                     <div class="media">
-                                        <a class="pull-left" href="#!">
+                                        <a class="pull-left" href="/ShopServlet?action=viewDetail&id=${orderList.getItems().getId()}">
                                             <img class="media-object"
                                                  src="item-image/${orderList.getItems().getItemType().getName()}/${orderList.getItems().getImageList().get(0).getUrl()}"
                                                  alt="image"/>
@@ -125,7 +125,7 @@
                                 </div>
                                 <ul class="text-center cart-buttons">
                                     <li><a href="/ShopServlet?action=viewCart" class="btn btn-small">View Cart</a></li>
-                                    <li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
+                                    <li><a href="/ShopServlet?action=checkOut" class="btn btn-small btn-solid-border">Checkout</a></li>
                                 </ul>
                             </div>
                         </li>
