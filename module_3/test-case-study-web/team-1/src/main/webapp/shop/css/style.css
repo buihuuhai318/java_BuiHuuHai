@@ -1862,7 +1862,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 
 .bg-2 {
-  background-image: url("../images/page-header-1.jpg");
+  /*background-image: url("../images/page-header-1.jpg");*/
   background-size: cover;
 }
 .bg-2:before {
@@ -1882,7 +1882,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 
 .bg-brand-identity {
-  background-image: url("../images/backgrounds/brand-identity-bg.jpg");
+  /*background-image: url("../images/backgrounds/brand-identity-bg.jpg");*/
   background-repeat: no-repeat;
 }
 

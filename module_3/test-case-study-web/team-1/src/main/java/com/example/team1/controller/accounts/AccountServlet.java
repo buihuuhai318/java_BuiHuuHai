@@ -73,14 +73,7 @@ public class AccountServlet extends HttpServlet {
             case "res":
                 showResetPassword(request, response);
                 break;
-            case "test":
-                test(request, response);
-                break;
         }
-    }
-
-    private void test(HttpServletRequest request, HttpServletResponse response) {
-
     }
 
     private void showCreateNew(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -96,7 +89,7 @@ public class AccountServlet extends HttpServlet {
     }
 
     private void showIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ShopServlet");
         requestDispatcher.forward(request, response);
     }
 
@@ -121,14 +114,13 @@ public class AccountServlet extends HttpServlet {
     }
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/login.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("/shop/login.jsp");
     }
 
     private void showLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ShopServlet");
         dispatcher.forward(request, response);
     }
 
@@ -314,13 +306,11 @@ public class AccountServlet extends HttpServlet {
 
             RequestDispatcher dispatcher;
             if (accounts.getRole().getId() == Roles.CUSTOMER) {
-                dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                response.sendRedirect("/ShopServlet");
             } else {
                 dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");
+                dispatcher.forward(request, response);
             }
-            dispatcher.forward(request, response);
-
-
         } else {
             request.setAttribute("mess", "fail");
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/login.jsp");

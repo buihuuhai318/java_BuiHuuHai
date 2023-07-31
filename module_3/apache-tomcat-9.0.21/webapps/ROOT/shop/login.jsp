@@ -51,11 +51,11 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="block text-center">
-                    <a class="logo" href="../index.jsp">
+                    <a class="logo" href="index.jsp">
                         <img src="images/logo.png" style="width: 60%;" alt="">
                     </a>
                     <h2 class="text-center" style="margin: 3%">Welcome Back</h2>
-                    <form class="text-left clearfix" action="AccountServlet?action=login" method="post">
+                    <form class="text-left clearfix" action="/AccountServlet?action=login" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Username" name="username">
                         </div>
@@ -72,8 +72,8 @@
                             <button type="submit" class="btn btn-main text-center">Login</button>
                         </div>
                     </form>
-                    <p class="mt-20">New in this site ?<a href="AccountServlet?action=create"> Create New Account</a></p>
-                    <p><a href="AccountServlet?action=res"> Forgot your password?</a></p>
+                    <p class="mt-20">New in this site ?<a href="/AccountServlet?action=create"> Create New Account</a></p>
+                    <p><a href="/AccountServlet?action=res"> Forgot your password?</a></p>
                 </div>
             </div>
         </div>
@@ -102,8 +102,7 @@ Essential Scripts
 <script src="plugins/slick/slick-animation.min.js"></script>
 
 <!-- Google Mapl -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-<script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+
 
 <!-- Main Js File -->
 <script src="js/script.js"></script>

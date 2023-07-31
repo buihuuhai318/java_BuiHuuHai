@@ -59,7 +59,7 @@
 					<h2 class="text-center">Bạn đã đăng ký thành công !!!</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, sed.</p>
 					<a href="AccountServlet?action=login" class="btn btn-main mt-20" style="margin: 2%">Login</a>
-					<a href="../index.jsp" class="btn btn-main mt-20" style="margin: 2%">Shopping Now</a>
+					<a href="index.jsp" class="btn btn-main mt-20" style="margin: 2%">Shopping Now</a>
 				</div>
 			</div>
 		</div>

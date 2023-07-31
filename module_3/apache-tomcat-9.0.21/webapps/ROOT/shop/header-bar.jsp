@@ -19,36 +19,33 @@
     <title>Aviato | E-commerce template</title>
 
 
-
-
-
     <!-- Mobile Specific Metas
     ================================================== -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Construction Html5 Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="author" content="Themefisher">
-    <meta name="generator" content="Themefisher Constra HTML Template v1.0">
+<%--    <meta http-equiv="X-UA-Compatible" content="IE=edge">--%>
+<%--    <meta name="description" content="Construction Html5 Template">--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">--%>
+<%--    <meta name="author" content="Themefisher">--%>
+<%--    <meta name="generator" content="Themefisher Constra HTML Template v1.0">--%>
 
-    <!-- theme meta -->
-    <meta name="theme-name" content="aviato"/>
+<%--    <!-- theme meta -->--%>
+<%--    <meta name="theme-name" content="aviato"/>--%>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png"/>
+<%--    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png"/>--%>
 
-    <!-- Themefisher Icon font -->
-    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
-    <!-- bootstrap.min css -->
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+<%--    <!-- Themefisher Icon font -->--%>
+<%--    <link rel="stylesheet" href="plugins/themefisher-font/style.css">--%>
+<%--    <!-- bootstrap.min css -->--%>
+<%--    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">--%>
 
-    <!-- Animate css -->
-    <link rel="stylesheet" href="plugins/animate/animate.css">
-    <!-- Slick Carousel -->
-    <link rel="stylesheet" href="plugins/slick/slick.css">
-    <link rel="stylesheet" href="plugins/slick/slick-theme.css">
+<%--    <!-- Animate css -->--%>
+<%--    <link rel="stylesheet" href="plugins/animate/animate.css">--%>
+<%--    <!-- Slick Carousel -->--%>
+<%--    <link rel="stylesheet" href="plugins/slick/slick.css">--%>
+<%--    <link rel="stylesheet" href="plugins/slick/slick-theme.css">--%>
 
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+<%--    <!-- Main Stylesheet -->--%>
+<%--    <link rel="stylesheet" href="css/style.css">--%>
 
 
 </head>
@@ -62,13 +59,13 @@
             <div class="col-md-4 col-xs-12 col-sm-4">
                 <div class="contact-number">
                     <i class="tf-ion-ios-telephone"></i>
-                    <span>0129- 12323-123123</span>
+                    <span>09424-09424</span>
                 </div>
             </div>
             <div class="col-md-4 col-xs-12 col-sm-4">
                 <!-- Site Logo -->
                 <div class="logo text-center">
-                    <a href="../index.jsp">
+                    <a href="index.jsp">
                         <!-- replace logo here -->
                         <svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1"
                              xmlns="http://www.w3.org/2000/svg"
@@ -90,52 +87,44 @@
             <div class="col-md-4 col-xs-12 col-sm-4">
                 <!-- Cart -->
                 <ul class="top-menu text-right list-inline">
+
+                    <c:if test="${not empty sessionScope.get('cart')}">
                     <li class="dropdown cart-nav dropdown-slide">
                         <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
                                 class="tf-ion-android-cart"></i>Cart</a>
                         <div class="dropdown-menu cart-dropdown">
                             <!-- Cart Item -->
-                            <div class="media">
-                                <a class="pull-left" href="#!">
-                                    <img class="media-object" src="images/shop/cart/cart-1.jpg" alt="image"/>
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                    <div class="cart-price">
-                                        <span>1 x</span>
-                                        <span>1250.00</span>
+                            <c:set var="sum" value="${0}" />
+                            <c:forEach items="${orderList}" var="orderList">
+                                <div class="media">
+                                    <a class="pull-left" href="#!">
+                                        <img class="media-object" src="item-image/${orderList.getItems().getItemType().getName()}/${orderList.getItems().getImageList().get(0).getUrl()}" alt="image"/>
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#!">${orderList.getItems().getName()}</a></h4>
+                                        <div class="cart-price">
+                                            <span>${orderList.getQuantity()} x</span>
+                                            <span>${orderList.getPrice()}</span>
+                                        </div>
+                                        <h5><strong>$${orderList.getQuantity() * orderList.getPrice()}</strong></h5>
+                                        <c:set var="sum" value="${sum + orderList.getQuantity() * orderList.getPrice()}" />
                                     </div>
-                                    <h5><strong>$1200</strong></h5>
+                                    <a href="/ShopServlet?action=deleteCart&id=${orderList.getItems().getId()}" class="remove"><i class="tf-ion-close"></i></a>
                                 </div>
-                                <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                            </div><!-- / Cart Item -->
-                            <!-- Cart Item -->
-                            <div class="media">
-                                <a class="pull-left" href="#!">
-                                    <img class="media-object" src="images/shop/cart/cart-2.jpg" alt="image"/>
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                    <div class="cart-price">
-                                        <span>1 x</span>
-                                        <span>1250.00</span>
-                                    </div>
-                                    <h5><strong>$1200</strong></h5>
-                                </div>
-                                <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                            </div><!-- / Cart Item -->
+                            </c:forEach>
+                                <!-- / Cart Item -->
 
-                            <div class="cart-summary">
-                                <span>Total</span>
-                                <span class="total-price">$1799.00</span>
-                            </div>
-                            <ul class="text-center cart-buttons">
-                                <li><a href="cart.html" class="btn btn-small">View Cart</a></li>
-                                <li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
-                            </ul>
+                                <div class="cart-summary">
+                                    <span>Total</span>
+                                    <span class="total-price">$${sum}</span>
+                                </div>
+                                <ul class="text-center cart-buttons">
+                                    <li><a href="/ShopServlet?action=viewCart" class="btn btn-small">View Cart</a></li>
+                                    <li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
+                                </ul>
                         </div>
-
                     </li><!-- / Cart -->
+                    </c:if>
 
                     <!-- Search -->
                     <li class="dropdown search dropdown-slide">
@@ -161,12 +150,12 @@
                                     <div class="col-lg-12 col-md-6 mb-sm-3">
                                         <ul>
                                             <li>
-                                                <a href="CustomerServlet?action=view&id=${sessionScope.get('id_account')}">Thông
+                                                <a href="/CustomerServlet?action=view&id=${sessionScope.get('id_account')}">Thông
                                                     tin tài khoản</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="AccountServlet?action=change">Đổi mật khẩu</a></li>
+                                            <li><a href="/AccountServlet?action=change">Đổi mật khẩu</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="AccountServlet?action=logout">Log out</a></li>
+                                            <li><a href="/AccountServlet?action=logout">Log out</a></li>
                                         </ul>
                                     </div>
                                 </div><!-- / .row -->
@@ -176,7 +165,7 @@
                     </c:if>
                     <c:if test="${empty sessionScope.get('accounts')}">
                         <li class="dropdown">
-                            <a href="AccountServlet?action=login" class="dropdown-toggle"><i
+                            <a href="/AccountServlet?action=login" class="dropdown-toggle"><i
                                     class="dropdown-toggle"></i>Login</a>
                         </li>
                     </c:if>
@@ -211,7 +200,7 @@
 
                     <!-- Home -->
                     <li class="dropdown ">
-                        <a href="../index.jsp">Home</a>
+                        <a href="ShopServlet">Home</a>
                     </li><!-- / Home -->
 
 
@@ -230,8 +219,10 @@
                                         <li class="dropdown-header">Necklace</li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="ShopServlet?action=viewByType&idType=3">Dây Chuyền Bạc 925</a></li>
-                                        <li><a href="ShopServlet?action=viewByType&idType=3">Mặt Dây Chuyền Bạc 925</a></li>
-                                        <li><a href="ShopServlet?action=viewByType&idType=3">Dây Chuyền Thời Trang</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=3">Mặt Dây Chuyền Bạc 925</a>
+                                        </li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=3">Dây Chuyền Thời Trang</a>
+                                        </li>
                                         <li><a href="ShopServlet?action=viewByType&idType=3">Tất Cả</a></li>
                                     </ul>
                                 </div>
@@ -242,7 +233,8 @@
                                         <li class="dropdown-header">Bracelet</li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="ShopServlet?action=viewByType&idType=1">Vòng Tay Bạc 925</a></li>
-                                        <li><a href="ShopServlet?action=viewByType&idType=1">Vòng Tay Thời Trang</a></li>
+                                        <li><a href="ShopServlet?action=viewByType&idType=1">Vòng Tay Thời Trang</a>
+                                        </li>
                                         <li><a href="ShopServlet?action=viewByType&idType=1">Tất Cả</a></li>
                                     </ul>
                                 </div>
@@ -283,28 +275,27 @@ Essential Scripts
 =====================================-->
 
 <!-- Main jQuery -->
-<script src="plugins/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.1 -->
-<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-<!-- Bootstrap Touchpin -->
-<script src="plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
-<!-- Instagram Feed Js -->
-<script src="plugins/instafeed/instafeed.min.js"></script>
-<!-- Video Lightbox Plugin -->
-<script src="plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
-<!-- Count Down Js -->
-<script src="plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+<%--<script src="plugins/jquery/dist/jquery.min.js"></script>--%>
+<%--<!-- Bootstrap 3.1 -->--%>
+<%--<script src="plugins/bootstrap/js/bootstrap.min.js"></script>--%>
+<%--<!-- Bootstrap Touchpin -->--%>
+<%--<script src="plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>--%>
+<%--<!-- Instagram Feed Js -->--%>
+<%--<script src="plugins/instafeed/instafeed.min.js"></script>--%>
+<%--<!-- Video Lightbox Plugin -->--%>
+<%--<script src="plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>--%>
+<%--<!-- Count Down Js -->--%>
+<%--<script src="plugins/syo-timer/build/jquery.syotimer.min.js"></script>--%>
 
-<!-- slick Carousel -->
-<script src="plugins/slick/slick.min.js"></script>
-<script src="plugins/slick/slick-animation.min.js"></script>
+<%--<!-- slick Carousel -->--%>
+<%--<script src="plugins/slick/slick.min.js"></script>--%>
+<%--<script src="plugins/slick/slick-animation.min.js"></script>--%>
 
-<!-- Google Mapl -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-<script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+<%--<!-- Google Mapl -->--%>
 
-<!-- Main Js File -->
-<script src="js/script.js"></script>
+
+<%--<!-- Main Js File -->--%>
+<%--<script src="js/script.js"></script>--%>
 
 
 </body>

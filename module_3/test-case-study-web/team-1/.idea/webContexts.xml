@@ -10,6 +10,8 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/create-info-customer.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/shop/empty-cart.jsp" value="file://$PROJECT_DIR$/src/main/webapp/shop" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/shop/product-single.html" value="file://$PROJECT_DIR$/src/main/webapp/shop" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/shop/shop.jsp" value="file://$PROJECT_DIR$/src/main/webapp/shop" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/theme/index.html" value="file://$PROJECT_DIR$/src/main/webapp/theme" />
       </map>

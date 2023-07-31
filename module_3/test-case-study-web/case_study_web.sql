@@ -89,6 +89,7 @@ account_id int,
 order_date date not null,
 payment_date date,
 payment_status int default 0,
+time_stamp TIMESTAMP default now(),
 foreign key (account_id) references accounts(account_id)
 );
 
@@ -123,6 +124,8 @@ select items.item_id, items.item_type_id, item_images.image_url, sum(detail_quan
 join order_details on order_details.item_id = items.item_id
 join item_images on item_images.item_id = items.item_id
 group by items.item_id;
+
+select * from order_details;
 
 select * from items where item_type_id = 1;
 

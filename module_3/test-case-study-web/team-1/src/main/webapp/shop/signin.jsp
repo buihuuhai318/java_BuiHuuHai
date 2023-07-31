@@ -51,7 +51,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="block text-center">
-                    <a class="logo" href="../index.jsp">
+                    <a class="logo" href="index.jsp">
                         <img src="images/logo.png" style="width: 50%" alt="">
                     </a>
                     <h2 class="text-center" style="margin: 3%">Create Your Account</h2>

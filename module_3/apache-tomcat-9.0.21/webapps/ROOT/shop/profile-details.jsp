@@ -55,7 +55,7 @@
 				<div class="content">
 					<h1 class="page-name">Dashboard</h1>
 					<ol class="breadcrumb">
-						<li><a href="../index.jsp">Home</a></li>
+						<li><a href="index.jsp">Home</a></li>
 						<li class="active">my account</li>
 					</ol>
 				</div>

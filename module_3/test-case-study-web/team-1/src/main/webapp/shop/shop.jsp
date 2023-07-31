@@ -56,7 +56,7 @@
 				<div class="content">
 					<h1 class="page-name">Shop</h1>
 					<ol class="breadcrumb">
-						<li><a href="../index.jsp">Home</a></li>
+						<li><a href="index.jsp">Home</a></li>
 						<li class="active">shop</li>
 					</ol>
 				</div>
@@ -121,7 +121,7 @@
 											<p class="product-short-description">
 													${items.getDecreption()}
 											</p>
-											<a href="cart.html" class="btn btn-main">Add To Cart</a>
+											<a href="CartServlet?itemId=${items.getId()}" class="btn btn-main">Add To Cart</a>
 											<a href="ShopServlet?action=viewDetail&id=${items.getId()}" class="btn btn-transparent">View Product
 												Details</a>
 										</div>

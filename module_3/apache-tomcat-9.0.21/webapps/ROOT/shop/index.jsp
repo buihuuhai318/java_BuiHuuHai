@@ -30,62 +30,62 @@
     <meta name="theme-name" content="aviato"/>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="shop/images/favicon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png"/>
 
     <!-- Themefisher Icon font -->
-    <link rel="stylesheet" href="shop/plugins/themefisher-font/style.css">
+    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
     <!-- bootstrap.min css -->
-    <link rel="stylesheet" href="shop/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
 
     <!-- Animate css -->
-    <link rel="stylesheet" href="shop/plugins/animate/animate.css">
+    <link rel="stylesheet" href="plugins/animate/animate.css">
     <!-- Slick Carousel -->
-    <link rel="stylesheet" href="shop/plugins/slick/slick.css">
-    <link rel="stylesheet" href="shop/plugins/slick/slick-theme.css">
+    <link rel="stylesheet" href="plugins/slick/slick.css">
+    <link rel="stylesheet" href="plugins/slick/slick-theme.css">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="shop/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body id="body">
 
 <!-- Start Top Header Bar -->
-<jsp:include page="shop/header-bar.jsp"></jsp:include>
+<jsp:include page="header-bar.jsp"></jsp:include>
 
 <div class="hero-slider" style="transition: 1s ease">
-    <div class="slider-item th-fullpage hero-area" style="background-image: url(shop/images/slider/slider-1.png);">
+    <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-1.png);">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 text-center">
                     <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">#Thehome - Ring</p>
                     <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Elegant.....</h1>
                     <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn"
-                       href="shop/shop.html">Shop Now</a>
+                       href="shop.html">Shop Now</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="slider-item th-fullpage hero-area" style="background-image: url(shop/images/slider/slider-3.png);">
+    <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-3.png);">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 text-right">
                     <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">#Thehome - Necklace</p>
                     <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Stylish.....</h1>
                     <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn"
-                       href="shop/shop.html">Shop Now</a>
+                       href="shop.html">Shop Now</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="slider-item th-fullpage hero-area" style="background-image: url(shop/images/slider/slider-2.png);">
+    <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-2.png);">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 text-left">
                     <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">#Thehome - Earring</p>
                     <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Cool.....</h1>
                     <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn"
-                       href="shop/shop.html">Shop Now</a>
+                       href="shop.html">Shop Now</a>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
             <div class="col-md-6">
                 <div class="category-box">
                     <a href="#!">
-                        <img src="shop/images/shop/category/category-1.png" alt=""/>
+                        <img src="images/shop/category/category-1.png" alt=""/>
                         <div class="content">
                             <h3 style="color: whitesmoke">Bracelet</h3>
                         </div>
@@ -111,7 +111,7 @@
                 </div>
                 <div class="category-box">
                     <a href="#!">
-                        <img src="shop/images/shop/category/category-2.png" alt=""/>
+                        <img src="images/shop/category/category-2.png" alt=""/>
                         <div class="content">
                             <h3 style="color: whitesmoke">Ring</h3>
                         </div>
@@ -121,7 +121,7 @@
             <div class="col-md-6">
                 <div class="category-box category-box-2">
                     <a href="#!">
-                        <img src="shop/images/shop/category/category-3.png" alt=""/>
+                        <img src="images/shop/category/category-3.png" alt=""/>
                         <div class="content">
                             <h3 style="color: whitesmoke">Necklace</h3>
                         </div>
@@ -164,7 +164,7 @@
                             </div>
                         </div>
                         <div class="product-content">
-                            <h4><a href="shop/product-single.html">${items.getName()}</a></h4>
+                            <h4><a href="product-single.html">${items.getName()}</a></h4>
                             <p class="price">$${items.getPrice()}</p>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                                             <p class="product-short-description">
                                                 ${items.getDecreption()}
                                             </p>
-                                            <a href="shop/cart.html" class="btn btn-main">Add To Cart</a>
+                                            <a href="CartServlet?itemId=${items.getId()}" class="btn btn-main">Add To Cart</a>
                                             <a href="ShopServlet?action=viewDetail&id=${items.getId()}" class="btn btn-transparent">View Product
                                                 Details</a>
                                         </div>
@@ -252,35 +252,33 @@ Start Call To Action
 </section>
 
 
-<jsp:include page="shop/footer-bar.jsp"></jsp:include>
+<jsp:include page="footer-bar.jsp"></jsp:include>
 
 <!--
 Essential Scripts
 =====================================-->
 
 <!-- Main jQuery -->
-<script src="shop/plugins/jquery/dist/jquery.min.js"></script>
+<script src="plugins/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.1 -->
-<script src="shop/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
 <!-- Bootstrap Touchpin -->
-<script src="shop/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+<script src="plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
 <!-- Instagram Feed Js -->
-<script src="shop/plugins/instafeed/instafeed.min.js"></script>
+<script src="plugins/instafeed/instafeed.min.js"></script>
 <!-- Video Lightbox Plugin -->
-<script src="shop/plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+<script src="plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
 <!-- Count Down Js -->
-<script src="shop/plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+<script src="plugins/syo-timer/build/jquery.syotimer.min.js"></script>
 
 <!-- slick Carousel -->
-<script src="shop/plugins/slick/slick.min.js"></script>
-<script src="shop/plugins/slick/slick-animation.min.js"></script>
+<script src="plugins/slick/slick.min.js"></script>
+<script src="plugins/slick/slick-animation.min.js"></script>
 
 <!-- Google Mapl -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-<script type="text/javascript" src="shop/plugins/google-map/gmap.js"></script>
 
 <!-- Main Js File -->
-<script src="shop/js/script.js"></script>
+<script src="js/script.js"></script>
 
 
 </body>
