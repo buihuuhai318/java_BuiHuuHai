@@ -13,7 +13,11 @@ public class CalculatorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Calculator calculator = new Calculator(Double.parseDouble(request.getParameter("firstOperand")), request.getParameter("operator").charAt(0), Double.parseDouble(request.getParameter("secondOperand")));
+        double firstOperand = Double.parseDouble(request.getParameter("firstOperand"));
+        double secondOperand = Double.parseDouble(request.getParameter("secondOperand"));
+        char operator = request.getParameter("operator").charAt(0);
+
+        Calculator calculator = new Calculator(firstOperand, operator, secondOperand);
 
         PrintWriter writer = response.getWriter();
 
