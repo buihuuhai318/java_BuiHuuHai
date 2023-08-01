@@ -13,6 +13,7 @@
 </head>
 <body>
 <a href="/UsersServlet?action=create">Them moi</a>
+<a href="/UsersServlet?action=findCountry">Timkiem theo country</a>
 <table>
   <tr>
     <td>ID</td>
