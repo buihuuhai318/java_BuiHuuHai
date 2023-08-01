@@ -65,51 +65,70 @@
     </div>
 </section>
 
-
-<div class="page-wrapper">
-    <div class="cart shopping">
+<c:if test="${empty requestScope['orderList']}">
+    <section class="empty-cart page-wrapper">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="block">
-                        <div class="product-list">
-                            <form method="post">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th class="">Item Name</th>
-                                        <th class="">Item Quantity</th>
-                                        <th class="">Item Price</th>
-                                        <th class="">Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${orderList}" var="orderList">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="block text-center">
+                        <i class="tf-ion-ios-cart-outline"></i>
+                        <h2 class="text-center">Your cart is currently empty.</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, sed.</p>
+                        <a href="/ShopServlet" class="btn btn-main mt-20">Return to shop</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</c:if>
+
+<c:if test="${not empty requestScope['orderList']}">
+    <div class="page-wrapper">
+        <div class="cart shopping">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="block">
+                            <div class="product-list">
+                                <form method="post">
+                                    <table class="table">
+                                        <thead>
                                         <tr>
-                                            <td>
-                                                <div class="product-info">
-                                                    <img width="80" src="item-image/${orderList.getItems().getItemType().getName()}/${orderList.getItems().getImageList().get(0).getUrl()}" alt=""/>
-                                                    <a href="/ShopServlet?action=viewDetail&id=${orderList.getItems().getId()}">${orderList.getItems().getName()}</a>
-                                                </div>
-                                            </td>
-                                            <td>${orderList.getQuantity()}</td>
-                                            <td>$${orderList.getPrice()}</td>
-                                            <td>
-                                                <a class="product-remove" href="/ShopServlet?action=deleteCart&id=${orderList.getItems().getId()}">Remove</a>
-                                            </td>
+                                            <th class="">Item Name</th>
+                                            <th class="">Item Quantity</th>
+                                            <th class="">Item Price</th>
+                                            <th class="">Actions</th>
                                         </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                                <a href="/ShopServlet?action=checkOut" class="btn btn-main pull-right">Checkout</a>
-                            </form>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach items="${orderList}" var="orderList">
+                                            <tr>
+                                                <td>
+                                                    <div class="product-info">
+                                                        <img width="80" src="item-image/${orderList.getItems().getItemType().getName()}/${orderList.getItems().getImageList().get(0).getUrl()}" alt=""/>
+                                                        <a href="/ShopServlet?action=viewDetail&id=${orderList.getItems().getId()}">${orderList.getItems().getName()}</a>
+                                                    </div>
+                                                </td>
+                                                <td>${orderList.getQuantity()}</td>
+                                                <td>$${orderList.getPrice()}</td>
+                                                <td>
+                                                    <a class="product-remove" href="/ShopServlet?action=deleteCart&id=${orderList.getItems().getId()}">Remove</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                    <a href="/ShopServlet?action=checkOut" class="btn btn-main pull-right">Checkout</a>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</c:if>
+
 
 
 <jsp:include page="footer-bar.jsp"></jsp:include>

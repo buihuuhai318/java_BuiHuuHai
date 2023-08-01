@@ -31,8 +31,8 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public void updateCart(int id, Cart cart) {
-        cartRepository.updateCart(id, cart);
+    public void updateCart(Cart cart) {
+        cartRepository.updateCart(cart);
     }
 
     @Override

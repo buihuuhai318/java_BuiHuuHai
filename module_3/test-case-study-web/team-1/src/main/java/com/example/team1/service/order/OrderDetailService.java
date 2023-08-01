@@ -5,6 +5,7 @@ import com.example.team1.repository.order.IOrderDetailRepository;
 import com.example.team1.repository.order.OrderDetailRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class OrderDetailService implements IOrderDetailService {
 
@@ -21,12 +22,7 @@ public class OrderDetailService implements IOrderDetailService {
     }
 
     @Override
-    public List<OrderDetail> selectAllOrder() {
-        return orderDetailRepository.selectAllOrder();
-    }
-
-    @Override
-    public List<OrderDetail> selectAllOrderByIdCart(int id) {
+    public Map<Integer, OrderDetail> selectAllOrderByIdCart(int id) {
         return orderDetailRepository.selectAllOrderByIdCart(id);
     }
 

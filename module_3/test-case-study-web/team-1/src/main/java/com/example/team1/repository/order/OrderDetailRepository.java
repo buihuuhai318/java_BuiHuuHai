@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDetailRepository implements IOrderDetailRepository {
 
@@ -79,8 +81,8 @@ public class OrderDetailRepository implements IOrderDetailRepository {
     }
 
     @Override
-    public List<OrderDetail> selectAllOrderByIdCart(int id) {
-        List<OrderDetail> detailList = new ArrayList<>();
+    public Map<Integer, OrderDetail> selectAllOrderByIdCart(int id) {
+        Map<Integer, OrderDetail> detailList = new HashMap<>();
         Connection connection = Base.getConnection();
 
         try {
@@ -94,7 +96,7 @@ public class OrderDetailRepository implements IOrderDetailRepository {
                     Items items = itemRepository.selectItem(itemId);
                     int quantity = resultSet.getInt("detail_quantity");
                     int priceTotal = resultSet.getInt("detail_price_total");
-                    detailList.add(new OrderDetail(id, items, quantity, priceTotal));
+                    detailList.put(itemId, new OrderDetail(id, items, quantity, priceTotal));
                 }
             }
             resultSet.close();

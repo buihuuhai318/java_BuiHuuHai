@@ -63,100 +63,145 @@
         </div>
     </div>
 </section>
-<div class="page-wrapper">
-    <div class="checkout shopping">
+
+<c:if test="${empty requestScope['orderList']}">
+    <section class="empty-cart page-wrapper">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
-                    <div class="block billing-details">
-                        <h4 class="widget-title">Billing Details</h4>
-                        <form class="checkout-form">
-                            <div class="form-group">
-                                <label for="name">Full Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="" value="${customers.getName()}">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" class="form-control" id="phone" name="phone" placeholder="" value="${customers.getPhone()}">
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Address</label>
-                                <input type="text" class="form-control" id="address" name="address" placeholder="" value="${customers.getAddress()}">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="block">
-                        <h4 class="widget-title">Payment Method</h4>
-                        <p>Credit Cart Details (Secure payment)</p>
-                        <div class="checkout-product-details">
-                            <div class="payment">
-                                <div class="card-details">
-                                    <form class="checkout-form">
-                                        <div class="form-group">
-                                            <label for="card-number">Card Number <span class="required">*</span></label>
-                                            <input id="card-number" class="form-control" type="tel"
-                                                   placeholder="•••• •••• •••• ••••">
-                                        </div>
-                                        <div class="form-group half-width padding-right">
-                                            <label for="card-expiry">Expiry (MM/YY) <span
-                                                    class="required">*</span></label>
-                                            <input id="card-expiry" class="form-control" type="tel"
-                                                   placeholder="MM / YY">
-                                        </div>
-                                        <div class="form-group half-width padding-left">
-                                            <label for="card-cvc">Card Code <span class="required">*</span></label>
-                                            <input id="card-cvc" class="form-control" type="tel" maxlength="4"
-                                                   placeholder="CVC">
-                                        </div>
-                                        <a href="confirmation.html" class="btn btn-main mt-20">Place Order</a>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-checkout-details">
-                        <div class="block">
-                            <h4 class="widget-title">Order Summary</h4>
-                            <c:set var="sum" value="${0}"/>
-                            <c:forEach items="${orderList}" var="orderList">
-                                <div class="media product-card">
-                                    <a class="pull-left" href="/ShopServlet?action=viewDetail&id=${orderList.getItems().getId()}">
-                                        <img class="media-object" src="item-image/${orderList.getItems().getItemType().getName()}/${orderList.getItems().getImageList().get(0).getUrl()}" alt="Image"/>
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="/ShopServlet?action=viewDetail&id=${orderList.getItems().getId()}">${orderList.getItems().getName()}</a></h4>
-                                        <p class="price">${orderList.getQuantity()} x $${orderList.getPrice()}</p>
-                                        <span class="remove"><a href="/ShopServlet?action=deleteCart&id=${orderList.getItems().getId()}" class="remove"></a></span>
-                                    </div>
-                                </div>
-                                <ul class="summary-prices">
-                                    <li>
-                                        <span>Subtotal:</span>
-                                        <span class="price">$${orderList.getQuantity() * orderList.getPrice()}</span>
-                                    </li>
-                                    <li>
-                                        <span>Shipping:</span>
-                                        <span>Free</span>
-                                    </li>
-                                </ul>
-                                <c:set var="sum" value="${sum + orderList.getQuantity() * orderList.getPrice()}"/>
-                            </c:forEach>
-                            <div class="summary-total">
-                                <span>Total</span>
-                                <span>$${sum}</span>
-                            </div>
-                            <div class="verified-icon">
-                                <img src="images/shop/verified.png" alt="">
-                            </div>
-                        </div>
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="block text-center">
+                        <i class="tf-ion-ios-cart-outline"></i>
+                        <h2 class="text-center">Your cart is currently empty.</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, sed.</p>
+                        <a href="/ShopServlet" class="btn btn-main mt-20">Return to shop</a>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+</c:if>
+
+<c:if test="${not empty requestScope['orderList']}">
+    <div class="page-wrapper">
+        <div class="checkout shopping">
+            <div class="container">
+                <div class="row">
+                    <form class="checkout-form" method="post" action="/PaymentServlet">
+                        <div class="col-md-8">
+                            <div class="block billing-details">
+                                <h4 class="widget-title">Billing Details</h4>
+
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder=""
+                                           value="${customers.getName()}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder=""
+                                           value="${customers.getPhone()}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder=""
+                                           value="${customers.getAddress()}">
+                                </div>
+                            </div>
+                            <div class="block">
+                                <h4 class="widget-title">Payment Method</h4>
+                                <div class="checkout-product-details">
+                                    <div class="payment">
+                                        <div class="card-details">
+                                            <div class="product-size">
+                                                <select class="form-control" name="paymentMethod">
+                                                    <c:forEach items="${paymentMethodList}" var="method">
+                                                        <option value="${method.getId()}">${method.getName()}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-main mt-20">Place Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="product-checkout-details">
+                                <div class="block">
+                                    <h4 class="widget-title">Order Summary</h4>
+                                    <c:set var="sum" value="${0}"/>
+                                    <c:forEach items="${orderList}" var="orderList">
+                                        <div class="media product-card">
+                                            <a class="pull-left"
+                                               href="/ShopServlet?action=viewDetail&id=${orderList.getItems().getId()}">
+                                                <img class="media-object"
+                                                     src="item-image/${orderList.getItems().getItemType().getName()}/${orderList.getItems().getImageList().get(0).getUrl()}"
+                                                     alt="Image"/>
+                                            </a>
+                                            <div class="media-body">
+                                                <h4 class="media-heading"><a
+                                                        href="/ShopServlet?action=viewDetail&id=${orderList.getItems().getId()}">${orderList.getItems().getName()}</a>
+                                                </h4>
+                                                <p class="price">${orderList.getQuantity()} x
+                                                    $${orderList.getPrice()}</p>
+                                                <a class="remove"
+                                                   href="/ShopServlet?action=deleteCart&id=${orderList.getItems().getId()}">Remove</a>
+                                            </div>
+                                        </div>
+                                        <div class="discount-code">
+                                            <p>Have a discount ? <a data-toggle="modal"
+                                                                    data-target="#coupon-modal${orderList.getItems().getId()}"
+                                                                    href="#!">enter
+                                                it here</a></p>
+                                        </div>
+                                        <ul class="summary-prices">
+                                            <li>
+                                                <span>Subtotal:</span>
+                                                <span class="price">$${orderList.getQuantity() * orderList.getPrice()}</span>
+                                            </li>
+                                            <li>
+                                                <span>Shipping:</span>
+                                                <span>Free</span>
+                                            </li>
+                                        </ul>
+                                        <c:set var="sum"
+                                               value="${sum + orderList.getQuantity() * orderList.getPrice()}"/>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="coupon-modal${orderList.getItems().getId()}"
+                                             tabindex="-1" role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                <input class="form-control" type="text"
+                                                                       placeholder="Enter Coupon Code For ${orderList.getItems().getName()}">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-main">Apply Coupon
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                    <div class="summary-total">
+                                        <span>Total</span>
+                                        <span>$${sum}</span>
+                                        <input type="hidden" value="${sum}" name="totalPrice">
+                                    </div>
+                                    <div class="verified-icon">
+                                        <img src="images/shop/verified.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</c:if>
 
 
 <jsp:include page="footer-bar.jsp"></jsp:include>

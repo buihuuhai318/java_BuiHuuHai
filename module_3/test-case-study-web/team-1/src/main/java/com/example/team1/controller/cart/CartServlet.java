@@ -17,7 +17,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "CartServlet", value = "/CartServlet")
 public class CartServlet extends HttpServlet {
@@ -43,40 +45,54 @@ public class CartServlet extends HttpServlet {
                     if (request.getParameter("quantity") != null) {
                         quantity = Integer.parseInt(request.getParameter("quantity"));
                     }
-                    if (session.getAttribute("cartId") == null) {
+                    if (session.getAttribute("cart") == null) {
                         Cart cart = new Cart(accounts);
                         cartService.insertCart(cart);
                         cart = cartService.selectLastCart();
-                        List<OrderDetail> orderList = new ArrayList<>();
+                        Map<Integer, OrderDetail> orderDetailMap = new HashMap<>();
                         OrderDetail orderDetail = new OrderDetail(cart.getId(), items, quantity, items.getPrice());
-                        orderList.add(orderDetail);
+                        orderDetailMap.put(id, orderDetail);
                         orderDetailService.insertOrder(orderDetail);
-                        cart.setDetailList(orderList);
+                        cart.setDetailList(orderDetailMap);
+                        List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
                         session.setAttribute("cart", cart);
                         session.setAttribute("cartId", cart.getId());
                         request.setAttribute("orderList", orderList);
-                        request.getRequestDispatcher("shop/cart.jsp").forward(request, response);
+                        String referer = request.getHeader("referer");
+                        if (referer != null) {
+                            response.sendRedirect(referer);
+                        } else {
+                            // Nếu không có trang trước đó, điều hướng về trang chủ hoặc trang giỏ hàng mặc định
+                            request.getRequestDispatcher("shop/cart.jsp").forward(request, response); // hoặc trang giỏ hàng mặc định
+                        }
                     } else {
                         Cart cart = (Cart) session.getAttribute("cart");
-                        List<OrderDetail> orderList = cart.getDetailList();
+                        Map<Integer, OrderDetail> orderDetailMap = cart.getDetailList();
                         boolean check = false;
-                        for (OrderDetail orderDetail : orderList) {
+                        for (OrderDetail orderDetail : orderDetailMap.values()) {
                             if (orderDetail.getItems().getId() == items.getId()) {
                                 orderDetail.setQuantity(orderDetail.getQuantity() + quantity);
-                                orderDetail.setPrice(orderDetail.getPrice() + items.getPrice());
+                                orderDetail.setPrice(items.getPrice());
                                 orderDetailService.updateOrder(cart.getId(), orderDetail);
                                 check = true;
                             }
                         }
                         if (!check) {
                             OrderDetail orderDetail = new OrderDetail(cart.getId(), items, quantity, items.getPrice());
-                            orderList.add(orderDetail);
+                            orderDetailMap.put(id, orderDetail);
                             orderDetailService.insertOrder(orderDetail);
                         }
                         session.setAttribute("cart", cart);
                         session.setAttribute("cartId", cart.getId());
+                        List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
                         request.setAttribute("orderList", orderList);
-                        request.getRequestDispatcher("shop/cart.jsp").forward(request, response);
+                        String referer = request.getHeader("referer");
+                        if (referer != null) {
+                            response.sendRedirect(referer);
+                        } else {
+                            // Nếu không có trang trước đó, điều hướng về trang chủ hoặc trang giỏ hàng mặc định
+                            request.getRequestDispatcher("shop/cart.jsp").forward(request, response); // hoặc trang giỏ hàng mặc định
+                        }
                     }
                 }
             }
@@ -87,6 +103,6 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 }

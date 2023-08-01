@@ -8,6 +8,7 @@ import com.example.team1.model.item.ItemType;
 import com.example.team1.model.item.Items;
 import com.example.team1.model.order.Cart;
 import com.example.team1.model.order.OrderDetail;
+import com.example.team1.model.payment.PaymentMethod;
 import com.example.team1.service.accounts.AccountService;
 import com.example.team1.service.accounts.IAccountService;
 import com.example.team1.service.customer.CustomerService;
@@ -17,6 +18,8 @@ import com.example.team1.service.order.CartService;
 import com.example.team1.service.order.ICartService;
 import com.example.team1.service.order.IOrderDetailService;
 import com.example.team1.service.order.OrderDetailService;
+import com.example.team1.service.payment.IPaymentMethodService;
+import com.example.team1.service.payment.PaymentMethodService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -24,6 +27,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "ShopServlet", value = "/ShopServlet")
 public class ShopServlet extends HttpServlet {
@@ -35,6 +39,7 @@ public class ShopServlet extends HttpServlet {
     private static final IOrderDetailService orderDetailService = new OrderDetailService();
     private static final IAccountService accountService = new AccountService();
     private static final ICustomerService customerService = new CustomerService();
+    private static final IPaymentMethodService paymentMethodService = new PaymentMethodService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,8 +76,10 @@ public class ShopServlet extends HttpServlet {
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
         request.setAttribute("customers", customers);
         Cart cart = (Cart) session.getAttribute("cart");
-        List<OrderDetail> orderList = cart.getDetailList();
+        List<PaymentMethod> paymentMethodList = new ArrayList<>(paymentMethodService.selectAll().values());
+        List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
         request.setAttribute("orderList", orderList);
+        request.setAttribute("paymentMethodList", paymentMethodList);
         request.getRequestDispatcher("shop/checkout.jsp").forward(request, response);
     }
 
@@ -81,17 +88,24 @@ public class ShopServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         orderDetailService.deleteOrder(cart.getId(), id);
-        List<OrderDetail> orderList = cartService.selectCart(cart.getId()).getDetailList();
-        cart.setDetailList(orderList);
+        Map<Integer, OrderDetail> orderMap = cart.getDetailList();
+        orderMap.remove(id);
+        List<OrderDetail> orderList = new ArrayList<>(orderMap.values());
         session.setAttribute("cart", cart);
         request.setAttribute("orderList", orderList);
-        request.getRequestDispatcher("shop/cart.jsp").forward(request, response);
+        String referer = request.getHeader("referer");
+        if (referer != null) {
+            response.sendRedirect(referer);
+        } else {
+            // Nếu không có trang trước đó, điều hướng về trang chủ hoặc trang giỏ hàng mặc định
+            request.getRequestDispatcher("shop/cart.jsp").forward(request, response); // hoặc trang giỏ hàng mặc định
+        }
     }
 
     private void viewCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
-        List<OrderDetail> orderList = cart.getDetailList();
+        List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
         request.setAttribute("orderList", orderList);
         request.getRequestDispatcher("shop/cart.jsp").forward(request, response);
     }
@@ -107,7 +121,7 @@ public class ShopServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("cart") != null) {
             Cart cart = (Cart) session.getAttribute("cart");
-            List<OrderDetail> orderList = cart.getDetailList();
+            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
             request.setAttribute("orderList", orderList);
         }
         request.getRequestDispatcher("shop/product-single.jsp").forward(request, response);
@@ -120,7 +134,7 @@ public class ShopServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("cart") != null) {
             Cart cart = (Cart) session.getAttribute("cart");
-            List<OrderDetail> orderList = cart.getDetailList();
+            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
             request.setAttribute("orderList", orderList);
         }
         request.setAttribute("itemsList", itemsList);
@@ -134,7 +148,7 @@ public class ShopServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("cart") != null) {
             Cart cart = (Cart) session.getAttribute("cart");
-            List<OrderDetail> orderList = cart.getDetailList();
+            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
             request.setAttribute("orderList", orderList);
         }
         request.setAttribute("itemsList", itemsList);

@@ -89,9 +89,27 @@ account_id int,
 order_date date not null,
 payment_date date,
 payment_status int default 0,
-time_stamp TIMESTAMP default now(),
 foreign key (account_id) references accounts(account_id)
 );
+
+create table bill (
+bill_id int primary key auto_increment,
+cart_id int,
+payment_id int,
+bill_date date,
+total_price int,
+phone varchar(20),
+address varchar(200),
+foreign key (cart_id) references carts(cart_id),
+foreign key (payment_id) references payment_method(payment_id)
+);
+
+create table payment_method (
+payment_id int primary key auto_increment,
+payment_name varchar(50)
+);
+
+insert into payment_method value (1, "Cash On Delivery"), (2, "VN-PAY");
 
 create table order_details (
 cart_id int,
@@ -126,6 +144,8 @@ join item_images on item_images.item_id = items.item_id
 group by items.item_id;
 
 select * from order_details;
+select * from carts;
+select * from bill;
 
 select * from items where item_type_id = 1;
 

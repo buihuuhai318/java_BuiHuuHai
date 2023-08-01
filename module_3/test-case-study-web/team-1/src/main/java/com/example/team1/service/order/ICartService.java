@@ -13,7 +13,7 @@ public interface ICartService {
 
     void deleteCart(int id);
 
-    void updateCart(int id, Cart cart);
+    void updateCart(Cart cart);
 
     Cart selectLastCart();
 }

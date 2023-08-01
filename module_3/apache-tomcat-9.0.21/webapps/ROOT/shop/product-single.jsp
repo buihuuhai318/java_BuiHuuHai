@@ -100,30 +100,32 @@
                 </div>
             </div>
             <div class="col-md-7">
-                <div class="single-product-details">
-                    <h2>${requestScope["items"].getName()}</h2>
-                    <p class="product-price">$${requestScope["items"].getPrice()}</p>
+                <form action="/CartServlet?itemId=${items.getId()}" method="post">
+                    <div class="single-product-details">
+                        <h2>${requestScope["items"].getName()}</h2>
+                        <p class="product-price">$${requestScope["items"].getPrice()}</p>
 
-                    <p class="product-description mt-20">
-                        ${requestScope["items"].getDecreption()}
-                    </p>
-                    <div class="product-size">
-                        <span>Size:</span>
-                        <select class="form-control">
-                            <option>S</option>
-                            <option>M</option>
-                            <option>L</option>
-                            <option>XL</option>
-                        </select>
-                    </div>
-                    <div class="product-quantity">
-                        <span>Quantity:</span>
-                        <div class="product-quantity-slider">
-                            <input type="text" value="0" name="quantity">
+                        <p class="product-description mt-20">
+                            ${requestScope["items"].getDecreption()}
+                        </p>
+                        <div class="product-size">
+                            <span>Size:</span>
+                            <select class="form-control">
+                                <option>S</option>
+                                <option>M</option>
+                                <option>L</option>
+                                <option>XL</option>
+                            </select>
                         </div>
+                        <div class="product-quantity">
+                            <span>Quantity:</span>
+                            <div class="product-quantity-slider">
+                                <input type="text" value="0" name="quantity">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-main mt-20">Add To Cart</button>
                     </div>
-                    <a href="/CartServlet?itemId=${items.getId()}" class="btn btn-main mt-20">Add To Cart</a>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -191,7 +193,8 @@
                                                 <p class="product-short-description">
                                                         ${items.getDecreption()}
                                                 </p>
-                                                <a href="/CartServlet?itemId=${items.getId()}" class="btn btn-main">Add To Cart</a>
+                                                <a href="/CartServlet?itemId=${items.getId()}" class="btn btn-main">Add
+                                                    To Cart</a>
                                                 <a href="/ShopServlet?action=viewDetail&id=${items.getId()}"
                                                    class="btn btn-transparent">View Product Details</a>
                                             </div>

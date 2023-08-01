@@ -69,7 +69,7 @@ public class CartRepository implements ICartRepository {
                 String paymentDate = resultSet.getString("payment_date");
                 int paymentStatus = resultSet.getInt("payment_status");
 
-                List<OrderDetail> orderDetailList = orderDetailRepository.selectAllOrderByIdCart(id);
+                Map<Integer, OrderDetail> orderDetailList = orderDetailRepository.selectAllOrderByIdCart(id);
 
                 cart = new Cart(id, accounts, orderDate, paymentDate, orderDetailList, paymentStatus);
             }
@@ -97,7 +97,7 @@ public class CartRepository implements ICartRepository {
                 String paymentDate = resultSet.getString("payment_date");
                 int paymentStatus = resultSet.getInt("payment_status");
 
-                List<OrderDetail> orderDetailList = orderDetailRepository.selectAllOrderByIdCart(id);
+                Map<Integer, OrderDetail> orderDetailList = orderDetailRepository.selectAllOrderByIdCart(id);
 
                 cartMap.put(id, new Cart(id, accounts, orderDate, paymentDate, orderDetailList, paymentStatus));
             }
@@ -123,13 +123,13 @@ public class CartRepository implements ICartRepository {
     }
 
     @Override
-    public void updateCart(int id, Cart cart) {
+    public void updateCart(Cart cart) {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE);
             preparedStatement.setString(1, cart.getPaymentDate());
             preparedStatement.setInt(2, cart.getPaymentStatus());
-            preparedStatement.setInt(3, id);
+            preparedStatement.setInt(3, cart.getId());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
