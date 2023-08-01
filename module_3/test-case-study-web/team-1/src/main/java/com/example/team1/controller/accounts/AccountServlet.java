@@ -114,6 +114,28 @@ public class AccountServlet extends HttpServlet {
     }
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username;
+        String password;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            username = "";
+            password = "";
+
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    username = cookie.getValue();
+                } else if (cookie.getName().equals("password")) {
+                    password = cookie.getValue();
+                }
+            }
+
+            // Nếu có cả hai thông tin đăng nhập, thực hiện đăng nhập tự động
+            if (username != null && password != null) {
+                request.setAttribute("username", username);
+                request.setAttribute("password", password);
+                request.getRequestDispatcher("/shop/login.jsp").forward(request, response);
+            }
+        }
         response.sendRedirect("/shop/login.jsp");
     }
 
@@ -306,6 +328,17 @@ public class AccountServlet extends HttpServlet {
 
             RequestDispatcher dispatcher;
             if (accounts.getRole().getId() == Roles.CUSTOMER) {
+                Cookie user = new Cookie("username", username);
+                Cookie pass = new Cookie("password", password);
+                if (request.getParameter("rememberMe") != null) {
+                    user.setMaxAge(60 * 60 * 24);
+                    pass.setMaxAge(60 * 60 * 24);
+                } else {
+                    user.setMaxAge(0);
+                    pass.setMaxAge(0);
+                }
+                response.addCookie(user);
+                response.addCookie(pass);
                 response.sendRedirect("/ShopServlet");
             } else {
                 dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");

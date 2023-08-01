@@ -1,16 +1,20 @@
 package com.example.team1.controller.payment;
 
 import com.example.team1.controller.shop.ShopServlet;
+import com.example.team1.model.accounts.Accounts;
 import com.example.team1.model.order.Cart;
 import com.example.team1.model.order.OrderDetail;
 import com.example.team1.model.payment.Bill;
 import com.example.team1.model.payment.PaymentMethod;
+import com.example.team1.service.accounts.AccountService;
+import com.example.team1.service.accounts.IAccountService;
 import com.example.team1.service.order.CartService;
 import com.example.team1.service.order.ICartService;
 import com.example.team1.service.payment.BillService;
 import com.example.team1.service.payment.IBillService;
 import com.example.team1.service.payment.IPaymentMethodService;
 import com.example.team1.service.payment.PaymentMethodService;
+import com.example.team1.util.Email;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -29,6 +33,8 @@ public class PaymentServlet extends HttpServlet {
 
     private static final IBillService billService = new BillService();
 
+    private static final IAccountService accountService = new AccountService();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -37,6 +43,7 @@ public class PaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        Accounts accounts = accountService.selectAccount((Integer) session.getAttribute("id_account"));
         if (session.getAttribute("cart") != null) {
             Cart cart = (Cart) session.getAttribute("cart");
             cart.setPaymentDate(String.valueOf(LocalDate.now()));
@@ -51,7 +58,10 @@ public class PaymentServlet extends HttpServlet {
             billService.insertBill(bill);
             request.setAttribute("bill", bill);
             request.setAttribute("cart", cart);
-            session.invalidate();
+            session.removeAttribute("cart");
+            session.removeAttribute("cartId");
+            String content = Email.getContent(bill, cart);
+            Email.sendEmail(accounts.getEmail(), "#Thehomr - Purchase Confirmation", content);
             request.getRequestDispatcher("shop/purchase-confirmation.jsp").forward(request, response);
         } else {
             response.sendRedirect("/ShopServlet");
