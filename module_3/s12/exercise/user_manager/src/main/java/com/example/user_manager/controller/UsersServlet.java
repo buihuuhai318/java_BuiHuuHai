@@ -30,9 +30,6 @@ public class UsersServlet extends HttpServlet {
             case "edit":
                 showEdit(request, response);
                 break;
-            case "findCountry":
-                showFindCountry(request, response);
-                break;
             default:
                 showList(request, response);
                 break;
@@ -40,12 +37,6 @@ public class UsersServlet extends HttpServlet {
 
         }
     }
-
-    private void showFindCountry(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/find_country.jsp");
-        requestDispatcher.forward(request, response);
-    }
-
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Users> usersList = usersService.display();
         String mess = request.getParameter("mess");
@@ -88,9 +79,6 @@ public class UsersServlet extends HttpServlet {
             case "create":
                 create(request, response);
                 break;
-            case "findCountry":
-                findCountry(request, response);
-                break;
             case "delete":
                 delete(request, response);
                 break;
@@ -114,14 +102,6 @@ public class UsersServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         usersService.delete(id);
         response.sendRedirect("/UsersServlet");
-    }
-
-    private void findCountry(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String country = request.getParameter("country");
-        List<Users> usersList = usersService.findCountry(country);
-        request.setAttribute("usersList", usersList);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("find_country.jsp");
-        requestDispatcher.forward(request, response);
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws IOException {

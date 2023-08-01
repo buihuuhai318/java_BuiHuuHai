@@ -12,7 +12,7 @@ values("nghia","nghia@yahoo.com","thai lan");
 DELIMITER //
 create procedure select_all()
 begin
-select*
+select *
 from users;
 end ; //
 DELIMITER ;
@@ -42,4 +42,5 @@ update users set name = name_data , email = email_data, country = country_data
 where id = id_data;
 end ; //
 DELIMITER ;
-call edit_data(1,"tri vo","tri@gmail.com","viet nam");
+
+call edit_data(1,"hai","huuhai@gmail.com","india");

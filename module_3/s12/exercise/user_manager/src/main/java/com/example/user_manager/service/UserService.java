@@ -34,9 +34,4 @@ public class UserService implements IUsersService {
     public void edit(int id, Users users) {
         userRepository.updateUsers(id, users);
     }
-
-    @Override
-    public List<Users> findCountry(String country) {
-        return userRepository.findCountry(country);
-    }
 }

@@ -14,6 +14,4 @@ public interface IUsersService {
     void delete(int id);
 
     void edit(int id, Users users);
-
-    List<Users> findCountry(String country);
 }

@@ -14,6 +14,4 @@ public interface IUserRepository {
    void deleteUsers(int id);
 
    void updateUsers(int id, Users users);
-
-   List<Users> findCountry(String country);
 }
