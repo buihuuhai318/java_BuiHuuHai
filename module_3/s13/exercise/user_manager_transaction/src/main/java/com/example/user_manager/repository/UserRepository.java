@@ -18,13 +18,22 @@ public class UserRepository implements IUserRepository {
     public void insertUser(Users users) {
         Connection connection = Base.getConnection();
         try {
+            connection.setAutoCommit(false);
             CallableStatement callableStatement = connection.prepareCall(INSERT);
             callableStatement.setString(1, users.getName());
             callableStatement.setString(2, users.getEmail());
             callableStatement.setString(3, users.getCountry());
             callableStatement.executeUpdate();
+            connection.commit();
+            connection.setAutoCommit(true);
             connection.close();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+                connection.close();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             throw new RuntimeException(e);
         }
     }
@@ -34,6 +43,7 @@ public class UserRepository implements IUserRepository {
         Users users = null;
         Connection connection = Base.getConnection();
         try {
+            connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -43,8 +53,16 @@ public class UserRepository implements IUserRepository {
                 String country = resultSet.getString("country");
                 users = new Users(id, name, email, country);
             }
+            connection.commit();
+            connection.setAutoCommit(true);
             connection.close();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+                connection.close();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             throw new RuntimeException(e);
         }
         return users;
@@ -55,6 +73,7 @@ public class UserRepository implements IUserRepository {
         List<Users> users = new ArrayList<>();
         Connection connection = Base.getConnection();
         try {
+            connection.setAutoCommit(false);
             CallableStatement callableStatement = connection.prepareCall(SELECT_ALL);
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
@@ -64,8 +83,16 @@ public class UserRepository implements IUserRepository {
                 String country = resultSet.getString("country");
                 users.add(new Users(id, name, email, country));
             }
+            connection.commit();
+            connection.setAutoCommit(true);
             connection.close();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+                connection.close();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             throw new RuntimeException(e);
         }
         return users;
@@ -75,11 +102,20 @@ public class UserRepository implements IUserRepository {
     public void deleteUsers(int id) {
         Connection connection = Base.getConnection();
         try {
+            connection.setAutoCommit(false);
             CallableStatement callableStatement = connection.prepareCall(DELETE);
             callableStatement.setInt(1, id);
             callableStatement.executeUpdate();
+            connection.commit();
+            connection.setAutoCommit(true);
             connection.close();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+                connection.close();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             throw new RuntimeException(e);
         }
     }
@@ -88,14 +124,23 @@ public class UserRepository implements IUserRepository {
     public void updateUsers(int id, Users users) {
         Connection connection = Base.getConnection();
         try {
+            connection.setAutoCommit(false);
             CallableStatement callableStatement = connection.prepareCall(UPDATE);
             callableStatement.setInt(1, id);
             callableStatement.setString(2, users.getName());
             callableStatement.setString(3, users.getEmail());
             callableStatement.setString(4, users.getCountry());
             callableStatement.executeUpdate();
+            connection.commit();
+            connection.setAutoCommit(true);
             connection.close();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+                connection.close();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             throw new RuntimeException(e);
         }
     }
