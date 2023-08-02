@@ -32,7 +32,7 @@
     $('.instagram-slider').slick({
       dots: false,
       speed: 300,
-      // autoplay: true,
+      autoplay: true,
       arrows: false,
       slidesToShow: 6,
       slidesToScroll: 1,
@@ -88,8 +88,8 @@
     nextArrow: '<button type=\'button\' class=\'heroSliderArrow nextArrow tf-ion-chevron-right\'></button>',
     dots: true,
     autoplaySpeed: 7000,
-    pauseOnFocus: true,
-    pauseOnHover: true
+    pauseOnFocus: false,
+    pauseOnHover: false
   });
   $('.hero-slider').slickAnimation();
 

@@ -1,3 +1,7 @@
+create database users;
+
+use users;
+
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(120) NOT NULL,
@@ -36,9 +40,10 @@ DELIMITER ;
 
 
 DELIMITER //
-create procedure edit_data(IN id_data int,IN name_data varchar(250),IN email_data varchar(250))
+create procedure edit_data(IN id_data int,IN name_data varchar(250),IN email_data varchar(250), IN country_data varchar(250))
 begin
-update users set name = name_data , email = email_data, country = country_data 
+update users 
+set name = name_data , email = email_data, country = country_data 
 where id = id_data;
 end ; //
 DELIMITER ;
