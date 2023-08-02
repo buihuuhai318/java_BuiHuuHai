@@ -42,7 +42,29 @@ public class ShopServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            default:
+                showIndex(request, response);
+                break;
+        }
+    }
 
+    private void showIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Items> itemsList = new ArrayList<>(itemService.selectItemHot().values());
+        List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
+        HttpSession session = request.getSession();
+        if (session.getAttribute("cart") != null) {
+            Cart cart = (Cart) session.getAttribute("cart");
+            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
+            request.setAttribute("orderList", orderList);
+        }
+        request.setAttribute("itemsList", itemsList);
+        request.setAttribute("itemTypeList", itemTypeList);
+        request.getRequestDispatcher("shop/index.jsp").forward(request, response);
     }
 
     @Override
