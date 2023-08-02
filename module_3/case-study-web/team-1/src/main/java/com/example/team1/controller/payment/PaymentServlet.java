@@ -46,36 +46,6 @@ public class PaymentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Accounts accounts = accountService.selectAccount((Integer) session.getAttribute("id_account"));
-        if (session.getAttribute("cart") != null) {
-            Cart cart = (Cart) session.getAttribute("cart");
-            cart.setPaymentDate(String.valueOf(LocalDate.now()));
-            cart.setPaymentStatus(1);
-            cartService.updateCart(cart);
-            String phone = request.getParameter("phone");
-            String address = request.getParameter("address");
-            int price = Integer.parseInt(request.getParameter("totalPrice"));
-            int paymentId = Integer.parseInt(request.getParameter("paymentMethod"));
-            PaymentMethod paymentMethod = paymentMethodService.selectAll().get(paymentId);
-            Bill bill = new Bill(cart, paymentMethod, price, phone, address);
-            billService.insertBill(bill);
-            List<OrderDetail> orderDetailList = new ArrayList<>(cart.getDetailList().values());
-            Items items;
-            for (OrderDetail orderDetail : orderDetailList) {
-                items = orderDetail.getItems();
-                items.setInventory(items.getInventory() - orderDetail.getQuantity());
-                itemService.updateInventoryItem(items.getId(), items);
-            }
-            request.setAttribute("bill", bill);
-            request.setAttribute("cart", cart);
-            session.removeAttribute("cart");
-            session.removeAttribute("cartId");
-            String content = Email.getContent(bill, cart);
-            Email.sendEmail(accounts.getEmail(), "#Thehome - Purchase Confirmation - Payment: " + cart.getId(), content);
-            request.getRequestDispatcher("shop/purchase-confirmation.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("/ShopServlet");
-        }
+
     }
 }
