@@ -118,12 +118,22 @@
                             </select>
                         </div>
                         <div class="product-quantity">
-                            <span>Quantity:</span>
+                            <span style="margin-bottom: 38px">Quantity:</span>
                             <div class="product-quantity-slider">
-                                <input type="text" value="0" name="quantity">
+                                <input type="number" value="0" name="quantity" min="0" max="${items.getInventory()}" style="margin-bottom: 10px">
+                                <p>Remain: ${items.getInventory()}</p>
                             </div>
+                            <div class="product-quantity">
+
+                            </div>
+
                         </div>
-                        <button type="submit" class="btn btn-main mt-20">Add To Cart</button>
+                        <c:if test="${items.getInventory() == 0}">
+                            <button type="submit" class="btn btn-main mt-20" disabled>Sold Out</button>
+                        </c:if>
+                        <c:if test="${items.getInventory() > 0}">
+                            <button type="submit" class="btn btn-main mt-20">Add To Cart</button>
+                        </c:if>
                     </div>
                 </form>
             </div>
@@ -145,7 +155,7 @@
                     <div class="col-md-3">
                         <div class="product-item">
                             <div class="product-thumb">
-                                <img class="img-responsive"
+                                <img class="img-responsive" style="height: 20em"
                                      src="item-image/${items.getItemType().getName()}/${items.getImageList().get(1).getUrl()}"
                                      alt="product-img"/>
                                 <div class="preview-meta">
@@ -159,8 +169,10 @@
                                             <a href="#"><i class="tf-ion-ios-heart"></i></a>
                                         </li>
                                         <li>
-                                            <a href="/CartServlet?itemId=${items.getId()}"><i
-                                                    class="tf-ion-android-cart"></i></a>
+                                            <c:if test="${items.getInventory() > 0}">
+                                                <a href="/CartServlet?itemId=${items.getId()}" ><i
+                                                        class="tf-ion-android-cart"></i></a>
+                                            </c:if>
                                         </li>
                                     </ul>
                                 </div>
@@ -193,8 +205,14 @@
                                                 <p class="product-short-description">
                                                         ${items.getDecreption()}
                                                 </p>
-                                                <a href="/CartServlet?itemId=${items.getId()}" class="btn btn-main">Add
-                                                    To Cart</a>
+                                                <c:if test="${items.getInventory() == 0}">
+                                                    <button onclick="window.location.href='/CartServlet?itemId=${items.getId()}'" type="button" class="btn btn-main" disabled>Sold Out</button>
+                                                </c:if>
+                                                <c:if test="${items.getInventory() > 0}">
+                                                    <button onclick="window.location.href='/CartServlet?itemId=${items.getId()}'" type="button" class="btn btn-main" >Add
+                                                        To Cart</button>
+                                                </c:if>
+
                                                 <a href="/ShopServlet?action=viewDetail&id=${items.getId()}"
                                                    class="btn btn-transparent">View Product Details</a>
                                             </div>

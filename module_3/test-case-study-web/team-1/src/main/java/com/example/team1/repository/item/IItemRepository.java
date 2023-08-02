@@ -14,6 +14,8 @@ public interface IItemRepository {
 
     Map<Integer, Items> selectItemHot();
 
+    Map<Integer, Items> searchItem(String searchKeyword);
+
     Map<Integer, Items> selectItemByType(int typeId);
 
     Map<String, Items> selectAllItemByCode();
@@ -21,4 +23,5 @@ public interface IItemRepository {
     void availableItem(int id, boolean available);
 
     void updateItem(int id, Items items);
+    void updateInventoryItem(int id, Items items);
 }

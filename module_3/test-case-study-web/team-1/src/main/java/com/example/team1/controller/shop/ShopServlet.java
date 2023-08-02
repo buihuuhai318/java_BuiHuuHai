@@ -63,10 +63,25 @@ public class ShopServlet extends HttpServlet {
             case "checkOut":
                 checkOut(request, response);
                 break;
+            case "search":
+                searchItem(request, response);
             default:
                 showIndex(request, response);
                 break;
         }
+    }
+
+    private void searchItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String searchKeyword = request.getParameter("searchKeyword");
+        List<Items> itemsList = new ArrayList<>(itemService.searchItem(searchKeyword).values());
+        HttpSession session = request.getSession();
+        if (session.getAttribute("cart") != null) {
+            Cart cart = (Cart) session.getAttribute("cart");
+            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
+            request.setAttribute("orderList", orderList);
+        }
+        request.setAttribute("itemsList", itemsList);
+        request.getRequestDispatcher("shop/shop.jsp").forward(request, response);
     }
 
     private void checkOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

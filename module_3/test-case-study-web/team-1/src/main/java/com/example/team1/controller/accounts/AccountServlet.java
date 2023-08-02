@@ -341,12 +341,11 @@ public class AccountServlet extends HttpServlet {
                 response.addCookie(pass);
                 response.sendRedirect("/ShopServlet");
             } else {
-                dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");
-                dispatcher.forward(request, response);
+                response.sendRedirect("/AdminServlet?action=index");
             }
         } else {
             request.setAttribute("mess", "fail");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/shop/login.jsp");
             dispatcher.forward(request, response);
         }
     }

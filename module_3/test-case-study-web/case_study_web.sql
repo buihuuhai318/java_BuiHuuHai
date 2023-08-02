@@ -121,6 +121,17 @@ foreign key (item_id) references items(item_id),
 foreign key (cart_id) references carts(cart_id)
 );
 
+DELIMITER //
+CREATE PROCEDURE search_items(IN searchKeyword VARCHAR(100))
+BEGIN
+    SELECT * FROM items
+    join item_types on items.item_type_id = item_types.item_type_id
+    WHERE item_type_name LIKE CONCAT('%', searchKeyword, '%') OR item_name LIKE CONCAT('%', searchKeyword, '%');
+END //
+DELIMITER ;
+
+call search_items("Bracelet");
+
 -- update accounts
 -- set account_status = 1
 -- where account_id = 1;
@@ -157,6 +168,37 @@ GROUP BY items.item_id, items.item_type_id
 ORDER BY total_quantity DESC
 limit 9;
 
+DELIMITER //
+CREATE PROCEDURE hot_items ()
+BEGIN
+SELECT items.item_name, item_types.item_type_name, SUM(detail_quantity) AS total_quantity, (items.item_price * SUM(detail_quantity))
+FROM items
+left JOIN order_details ON order_details.item_id = items.item_id
+left join item_types on items.item_type_id = item_types.item_type_id
+GROUP BY items.item_id, items.item_type_id
+ORDER BY total_quantity DESC
+limit 9;
+END //
+DELIMITER ;
+
+call hot_items;
+
+DELIMITER //
+CREATE PROCEDURE hot_accounts ()
+BEGIN
+SELECT customers.customer_id, customers.customer_name, customer_types.customer_type_name, count(bill.cart_id) AS total_cart, SUM(bill.total_price) as total_price
+FROM accounts
+left JOIN customers ON accounts.account_id = customers.account_id
+left JOIN customer_types ON customers.customer_type_id = customer_types.customer_type_id
+left JOIN carts ON accounts.account_id = carts.account_id
+left join bill on carts.cart_id = bill.cart_id
+GROUP BY customer_id
+ORDER BY total_price DESC
+limit 9;
+END //
+DELIMITER ;
+
+call hot_items;
 
 -- delete from item_images where image_id = 1;
 insert into customers value (1, "bui huu hai", 0, "1996-08-31", "0942409424", "buihuuhai318@gmail.com", "da nang", 0, "", 1, 1);

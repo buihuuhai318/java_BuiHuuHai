@@ -25,6 +25,10 @@ public class ItemRepository implements IItemRepository {
             "item_type_id = ?" +
             "where item_id = ?";
 
+    private static final String UPDATE_INVENTORY = "update items set " +
+            "item_inventory = ? " +
+            "where item_id = ?";
+
     private static final String HOT_SALE = "SELECT items.item_id, items.item_type_id, GROUP_CONCAT(item_images.image_url) AS image_urls, SUM(detail_quantity) AS total_quantity " +
             "FROM items " +
             "left JOIN order_details ON order_details.item_id = items.item_id " +
@@ -33,7 +37,7 @@ public class ItemRepository implements IItemRepository {
             "ORDER BY total_quantity DESC " +
             "limit 9;";
 
-    private static final String SELECT_BY_TYPE = "select * from items where item_type_id = ?";
+    private static final String SEARCH = "call search_items(?);";
 
     private final IItemImageRepository itemImageRepository = new ItemImageRepository();
 
@@ -84,7 +88,9 @@ public class ItemRepository implements IItemRepository {
                 List<ItemImage> imageList = itemImageRepository.selectImageByItem(id);
                 ItemType itemType = itemTypeRepository.selectItemType(typeId);
 
-                itemsMap.put(id, new Items(id, code, name, price, inventory, available, decreption, imageList, itemType));
+                if (available == 0) {
+                    itemsMap.put(id, new Items(id, code, name, price, inventory, available, decreption, imageList, itemType));
+                }
             }
             resultSet.close();
             connection.close();
@@ -102,6 +108,36 @@ public class ItemRepository implements IItemRepository {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(HOT_SALE);
             ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("item_id");
+                int typeId = resultSet.getInt("item_type_id");
+                Items items = selectItem(id);
+                List<ItemImage> imageList = itemImageRepository.selectImageByItem(id);
+                ItemType itemType = itemTypeRepository.selectItemType(typeId);
+                items.setItemType(itemType);
+                items.setImageList(imageList);
+                if (items.getAvailable() == 0) {
+                    itemsMap.put(id, items);
+                }
+            }
+            resultSet.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return itemsMap;
+    }
+
+    @Override
+    public Map<Integer, Items> searchItem(String searchKeyword) {
+        Map<Integer, Items> itemsMap = new HashMap<>();
+        Connection connection = Base.getConnection();
+
+        try {
+            CallableStatement callableStatement = connection.prepareCall(SEARCH);
+            callableStatement.setString(1, searchKeyword);
+            callableStatement.executeUpdate();
+            ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("item_id");
                 int typeId = resultSet.getInt("item_type_id");
@@ -218,6 +254,20 @@ public class ItemRepository implements IItemRepository {
             preparedStatement.setInt(6, items.getAvailable());
             preparedStatement.setInt(7, items.getItemType().getId());
             preparedStatement.setInt(8, id);
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateInventoryItem(int id, Items items) {
+        Connection connection = Base.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_INVENTORY);
+            preparedStatement.setInt(1, items.getInventory());
+            preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {

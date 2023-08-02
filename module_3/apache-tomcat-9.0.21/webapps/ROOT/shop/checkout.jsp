@@ -99,12 +99,12 @@
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
                                     <input type="text" class="form-control" id="phone" name="phone" placeholder=""
-                                           value="${customers.getPhone()}">
+                                           value="${customers.getPhone()}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Address</label>
                                     <input type="text" class="form-control" id="address" name="address" placeholder=""
-                                           value="${customers.getAddress()}">
+                                           value="${customers.getAddress()}" required>
                                 </div>
                             </div>
                             <div class="block">

@@ -49,4 +49,14 @@ public class ItemService implements IItemService {
     public Map<Integer, Items> selectItemByType(int typeId) {
         return itemRepository.selectItemByType(typeId);
     }
+
+    @Override
+    public void updateInventoryItem(int id, Items items) {
+        itemRepository.updateInventoryItem(id, items);
+    }
+
+    @Override
+    public Map<Integer, Items> searchItem(String searchKeyword) {
+        return itemRepository.searchItem(searchKeyword);
+    }
 }

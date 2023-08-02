@@ -2,12 +2,15 @@ package com.example.team1.controller.payment;
 
 import com.example.team1.controller.shop.ShopServlet;
 import com.example.team1.model.accounts.Accounts;
+import com.example.team1.model.item.Items;
 import com.example.team1.model.order.Cart;
 import com.example.team1.model.order.OrderDetail;
 import com.example.team1.model.payment.Bill;
 import com.example.team1.model.payment.PaymentMethod;
 import com.example.team1.service.accounts.AccountService;
 import com.example.team1.service.accounts.IAccountService;
+import com.example.team1.service.item.IItemService;
+import com.example.team1.service.item.ItemService;
 import com.example.team1.service.order.CartService;
 import com.example.team1.service.order.ICartService;
 import com.example.team1.service.payment.BillService;
@@ -35,6 +38,8 @@ public class PaymentServlet extends HttpServlet {
 
     private static final IAccountService accountService = new AccountService();
 
+    private static final IItemService itemService = new ItemService();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -56,12 +61,19 @@ public class PaymentServlet extends HttpServlet {
             PaymentMethod paymentMethod = paymentMethodService.selectAll().get(paymentId);
             Bill bill = new Bill(cart, paymentMethod, price, phone, address);
             billService.insertBill(bill);
+            List<OrderDetail> orderDetailList = new ArrayList<>(cart.getDetailList().values());
+            Items items;
+            for (OrderDetail orderDetail : orderDetailList) {
+                items = orderDetail.getItems();
+                items.setInventory(items.getInventory() - orderDetail.getQuantity());
+                itemService.updateInventoryItem(items.getId(), items);
+            }
             request.setAttribute("bill", bill);
             request.setAttribute("cart", cart);
             session.removeAttribute("cart");
             session.removeAttribute("cartId");
             String content = Email.getContent(bill, cart);
-            Email.sendEmail(accounts.getEmail(), "#Thehomr - Purchase Confirmation", content);
+            Email.sendEmail(accounts.getEmail(), "#Thehome - Purchase Confirmation - Payment: " + cart.getId(), content);
             request.getRequestDispatcher("shop/purchase-confirmation.jsp").forward(request, response);
         } else {
             response.sendRedirect("/ShopServlet");

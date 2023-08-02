@@ -58,20 +58,20 @@
                   <form class="checkout-form" action="/CustomerServlet?action=create" method="post">
                      <div class="form-group">
                         <label for="full_name">Full Name</label>
-                        <input type="text" class="form-control" id="full_name" placeholder="" name="name">
+                        <input type="text" class="form-control" id="full_name" placeholder="" name="name" required>
                      </div>
                      <div class="form-group">
                         <label for="user_address">Address</label>
-                        <input type="text" class="form-control" id="user_address" placeholder="" name="address">
+                        <input type="text" class="form-control" id="user_address" placeholder="" name="address" required>
                      </div>
                      <div class="checkout-country-code clearfix">
                         <div class="form-group">
                            <label for="user_post_code">Birthday</label>
-                           <input type="date" class="form-control" id="user_post_code" name="birthday" value="">
+                           <input type="date" class="form-control" id="user_post_code" name="birthday" value="" required>
                         </div>
                         <div class="form-group" >
                            <label for="gender"></label>
-                            <select class="form-control" name="gender" style="height: 50px" id="gender">
+                            <select class="form-control" name="gender" style="height: 50px" id="gender" required>
                                 <option value="1">Male</option>
                                 <option value="2">Female</option>
                             </select>
@@ -79,7 +79,7 @@
                      </div>
                      <div class="form-group">
                         <label for="user_country">Phone</label>
-                        <input type="text" class="form-control" id="user_country" placeholder="" name="phone">
+                        <input type="text" class="form-control" id="user_country" placeholder="" name="phone" required>
                      </div>
                       <div class="form-group">
                           <label for="user_country">Avatar</label>
