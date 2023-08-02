@@ -91,6 +91,10 @@
                                 <input type="text" class="form-control" id="user_country" placeholder="" name="phone"
                                        value="${requestScope["customers"].getPhone()}">
                             </div>
+                            <div class="form-group">
+                                <label for="user_country">Avatar</label>
+                                <input type="file" name="image" class="form-control btn-transparent" style="padding-bottom: 15px; padding-top: 15px" id="" placeholder="" accept=".jpg, .png, .pdf">
+                            </div>
                             <c:if test='${requestScope["done"] != null}'>
                                 <div class="alert alert-success alert-common" role="alert">
                                     <i class="tf-ion-thumbsup"></i>

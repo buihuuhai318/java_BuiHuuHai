@@ -2,7 +2,6 @@ package com.example.team1.service.order;
 
 import com.example.team1.model.order.OrderDetail;
 
-import java.util.List;
 import java.util.Map;
 
 public interface IOrderDetailService {

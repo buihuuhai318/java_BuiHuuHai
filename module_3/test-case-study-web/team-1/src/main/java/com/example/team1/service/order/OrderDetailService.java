@@ -4,7 +4,6 @@ import com.example.team1.model.order.OrderDetail;
 import com.example.team1.repository.order.IOrderDetailRepository;
 import com.example.team1.repository.order.OrderDetailRepository;
 
-import java.util.List;
 import java.util.Map;
 
 public class OrderDetailService implements IOrderDetailService {

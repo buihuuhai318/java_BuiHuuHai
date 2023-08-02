@@ -1,9 +1,6 @@
 package com.example.team1.repository.order;
 
 import com.example.team1.model.accounts.Accounts;
-import com.example.team1.model.item.ItemImage;
-import com.example.team1.model.item.ItemType;
-import com.example.team1.model.item.Items;
 import com.example.team1.model.order.Cart;
 import com.example.team1.model.order.OrderDetail;
 import com.example.team1.repository.Base;
@@ -14,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

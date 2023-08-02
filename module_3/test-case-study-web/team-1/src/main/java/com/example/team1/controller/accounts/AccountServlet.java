@@ -5,7 +5,6 @@ import com.example.team1.model.accounts.Roles;
 import com.example.team1.model.customers.Customers;
 import com.example.team1.model.customers.Types;
 import com.example.team1.model.employee.Employees;
-import com.example.team1.repository.customer.ICustomerRepository;
 import com.example.team1.service.accounts.AccountService;
 import com.example.team1.service.accounts.IAccountService;
 import com.example.team1.service.accounts.IRoleService;
@@ -23,9 +22,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 
 @WebServlet(name = "AccountServlet", value = "/AccountServlet")

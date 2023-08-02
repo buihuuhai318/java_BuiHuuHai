@@ -1,4 +1,4 @@
-package com.example.team1.model.DTO;
+package com.example.team1.model.dto;
 
 public class HotCustomer {
     private int id;

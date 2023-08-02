@@ -1,9 +1,10 @@
-package com.example.team1.service.hot;
+package com.example.team1.service.statistical_board;
 
-import com.example.team1.model.DTO.HotCustomer;
-import com.example.team1.model.DTO.HotItems;
-import com.example.team1.repository.hot.IStatisticalBoardRepository;
-import com.example.team1.repository.hot.StatisticalBoardRepository;
+import com.example.team1.model.dto.BillDto;
+import com.example.team1.model.dto.HotCustomer;
+import com.example.team1.model.dto.HotItems;
+import com.example.team1.repository.statistical_board.IStatisticalBoardRepository;
+import com.example.team1.repository.statistical_board.StatisticalBoardRepository;
 
 import java.util.List;
 
@@ -34,5 +35,10 @@ public class StatisticalBoardService implements IStatisticalBoardService {
     @Override
     public int totalByYear() {
         return boardRepository.totalByYear();
+    }
+
+    @Override
+    public List<BillDto> selectAllBillByAccount(int idAccount) {
+        return boardRepository.selectAllBillByAccount(idAccount);
     }
 }

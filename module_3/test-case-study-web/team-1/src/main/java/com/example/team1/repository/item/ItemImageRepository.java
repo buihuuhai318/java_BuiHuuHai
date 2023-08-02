@@ -1,7 +1,6 @@
 package com.example.team1.repository.item;
 
 import com.example.team1.model.item.ItemImage;
-import com.example.team1.model.item.Items;
 import com.example.team1.repository.Base;
 
 import java.sql.Connection;

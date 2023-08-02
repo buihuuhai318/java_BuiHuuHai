@@ -1,4 +1,4 @@
-package com.example.team1.model.DTO;
+package com.example.team1.model.dto;
 
 public class HotItems {
     private int id;

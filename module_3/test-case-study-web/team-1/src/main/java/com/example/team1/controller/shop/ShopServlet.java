@@ -2,7 +2,6 @@ package com.example.team1.controller.shop;
 
 import com.example.team1.model.accounts.Accounts;
 import com.example.team1.model.customers.Customers;
-import com.example.team1.model.customers.Types;
 import com.example.team1.model.item.ItemImage;
 import com.example.team1.model.item.ItemType;
 import com.example.team1.model.item.Items;

@@ -1,6 +1,5 @@
 package com.example.team1.controller.payment;
 
-import com.example.team1.controller.shop.ShopServlet;
 import com.example.team1.model.accounts.Accounts;
 import com.example.team1.model.item.Items;
 import com.example.team1.model.order.Cart;

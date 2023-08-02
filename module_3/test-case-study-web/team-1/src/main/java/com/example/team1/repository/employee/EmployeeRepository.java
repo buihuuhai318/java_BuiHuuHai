@@ -1,7 +1,6 @@
 package com.example.team1.repository.employee;
 
 import com.example.team1.model.accounts.Accounts;
-import com.example.team1.model.customers.Customers;
 import com.example.team1.model.employee.Employees;
 import com.example.team1.repository.Base;
 import com.example.team1.repository.accounts.AccountRepository;

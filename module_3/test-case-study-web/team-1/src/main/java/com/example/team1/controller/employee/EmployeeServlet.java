@@ -1,8 +1,6 @@
 package com.example.team1.controller.employee;
 
 import com.example.team1.model.accounts.Accounts;
-import com.example.team1.model.customers.Customers;
-import com.example.team1.model.customers.Types;
 import com.example.team1.model.employee.Employees;
 import com.example.team1.service.accounts.AccountService;
 import com.example.team1.service.accounts.IAccountService;

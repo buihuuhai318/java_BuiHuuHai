@@ -1,9 +1,9 @@
 package com.example.team1.controller.admin;
 
-import com.example.team1.model.DTO.HotCustomer;
-import com.example.team1.model.DTO.HotItems;
-import com.example.team1.service.hot.IStatisticalBoardService;
-import com.example.team1.service.hot.StatisticalBoardService;
+import com.example.team1.model.dto.HotCustomer;
+import com.example.team1.model.dto.HotItems;
+import com.example.team1.service.statistical_board.IStatisticalBoardService;
+import com.example.team1.service.statistical_board.StatisticalBoardService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

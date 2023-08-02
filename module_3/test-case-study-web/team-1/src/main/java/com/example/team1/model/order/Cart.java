@@ -3,7 +3,6 @@ package com.example.team1.model.order;
 import com.example.team1.model.accounts.Accounts;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 public class Cart {

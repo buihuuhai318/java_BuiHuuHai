@@ -1,6 +1,5 @@
 package com.example.team1.service.item;
 
-import com.example.team1.model.item.ItemType;
 import com.example.team1.model.item.Items;
 import com.example.team1.repository.item.IItemRepository;
 import com.example.team1.repository.item.ItemRepository;
