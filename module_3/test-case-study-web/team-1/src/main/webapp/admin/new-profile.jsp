@@ -48,14 +48,14 @@
 
             <!-- Begin Page Content -->
             <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%; width: 50%; margin-left: auto; margin-right: auto">
-                <form class="user" action="AccountServlet?action=newProfile&email=${requestScope["accounts"].getEmail()}" method="post">
+                <form class="user" action="/AccountServlet?action=newProfile&email=${requestScope["accounts"].getEmail()}" method="post">
                     <div class="text-center" style="width: 50%; margin-left: auto; margin-right: auto">
                         <fieldset disabled>
                             <div class="form-group">
                                 <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Email</label>
                                 <input type="text" class="form-control"
                                        placeholder="ID" value="${requestScope["accounts"].getEmail()}"
-                                       name="email" style="text-align: center">
+                                       name="email" style="text-align: center" required>
                             </div>
                         </fieldset>
                     </div>
@@ -66,7 +66,7 @@
                                 <div class="p-5">
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Name</p>
-                                        <input type="text" class="form-control" placeholder="Name" name="name">
+                                        <input type="text" class="form-control" placeholder="Name" name="name" required>
                                     </div>
                                     <div class="form-group row">
                                         <c:if test='${requestScope["cus"] != null}'>
@@ -84,7 +84,7 @@
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <div class="form-group">
                                                     <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Salary</p>
-                                                    <input type="text" class="form-control" placeholder="Salary" name="salary">
+                                                    <input type="text" class="form-control" placeholder="Salary" name="salary" required min="0">
                                                 </div>
                                             </div>
                                         </c:if>
@@ -101,7 +101,7 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Birthday</p>
-                                            <input type="date" class="form-control" placeholder="Birthday" name="birthday">
+                                            <input type="date" class="form-control" placeholder="Birthday" name="birthday" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
@@ -114,11 +114,11 @@
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Phone</p>
-                                        <input type="text" class="form-control" placeholder="Phone" name="phone">
+                                        <input type="text" class="form-control" placeholder="Phone" name="phone" required>
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Address</p>
-                                        <input type="text" class="form-control" placeholder="Address" name="address">
+                                        <input type="text" class="form-control" placeholder="Address" name="address" required>
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image</p>
@@ -129,7 +129,7 @@
                         </div>
                         <hr>
                         <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="CustomerServlet?action=list" class="btn btn-google btn-user btn-block">
+                        <a href="/CustomerServlet?action=list" class="btn btn-google btn-user btn-block">
                      Cancel
                         </a>
                     </div>

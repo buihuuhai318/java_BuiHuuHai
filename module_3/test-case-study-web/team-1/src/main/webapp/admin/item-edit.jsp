@@ -80,14 +80,14 @@
                                                 Name</p>
                                             <input type="text" class="form-control"
                                                    placeholder="Name" value="${requestScope["items"].getName()}"
-                                                   name="name">
+                                                   name="name" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Code</p>
                                             <input type="text" class="form-control"
                                                    placeholder="Code" value="${requestScope["items"].getCode()}"
-                                                   name="code">
+                                                   name="code" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -96,7 +96,7 @@
                                                 Price</p>
                                             <input type="text" class="form-control"
                                                    placeholder="Price" value="${requestScope["items"].getPrice()}"
-                                                   name="price">
+                                                   name="price" required min="0">
 
                                         </div>
                                         <div class="col-sm-6">
@@ -105,7 +105,7 @@
                                             <input type="text" class="form-control"
                                                    placeholder="Inventory"
                                                    value="${requestScope["items"].getInventory()}"
-                                                   name="inventory">
+                                                   name="inventory" required min="0">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -139,7 +139,7 @@
                                             Description</p>
                                         <input type="text" class="form-control"
                                                placeholder="Description" value="${requestScope["items"].getDescription()}"
-                                               name="description">
+                                               name="description" required>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">

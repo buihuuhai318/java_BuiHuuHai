@@ -49,14 +49,14 @@
             <!-- Begin Page Content -->
             <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%; width: 50%; margin-left: auto; margin-right: auto ">
 
-                <form class="user" action="AccountServlet?action=edit&id=${requestScope["accounts"].getId()}" method="post">
+                <form class="user" action="/AccountServlet?action=edit&id=${requestScope["accounts"].getId()}" method="post">
                     <div class="text-center" style="width: 50%; margin-left: auto; margin-right: auto">
                         <fieldset disabled>
                             <div class="form-group">
                                 <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Username</label>
                                 <input type="hidden" class="form-control" name="id" value="${requestScope["accounts"].getId()}">
                                 <input type="text" class="form-control" value="${requestScope["accounts"].getUsername()}"
-                                       name="username" style="text-align: center">
+                                       name="username" style="text-align: center" required>
                             </div>
                         </fieldset>
                     </div>
@@ -69,7 +69,7 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="text-align: left">Password</p>
                                         <input type="text" class="form-control"
                                                placeholder="Pass" value="${requestScope["accounts"].getPassword()}"
-                                               name="pass">
+                                               name="pass" required>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">

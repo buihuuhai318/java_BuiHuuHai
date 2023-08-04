@@ -73,6 +73,12 @@
             <span>Bill</span></a>
     </li>
 
+    <li class="nav-item active">
+        <a class="nav-link" href="/AdminServlet?action=showPayment">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Payment Method</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

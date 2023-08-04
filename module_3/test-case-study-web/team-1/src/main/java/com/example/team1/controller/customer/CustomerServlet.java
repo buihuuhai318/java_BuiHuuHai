@@ -179,7 +179,7 @@ public class CustomerServlet extends HttpServlet {
         Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.deleteAccount(accounts.getId(), available == 1);
+            accountService.setAvailableAccount(accounts.getId(), available == 0);
             customers.setId(id);
             customers.setType(types);
             customers.setName(name);
@@ -230,8 +230,8 @@ public class CustomerServlet extends HttpServlet {
         Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.deleteAccount(accounts.getId(), true);
-            customerService.deleteCustomer(id, true);
+            accountService.setAvailableAccount(accounts.getId(), false);
+            customerService.setAvailableCustomer(id, false);
         }
         response.sendRedirect("CustomerServlet?action=list");
     }

@@ -66,12 +66,12 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Name</p>
-                                            <input type="text" class="form-control" placeholder="Name" name="name">
+                                            <input type="text" class="form-control" placeholder="Name" name="name" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Code</p>
-                                            <input type="text" class="form-control" placeholder="Code" name="code">
+                                            <input type="text" class="form-control" placeholder="Code" name="code" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -79,13 +79,13 @@
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Price</p>
                                             <input type="text" class="form-control" placeholder="Price"
-                                                   name="price">
+                                                   name="price" required min="0" value="0">
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Inventory</p>
                                             <input type="text" class="form-control" placeholder="Inventory"
-                                                   name="inventory">
+                                                   name="inventory" required min="0" value="0">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -111,7 +111,7 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             Description</p>
                                         <input type="text" class="form-control" placeholder="Description"
-                                               name="description">
+                                               name="description" required>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">

@@ -120,15 +120,15 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
     @Override
-    public void deleteCustomer(int id, boolean available) {
+    public void setAvailableCustomer(int id, boolean available) {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement;
             if (available) {
-                preparedStatement = connection.prepareStatement(DELETE);
+                preparedStatement = connection.prepareStatement(AVAILABLE);
                 preparedStatement.setInt(1, id);
             } else {
-                preparedStatement = connection.prepareStatement(AVAILABLE);
+                preparedStatement = connection.prepareStatement(DELETE);
                 preparedStatement.setInt(1, id);
             }
             preparedStatement.executeUpdate();

@@ -14,4 +14,19 @@ public class PaymentMethodService implements IPaymentMethodService {
     public Map<Integer, PaymentMethod> selectAll() {
         return paymentMethodRepository.selectAll();
     }
+
+    @Override
+    public Map<Integer, PaymentMethod> selectAllAvailable() {
+        return paymentMethodRepository.selectAllAvailable();
+    }
+
+    @Override
+    public void setAvailableMethod(int id, boolean available) {
+        paymentMethodRepository.setAvailableMethod(id, available);
+    }
+
+    @Override
+    public PaymentMethod getPayment(int id) {
+        return paymentMethodRepository.getPayment(id);
+    }
 }

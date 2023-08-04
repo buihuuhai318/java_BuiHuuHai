@@ -97,15 +97,15 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public void deleteAccount(int id, boolean available) {
+    public void setAvailableAccount(int id, boolean available) {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement;
             if (available) {
-                preparedStatement = connection.prepareStatement(DELETE);
+                preparedStatement = connection.prepareStatement(AVAILABLE);
                 preparedStatement.setInt(1, id);
             } else {
-                preparedStatement = connection.prepareStatement(AVAILABLE);
+                preparedStatement = connection.prepareStatement(DELETE);
                 preparedStatement.setInt(1, id);
             }
             preparedStatement.executeUpdate();

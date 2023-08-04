@@ -4,10 +4,13 @@ import com.example.team1.model.dto.HotCustomer;
 import com.example.team1.model.dto.HotItems;
 import com.example.team1.model.order.OrderDetail;
 import com.example.team1.model.payment.Bill;
+import com.example.team1.model.payment.PaymentMethod;
 import com.example.team1.service.order.IOrderDetailService;
 import com.example.team1.service.order.OrderDetailService;
 import com.example.team1.service.payment.BillService;
 import com.example.team1.service.payment.IBillService;
+import com.example.team1.service.payment.IPaymentMethodService;
+import com.example.team1.service.payment.PaymentMethodService;
 import com.example.team1.service.statistical_board.IStatisticalBoardService;
 import com.example.team1.service.statistical_board.StatisticalBoardService;
 
@@ -24,6 +27,7 @@ public class AdminServlet extends HttpServlet {
     private static final IStatisticalBoardService boardService = new StatisticalBoardService();
     private static final IOrderDetailService orderDetailService = new OrderDetailService();
     private static final IBillService billService = new BillService();
+    private static final IPaymentMethodService paymentMethodService = new PaymentMethodService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,10 +42,29 @@ public class AdminServlet extends HttpServlet {
             case "showCart":
                 showCart(request, response);
                 break;
+            case "showPayment":
+                showPayment(request, response);
+                break;
+            case "deleteMethod":
+                deleteMethod(request, response);
+                break;
             default:
                 showIndex(request, response);
                 break;
         }
+    }
+
+    private void deleteMethod(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int idMethod = Integer.parseInt(request.getParameter("idMethod"));
+        PaymentMethod paymentMethod = paymentMethodService.getPayment(idMethod);
+        paymentMethodService.setAvailableMethod(idMethod, paymentMethod.getAvailable() != 0);
+        response.sendRedirect("AdminServlet?action=showPayment");
+    }
+
+    private void showPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<PaymentMethod> methodList = new ArrayList<>(paymentMethodService.selectAll().values());
+        request.setAttribute("methodList", methodList);
+        request.getRequestDispatcher("/admin/payment-method-list.jsp").forward(request, response);
     }
 
     private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

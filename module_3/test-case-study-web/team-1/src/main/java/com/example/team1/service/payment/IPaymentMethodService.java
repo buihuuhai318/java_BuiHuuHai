@@ -6,4 +6,10 @@ import java.util.Map;
 
 public interface IPaymentMethodService {
     Map<Integer, PaymentMethod> selectAll();
+
+    Map<Integer, PaymentMethod> selectAllAvailable();
+
+    void setAvailableMethod(int id, boolean available);
+
+    PaymentMethod getPayment(int id);
 }

@@ -28,7 +28,7 @@ public class EmployeeRepository implements IEmployeeRepository {
             "employee_address = ?, " +
             "employee_image = ?, " +
             "employee_status = ? " +
-            "where customer_id = ?";
+            "where employee_id = ?";
 
     IAccountRepository accountRepository = new AccountRepository();
     @Override
@@ -119,15 +119,15 @@ public class EmployeeRepository implements IEmployeeRepository {
     }
 
     @Override
-    public void deleteEmployee(int id, boolean available) {
+    public void setAvailableEmployee(int id, boolean available) {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement;
             if (available) {
-                preparedStatement = connection.prepareStatement(DELETE);
+                preparedStatement = connection.prepareStatement(AVAILABLE);
                 preparedStatement.setInt(1, id);
             } else {
-                preparedStatement = connection.prepareStatement(AVAILABLE);
+                preparedStatement = connection.prepareStatement(DELETE);
                 preparedStatement.setInt(1, id);
             }
             preparedStatement.executeUpdate();

@@ -3,14 +3,28 @@ package com.example.team1.model.payment;
 public class PaymentMethod {
     private int id;
     private String name;
+    private int available;
 
-    public PaymentMethod(int id, String name) {
+    public PaymentMethod(int id, String name, int available) {
         this.id = id;
         this.name = name;
+        this.available = available;
     }
 
-    public PaymentMethod(String name) {
+    public PaymentMethod() {
+    }
+
+    public PaymentMethod(String name, int available) {
         this.name = name;
+        this.available = available;
+    }
+
+    public int getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
     }
 
     public int getId() {

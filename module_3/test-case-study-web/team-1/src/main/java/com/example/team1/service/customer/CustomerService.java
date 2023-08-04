@@ -30,8 +30,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void deleteCustomer(int id, boolean available) {
-        customerRepository.deleteCustomer(id, available);
+    public void setAvailableCustomer(int id, boolean available) {
+        customerRepository.setAvailableCustomer(id, available);
     }
 
     @Override

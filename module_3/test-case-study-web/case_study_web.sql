@@ -105,12 +105,18 @@ foreign key (cart_id) references carts(cart_id),
 foreign key (payment_id) references payment_method(payment_id)
 );
 
-select accounts.account_id, carts.cart_id, bill.bill_id, bill.bill_date, carts.payment_status, sum(detail_quantity) as quantity, bill.total_price
+select * from bill
+join carts on carts.cart_id = bill.cart_id
+join accounts on carts.account_id = accounts.account_id
+where accounts.account_id = 3
+order by bill_id desc;
+
+select accounts.account_id, carts.cart_id, bill.bill_id
 from bill 
 join carts on bill.cart_id = carts.cart_id
 join order_details on carts.cart_id = order_details.cart_id
 join accounts on carts.account_id = accounts.account_id
-group by bill_id having account_id = 3 and carts.payment_status = 1;
+where accounts.account_id = 3;
 
 select accounts.account_id, carts.cart_id, bill.bill_id, bill.bill_date, carts.payment_status, sum(detail_quantity) as quantity, bill.total_price
 from bill 
@@ -122,10 +128,11 @@ group by bill_id;
 
 create table payment_method (
 payment_id int primary key auto_increment,
-payment_name varchar(50)
+payment_name varchar(50),
+payment_available int
 );
 
-insert into payment_method value (1, "Cash On Delivery"), (2, "VN-PAY");
+insert into payment_method value (1, "Cash On Delivery", 0), (2, "VN-PAY", 0);
 
 create table order_details (
 cart_id int,
@@ -136,6 +143,8 @@ primary key (cart_id, item_id),
 foreign key (item_id) references items(item_id),
 foreign key (cart_id) references carts(cart_id)
 );
+
+select * from order_details;
 
 DELIMITER //
 CREATE PROCEDURE search_items(IN searchKeyword VARCHAR(100))

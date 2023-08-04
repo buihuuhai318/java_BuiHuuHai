@@ -49,7 +49,7 @@
             <!-- Begin Page Content -->
             <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%">
 
-                <form class="user" action="EmployeeServlet?action=editList&id=${requestScope["employees"].getId()}" method="post">
+                <form class="user" action="/EmployeeServlet?action=editList&id=${requestScope["employees"].getId()}" method="post">
                     <div class="text-center" style="width: 20%; margin-left: auto; margin-right: auto">
                         <fieldset disabled>
                             <div class="form-group">
@@ -76,7 +76,7 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Name</p>
                                         <input type="text" class="form-control"
                                                placeholder="Name" value="${requestScope["employees"].getName()}"
-                                               name="name">
+                                               name="name" required>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -84,7 +84,7 @@
                                                 <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Salary</p>
                                                 <input type="text" class="form-control"
                                                        placeholder="Salary" value="${requestScope["employees"].getSalary()}"
-                                                       name="salary">
+                                                       name="salary" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -108,7 +108,7 @@
                                                 Birthday</p>
                                             <input type="date" class="form-control"
                                                    placeholder="Birthday" value="${requestScope["employees"].getBirthday()}"
-                                                   name="birthday">
+                                                   name="birthday" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
@@ -129,20 +129,20 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Phone</p>
                                         <input type="text" class="form-control"
                                                placeholder="Phone" value="${requestScope["employees"].getPhone()}"
-                                               name="phone">
+                                               name="phone" required>
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Address</p>
                                         <input type="text" class="form-control"
                                                placeholder="Address" value="${requestScope["employees"].getAddress()}"
-                                               name="address">
+                                               name="address" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="EmployeeServlet?action=list" class="btn btn-google btn-user btn-block">
+                        <a href="/EmployeeServlet?action=list" class="btn btn-google btn-user btn-block">
                      Cancel
                         </a>
                     </div>

@@ -53,8 +53,8 @@ public class EmployeeServlet extends HttpServlet {
         Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.deleteAccount(accounts.getId(), true);
-            employeeService.deleteEmployee(id, true);
+            accountService.setAvailableAccount(accounts.getId(), false);
+            employeeService.setAvailableEmployee(id, false);
         }
         response.sendRedirect("EmployeeServlet?action=list");
     }
@@ -112,7 +112,7 @@ public class EmployeeServlet extends HttpServlet {
         Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.deleteAccount(accounts.getId(), available == 1);
+            accountService.setAvailableAccount(accounts.getId(), available == 0);
             employees.setId(id);
             employees.setSalary(salary);
             employees.setName(name);

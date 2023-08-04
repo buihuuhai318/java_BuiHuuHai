@@ -226,7 +226,7 @@ public class AccountServlet extends HttpServlet {
             }
             List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
             request.setAttribute("typesList", typesList);
-            dispatcher = request.getRequestDispatcher("admin/new-profile.jsp");
+            dispatcher = request.getRequestDispatcher("/admin/new-profile.jsp");
             dispatcher.forward(request, response);
         } else {
             request.setAttribute("fail", "fail");
@@ -269,13 +269,16 @@ public class AccountServlet extends HttpServlet {
 
         Accounts accounts = accountService.selectAccount(id);
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
+        Employees employees = employeeService.selectAllEmployeeByEmail().get(accounts.getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
             accounts.setRole(roles);
             accounts.setPassword(pass);
             accounts.setAvailable(available);
-            if (customers != null) {
-                customerService.deleteCustomer(customers.getId(), available == 1);
+            if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
+                customerService.setAvailableCustomer(customers.getId(), available == 0);
+            } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
+                employeeService.setAvailableEmployee(employees.getId(), available == 0);
             }
             accountService.updateAccount(id, accounts);
         }
@@ -287,11 +290,14 @@ public class AccountServlet extends HttpServlet {
 
         Accounts accounts = accountService.selectAccount(id);
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
+        Employees employees = employeeService.selectAllEmployeeByEmail().get(accounts.getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.deleteAccount(id, true);
-            if (customers != null) {
-                customerService.deleteCustomer(customers.getId(), true);
+            accountService.setAvailableAccount(id, false);
+            if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
+                customerService.setAvailableCustomer(customers.getId(), false);
+            } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
+                employeeService.setAvailableEmployee(employees.getId(), false);
             }
         }
         response.sendRedirect("AccountServlet?action=list");
@@ -323,8 +329,6 @@ public class AccountServlet extends HttpServlet {
             session.setAttribute("username", accounts.getUsername());
             session.setAttribute("id_account", accounts.getId());
             session.setAttribute("role", accounts.getRole().getId());
-
-            RequestDispatcher dispatcher;
             if (accounts.getRole().getId() == Roles.CUSTOMER) {
                 Cookie user = new Cookie("username", username);
                 Cookie pass = new Cookie("password", password);

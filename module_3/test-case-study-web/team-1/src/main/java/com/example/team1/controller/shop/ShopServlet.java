@@ -94,7 +94,7 @@ public class ShopServlet extends HttpServlet {
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
         request.setAttribute("customers", customers);
         Cart cart = (Cart) session.getAttribute("cart");
-        List<PaymentMethod> paymentMethodList = new ArrayList<>(paymentMethodService.selectAll().values());
+        List<PaymentMethod> paymentMethodList = new ArrayList<>(paymentMethodService.selectAllAvailable().values());
         List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
         request.setAttribute("orderList", orderList);
         request.setAttribute("paymentMethodList", paymentMethodList);
