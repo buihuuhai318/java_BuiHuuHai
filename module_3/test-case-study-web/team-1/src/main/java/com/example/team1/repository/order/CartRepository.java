@@ -35,7 +35,7 @@ public class CartRepository implements ICartRepository {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
-            preparedStatement.setInt(1, cart.getAccounts().getId());
+            preparedStatement.setInt(1, cart.getAccounts());
             preparedStatement.setString(2, cart.getOrderDate());
             preparedStatement.setInt(3, cart.getPaymentStatus());
             preparedStatement.executeUpdate();
@@ -60,14 +60,13 @@ public class CartRepository implements ICartRepository {
             while (resultSet.next()) {
                 int id = resultSet.getInt("cart_id");
                 int accountId = resultSet.getInt("account_id");
-                Accounts accounts = accountRepository.selectAccount(accountId);
                 String orderDate = resultSet.getString("order_date");
                 String paymentDate = resultSet.getString("payment_date");
                 int paymentStatus = resultSet.getInt("payment_status");
 
                 Map<Integer, OrderDetail> orderDetailList = orderDetailRepository.selectAllOrderByIdCart(id);
 
-                cart = new Cart(id, accounts, orderDate, paymentDate, orderDetailList, paymentStatus);
+                cart = new Cart(id, accountId, orderDate, paymentDate, orderDetailList, paymentStatus);
             }
             resultSet.close();
             connection.close();
@@ -88,14 +87,13 @@ public class CartRepository implements ICartRepository {
             while (resultSet.next()) {
                 int id = resultSet.getInt("cart_id");
                 int accountId = resultSet.getInt("account_id");
-                Accounts accounts = accountRepository.selectAccount(accountId);
                 String orderDate = resultSet.getString("order_date");
                 String paymentDate = resultSet.getString("payment_date");
                 int paymentStatus = resultSet.getInt("payment_status");
 
                 Map<Integer, OrderDetail> orderDetailList = orderDetailRepository.selectAllOrderByIdCart(id);
 
-                cartMap.put(id, new Cart(id, accounts, orderDate, paymentDate, orderDetailList, paymentStatus));
+                cartMap.put(id, new Cart(id, accountId, orderDate, paymentDate, orderDetailList, paymentStatus));
             }
             resultSet.close();
             connection.close();

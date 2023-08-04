@@ -83,16 +83,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${orderList}" var="orderList">
+                                        <c:forEach items="${order}" var="order">
                                             <tr>
                                                 <td>
                                                     <div class="product-info">
-                                                        <img width="80" src="item-image/${orderList.getItems().getItemType().getName()}/${orderList.getItems().getImageList().get(0).getUrl()}" alt=""/>
-                                                        <a href="/ShopServlet?action=viewDetail&id=${orderList.getItems().getId()}">${orderList.getItems().getName()}</a>
+                                                        <img width="80" src="item-image/${order.getItems().getItemType().getName()}/${order.getItems().getImageList().get(0).getUrl()}" alt=""/>
+                                                        <a href="/ShopServlet?action=viewDetail&id=${order.getItems().getId()}">${order.getItems().getName()}</a>
                                                     </div>
                                                 </td>
-                                                <td>${orderList.getQuantity()}</td>
-                                                <td>$${orderList.getPrice()}</td>
+                                                <td>${order.getQuantity()}</td>
+                                                <td>$${order.getPrice()}</td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>

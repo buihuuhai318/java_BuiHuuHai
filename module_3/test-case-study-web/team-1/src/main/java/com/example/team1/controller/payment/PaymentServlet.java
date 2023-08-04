@@ -56,9 +56,10 @@ public class PaymentServlet extends HttpServlet {
             String phone = request.getParameter("phone");
             String address = request.getParameter("address");
             int price = Integer.parseInt(request.getParameter("totalPrice"));
+            int quantity = Integer.parseInt(request.getParameter("totalQuantity"));
             int paymentId = Integer.parseInt(request.getParameter("paymentMethod"));
             PaymentMethod paymentMethod = paymentMethodService.selectAll().get(paymentId);
-            Bill bill = new Bill(cart, paymentMethod, price, phone, address);
+            Bill bill = new Bill(cart.getId(), paymentMethod, quantity, price, phone, address);
             billService.insertBill(bill);
             List<OrderDetail> orderDetailList = new ArrayList<>(cart.getDetailList().values());
             Items items;

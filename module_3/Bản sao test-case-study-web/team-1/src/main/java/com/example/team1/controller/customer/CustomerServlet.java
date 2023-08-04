@@ -79,6 +79,7 @@ public class CustomerServlet extends HttpServlet {
         for (BillDto billDto : listBill) {
             if (billDto.getBillId() == idBill) {
                 idCart = billDto.getCartId();
+                break;
             }
         }
         Cart cart = cartService.selectCart(idCart);
@@ -209,6 +210,10 @@ public class CustomerServlet extends HttpServlet {
         int gender = Integer.parseInt(request.getParameter("gender"));
         String phone = request.getParameter("phone");
         String image = request.getParameter("image");
+
+        if (image.trim().equals("")) {
+            image = customers.getImage();
+        }
 
         customers.setName(name);
         customers.setAddress(address);

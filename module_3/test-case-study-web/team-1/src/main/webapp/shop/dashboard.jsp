@@ -94,17 +94,17 @@
 										<th>Order ID</th>
 										<th>Date</th>
 										<th>Items</th>
-										<th>Total Price</th>
+										<th>Total</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
 								<c:forEach items="${listBill}" var="bill">
 									<tr>
-										<td><a href="/CustomerServlet?action=showCartDetail&idBill=${bill.billId}">#${bill.billId}</a></td>
-										<td>${bill.date}</td>
-										<td>${bill.quantity}</td>
-										<td>$ ${bill.total}</td>
+										<td><a href="/CustomerServlet?action=showCartDetail&idCart=${bill.getCart()}">#${bill.getId()}</a></td>
+										<td>${bill.getDate()}</td>
+										<td>${bill.getTotalQuantity()}</td>
+										<td>$ ${bill.getTotalPrice()}</td>
 									</tr>
 								</c:forEach>
 								</tbody>

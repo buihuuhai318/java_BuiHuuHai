@@ -14,7 +14,7 @@ item_code varchar(50) not null unique,
 item_name varchar(50) not null,
 item_price int not null,
 item_inventory int not null default 0,
-item_decreption varchar(200),
+item_description varchar(200),
 item_available int default 0,
 item_type_id int,
 foreign key (item_type_id) references item_types(item_type_id)
@@ -97,6 +97,7 @@ bill_id int primary key auto_increment,
 cart_id int,
 payment_id int,
 bill_date date,
+total_quantity int,
 total_price int,
 phone varchar(20),
 address varchar(200),
@@ -110,6 +111,14 @@ join carts on bill.cart_id = carts.cart_id
 join order_details on carts.cart_id = order_details.cart_id
 join accounts on carts.account_id = accounts.account_id
 group by bill_id having account_id = 3 and carts.payment_status = 1;
+
+select accounts.account_id, carts.cart_id, bill.bill_id, bill.bill_date, carts.payment_status, sum(detail_quantity) as quantity, bill.total_price
+from bill 
+join carts on bill.cart_id = carts.cart_id
+join order_details on carts.cart_id = order_details.cart_id
+join accounts on carts.account_id = accounts.account_id
+group by bill_id;
+
 
 create table payment_method (
 payment_id int primary key auto_increment,
@@ -153,7 +162,7 @@ select * from customers;
 select * from accounts;
 select * from employees;
 
-select * from item_images where item_id = 29;
+select * from item_images where item_id = 32;
 select * from items;
 
 select items.item_id, items.item_type_id, item_images.image_url, sum(detail_quantity) from items

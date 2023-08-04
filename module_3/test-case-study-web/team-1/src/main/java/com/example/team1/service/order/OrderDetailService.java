@@ -4,6 +4,7 @@ import com.example.team1.model.order.OrderDetail;
 import com.example.team1.repository.order.IOrderDetailRepository;
 import com.example.team1.repository.order.OrderDetailRepository;
 
+import java.util.List;
 import java.util.Map;
 
 public class OrderDetailService implements IOrderDetailService {
@@ -33,5 +34,10 @@ public class OrderDetailService implements IOrderDetailService {
     @Override
     public void updateOrder(int id, OrderDetail orderDetail) {
         orderDetailRepository.updateOrder(id, orderDetail);
+    }
+
+    @Override
+    public List<OrderDetail> selectAllOrder() {
+        return orderDetailRepository.selectAllOrder();
     }
 }

@@ -7,13 +7,13 @@ import java.util.Map;
 
 public class Cart {
     private int id;
-    private Accounts accounts;
+    private int accounts;
     private String orderDate;
     private String paymentDate;
     private Map<Integer, OrderDetail> detailList;
     private int paymentStatus;
 
-    public Cart(int id, Accounts accounts, String orderDate, String paymentDate, Map<Integer, OrderDetail> detailList, int paymentStatus) {
+    public Cart(int id, int accounts, String orderDate, String paymentDate, Map<Integer, OrderDetail> detailList, int paymentStatus) {
         this.id = id;
         this.accounts = accounts;
         this.orderDate = orderDate;
@@ -22,7 +22,7 @@ public class Cart {
         this.paymentStatus = paymentStatus;
     }
 
-    public Cart(Accounts accounts, String orderDate, String paymentDate, Map<Integer, OrderDetail> detailList, int paymentStatus) {
+    public Cart(int accounts, String orderDate, String paymentDate, Map<Integer, OrderDetail> detailList, int paymentStatus) {
         this.accounts = accounts;
         this.orderDate = orderDate;
         this.paymentDate = paymentDate;
@@ -32,7 +32,7 @@ public class Cart {
 
 
 
-    public Cart(Accounts accounts) {
+    public Cart(int accounts) {
         this.accounts = accounts;
         this.orderDate = String.valueOf(LocalDate.now());
         this.paymentStatus = 0;
@@ -54,11 +54,11 @@ public class Cart {
         this.id = id;
     }
 
-    public Accounts getAccounts() {
+    public int getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(Accounts accounts) {
+    public void setAccounts(int accounts) {
         this.accounts = accounts;
     }
 

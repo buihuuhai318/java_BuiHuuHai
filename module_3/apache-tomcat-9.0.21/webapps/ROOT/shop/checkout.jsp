@@ -130,6 +130,7 @@
                                 <div class="block">
                                     <h4 class="widget-title">Order Summary</h4>
                                     <c:set var="sum" value="${0}"/>
+                                    <c:set var="quantity" value="${0}"/>
                                     <c:forEach items="${orderList}" var="orderList">
                                         <div class="media product-card">
                                             <a class="pull-left"
@@ -164,8 +165,8 @@
                                                 <span>Free</span>
                                             </li>
                                         </ul>
-                                        <c:set var="sum"
-                                               value="${sum + orderList.getQuantity() * orderList.getPrice()}"/>
+                                        <c:set var="sum" value="${sum + orderList.getQuantity() * orderList.getPrice()}"/>
+                                        <c:set var="quantity" value="${quantity + orderList.getQuantity()}"/>
                                         <!-- Modal -->
                                         <div class="modal fade" id="coupon-modal${orderList.getItems().getId()}"
                                              tabindex="-1" role="dialog">
@@ -189,6 +190,7 @@
                                         <span>Total</span>
                                         <span>$${sum}</span>
                                         <input type="hidden" value="${sum}" name="totalPrice">
+                                        <input type="hidden" value="${quantity}" name="totalQuantity">
                                     </div>
                                     <div class="verified-icon">
                                         <img src="images/shop/verified.png" alt="">

@@ -136,10 +136,10 @@
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Decreption</p>
+                                            Description</p>
                                         <input type="text" class="form-control"
-                                               placeholder="Decreption" value="${requestScope["items"].getDecreption()}"
-                                               name="decreption">
+                                               placeholder="Description" value="${requestScope["items"].getDescription()}"
+                                               name="description">
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">

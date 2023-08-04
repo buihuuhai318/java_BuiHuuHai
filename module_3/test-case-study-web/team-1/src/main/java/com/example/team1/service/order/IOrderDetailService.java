@@ -2,6 +2,7 @@ package com.example.team1.service.order;
 
 import com.example.team1.model.order.OrderDetail;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IOrderDetailService {
@@ -14,4 +15,6 @@ public interface IOrderDetailService {
     void deleteOrder(int cartId, int itemId);
 
     void updateOrder(int id, OrderDetail orderDetail);
+
+    List<OrderDetail> selectAllOrder();
 }

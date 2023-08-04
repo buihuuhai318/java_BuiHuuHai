@@ -3,7 +3,6 @@ package com.example.team1.controller.customer;
 import com.example.team1.model.customers.Customers;
 import com.example.team1.model.accounts.Accounts;
 import com.example.team1.model.customers.Types;
-import com.example.team1.model.dto.BillDto;
 import com.example.team1.model.order.Cart;
 import com.example.team1.model.order.OrderDetail;
 import com.example.team1.model.payment.Bill;
@@ -35,7 +34,6 @@ public class CustomerServlet extends HttpServlet {
     private static final IAccountService accountService = new AccountService();
     private static final ITypeService typeService = new TypeService();
     private static final IStatisticalBoardService boardService = new StatisticalBoardService();
-    private static final ICartService cartService = new CartService();
     private static final IOrderDetailService orderDetailService = new OrderDetailService();
     private static final IBillService billService = new BillService();
 
@@ -70,32 +68,31 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
-    private void showCartDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void headCart(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("id_account");
-        List<BillDto> listBill = boardService.selectAllBillByAccount(id);
-        int idBill = Integer.parseInt(request.getParameter("idBill"));
-        int idCart = 0;
-        for (BillDto billDto : listBill) {
-            if (billDto.getBillId() == idBill) {
-                idCart = billDto.getCartId();
-            }
+        if (session.getAttribute("cart") != null) {
+            Cart cart = (Cart) session.getAttribute("cart");
+            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
+            request.setAttribute("orderList", orderList);
         }
-        Cart cart = cartService.selectCart(idCart);
-        List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
-        request.setAttribute("orderList", orderList);
+    }
+
+    private void showCartDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
+        int idCart = Integer.parseInt(request.getParameter("idCart"));
+        List<OrderDetail> orderList = new ArrayList<>(orderDetailService.selectAllOrderByIdCart(idCart).values());
+        request.setAttribute("order", orderList);
         request.getRequestDispatcher("shop/view-cart-detail.jsp").forward(request, response);
     }
 
     private void showBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
         HttpSession session = request.getSession();
         int id = (int) session.getAttribute("id_account");
-
         Accounts accounts = accountService.selectAccount(id);
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
         request.setAttribute("customers", customers);
-
-        List<BillDto> listBill = boardService.selectAllBillByAccount(id);
+        List<Bill> listBill = billService.selectAllByAccount(id);
         request.setAttribute("listBill", listBill);
         request.getRequestDispatcher("/shop/dashboard.jsp").forward(request, response);
     }
@@ -122,6 +119,7 @@ public class CustomerServlet extends HttpServlet {
         if (customers == null) {
             requestDispatcher = request.getRequestDispatcher("/shop/create-info-customer.jsp");
         } else {
+            headCart(request, response);
             request.setAttribute("customers", customers);
             requestDispatcher = request.getRequestDispatcher("/shop/profile-details.jsp");
         }
@@ -140,7 +138,7 @@ public class CustomerServlet extends HttpServlet {
         int id = (int) session.getAttribute("id_account");
         Accounts accounts = accountService.selectAccount(id);
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
-
+        headCart(request, response);
         request.setAttribute("customers", customers);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/edit-info-customer.jsp");
         requestDispatcher.forward(request, response);
@@ -166,6 +164,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void editList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        headCart(request, response);
         int id = Integer.parseInt(request.getParameter("id"));
         Types types = typeService.selectType(Integer.parseInt(request.getParameter("customerTypes")));
         String name = request.getParameter("name");
@@ -198,6 +197,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
         HttpSession session = request.getSession();
         int id = (int) session.getAttribute("id_account");
         Accounts accounts = accountService.selectAccount(id);
@@ -237,6 +237,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String date = request.getParameter("birthday");

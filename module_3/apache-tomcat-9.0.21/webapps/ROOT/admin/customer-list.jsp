@@ -69,7 +69,9 @@
                                     <th>Type</th>
                                     <th>Available</th>
                                     <th>Username</th>
-                                    <th>Action</th>
+                                    <c:if test="${sessionScope.get('role') == 1}">
+                                        <th>Action</th>
+                                    </c:if>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -81,7 +83,9 @@
                                     <th>Type</th>
                                     <th>Available</th>
                                     <th>Username</th>
-                                    <th>Action</th>
+                                    <c:if test="${sessionScope.get('role') == 1}">
+                                        <th>Action</th>
+                                    </c:if>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -104,14 +108,16 @@
                                             <c:if test="${customer.isStatus() == 1}">Not Available</c:if>
                                         </td>
                                         <td>${customer.getAccount().username}</td>
-                                        <td>
-                                            <a href="CustomerServlet?action=editList&id=${customer.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
-                                                <i class="fas fa-user-edit"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-danger btn-circle" data-target="#delete${customer.getId()}" data-toggle="modal" style="margin-left: 8%">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        <c:if test="${sessionScope.get('role') == 1}">
+                                            <td>
+                                                <a href="CustomerServlet?action=editList&id=${customer.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
+                                                    <i class="fas fa-user-edit"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-danger btn-circle" data-target="#delete${customer.getId()}" data-toggle="modal" style="margin-left: 8%">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </c:if>
                                     </tr>
                                     <div class="modal fade" id="delete${customer.getId()}" tabindex="-1" role="dialog" aria-labelledby="deleteLabel${customer.getId()}"
                                          aria-hidden="true">

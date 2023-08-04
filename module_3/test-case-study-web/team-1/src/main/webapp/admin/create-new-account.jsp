@@ -53,7 +53,7 @@
                     <div class="text-center" style="width: 50%; margin-left: auto; margin-right: auto">
 
                         <div class="form-group">
-                            <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Create New
+                            <label class="font-weight-bold text-primary text-uppercase mb-1">Create New
                                 Account</label>
                         </div>
 

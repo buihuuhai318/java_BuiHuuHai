@@ -1,6 +1,5 @@
 package com.example.team1.service.statistical_board;
 
-import com.example.team1.model.dto.BillDto;
 import com.example.team1.model.dto.HotCustomer;
 import com.example.team1.model.dto.HotItems;
 import com.example.team1.repository.statistical_board.IStatisticalBoardRepository;
@@ -35,10 +34,5 @@ public class StatisticalBoardService implements IStatisticalBoardService {
     @Override
     public int totalByYear() {
         return boardRepository.totalByYear();
-    }
-
-    @Override
-    public List<BillDto> selectAllBillByAccount(int idAccount) {
-        return boardRepository.selectAllBillByAccount(idAccount);
     }
 }

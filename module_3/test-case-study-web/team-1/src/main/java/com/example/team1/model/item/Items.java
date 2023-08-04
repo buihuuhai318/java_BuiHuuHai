@@ -9,40 +9,40 @@ public class Items {
     private int price;
     private int inventory;
     private int available;
-    private String decreption;
+    private String description;
     List<ItemImage> imageList;
     ItemType itemType;
 
-    public Items(int id, String code, String name, int price, int inventory, int available, String decreption, List<ItemImage> imageList, ItemType itemType) {
+    public Items(int id, String code, String name, int price, int inventory, int available, String description, List<ItemImage> imageList, ItemType itemType) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.price = price;
         this.inventory = inventory;
         this.available = available;
-        this.decreption = decreption;
+        this.description = description;
         this.imageList = imageList;
         this.itemType = itemType;
     }
 
-    public Items(String code, String name, int price, int inventory, int available, String decreption, List<ItemImage> imageList, ItemType itemType) {
+    public Items(String code, String name, int price, int inventory, int available, String description, List<ItemImage> imageList, ItemType itemType) {
         this.code = code;
         this.name = name;
         this.price = price;
         this.inventory = inventory;
         this.available = available;
-        this.decreption = decreption;
+        this.description = description;
         this.imageList = imageList;
         this.itemType = itemType;
     }
 
-    public Items(String code, String name, int price, int inventory, int available, String decreption, ItemType itemType) {
+    public Items(String code, String name, int price, int inventory, int available, String description, ItemType itemType) {
         this.code = code;
         this.name = name;
         this.price = price;
         this.inventory = inventory;
         this.available = available;
-        this.decreption = decreption;
+        this.description = description;
         this.itemType = itemType;
     }
 
@@ -94,12 +94,12 @@ public class Items {
         this.available = available;
     }
 
-    public String getDecreption() {
-        return decreption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDecreption(String decreption) {
-        this.decreption = decreption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<ItemImage> getImageList() {

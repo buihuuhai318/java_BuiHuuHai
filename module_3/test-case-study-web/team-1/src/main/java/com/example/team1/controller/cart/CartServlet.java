@@ -34,8 +34,9 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+
         if (session.getAttribute("id_account") != null) {
-            Accounts accounts = accountService.selectAccount((Integer) session.getAttribute("id_account"));
+            int accounts = (int) session.getAttribute("id_account");
             int quantity = 1;
             int id;
             if (request.getParameter("itemId") != null) {

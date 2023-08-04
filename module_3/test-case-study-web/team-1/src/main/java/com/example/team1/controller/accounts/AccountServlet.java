@@ -322,6 +322,7 @@ public class AccountServlet extends HttpServlet {
             session.setAttribute("accounts", accounts);
             session.setAttribute("username", accounts.getUsername());
             session.setAttribute("id_account", accounts.getId());
+            session.setAttribute("role", accounts.getRole().getId());
 
             RequestDispatcher dispatcher;
             if (accounts.getRole().getId() == Roles.CUSTOMER) {

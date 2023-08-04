@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemRepository implements IItemRepository {
-    private static final String INSERT = "insert into items (item_code, item_name, item_price, item_inventory, item_decreption, item_available, item_type_id) values (?, ?, ?, ?, ?, ?, ?);";
+    private static final String INSERT = "insert into items (item_code, item_name, item_price, item_inventory, item_description, item_available, item_type_id) values (?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_ALL = "select * from items";
     private static final String DELETE = "update items set item_available = 1 where item_id = ?";
     private static final String AVAILABLE = "update items set item_available = 0 where item_id = ?";
@@ -20,9 +20,9 @@ public class ItemRepository implements IItemRepository {
             "item_name = ?, " +
             "item_price = ?, " +
             "item_inventory = ?, " +
-            "item_decreption = ?, " +
+            "item_description = ?, " +
             "item_available = ?, " +
-            "item_type_id = ?" +
+            "item_type_id = ? " +
             "where item_id = ?";
 
     private static final String UPDATE_INVENTORY = "update items set " +
@@ -52,7 +52,7 @@ public class ItemRepository implements IItemRepository {
             preparedStatement.setString(2, items.getName());
             preparedStatement.setInt(3, items.getPrice());
             preparedStatement.setInt(4, items.getInventory());
-            preparedStatement.setString(5, items.getDecreption());
+            preparedStatement.setString(5, items.getDescription());
             preparedStatement.setInt(6, items.getAvailable());
             preparedStatement.setInt(7, items.getItemType().getId());
             preparedStatement.executeUpdate();
@@ -81,7 +81,7 @@ public class ItemRepository implements IItemRepository {
                 String name = resultSet.getString("item_name");
                 int price = resultSet.getInt("item_price");
                 int inventory = resultSet.getInt("item_inventory");
-                String decreption = resultSet.getString("item_decreption");
+                String description = resultSet.getString("item_description");
                 int available = resultSet.getInt("item_available");
                 int typeId = resultSet.getInt("item_type_id");
 
@@ -89,7 +89,7 @@ public class ItemRepository implements IItemRepository {
                 ItemType itemType = itemTypeRepository.selectItemType(typeId);
 
                 if (available == 0) {
-                    itemsMap.put(id, new Items(id, code, name, price, inventory, available, decreption, imageList, itemType));
+                    itemsMap.put(id, new Items(id, code, name, price, inventory, available, description, imageList, itemType));
                 }
             }
             resultSet.close();
@@ -172,7 +172,7 @@ public class ItemRepository implements IItemRepository {
                 String name = resultSet.getString("item_name");
                 int price = resultSet.getInt("item_price");
                 int inventory = resultSet.getInt("item_inventory");
-                String decreption = resultSet.getString("item_decreption");
+                String description = resultSet.getString("item_description");
                 int available = resultSet.getInt("item_available");
                 int typeIdTemp = resultSet.getInt("item_type_id");
 
@@ -180,7 +180,7 @@ public class ItemRepository implements IItemRepository {
                 ItemType itemType = itemTypeRepository.selectItemType(typeIdTemp);
 
                 if (typeId == typeIdTemp) {
-                    itemsMap.put(id, new Items(id, code, name, price, inventory, available, decreption, imageList, itemType));
+                    itemsMap.put(id, new Items(id, code, name, price, inventory, available, description, imageList, itemType));
                 }
             }
             resultSet.close();
@@ -205,14 +205,14 @@ public class ItemRepository implements IItemRepository {
                 String name = resultSet.getString("item_name");
                 int price = resultSet.getInt("item_price");
                 int inventory = resultSet.getInt("item_inventory");
-                String decreption = resultSet.getString("item_decreption");
+                String description = resultSet.getString("item_description");
                 int available = resultSet.getInt("item_available");
                 int typeId = resultSet.getInt("item_type_id");
 
                 List<ItemImage> imageList = itemImageRepository.selectImageByItem(id);
                 ItemType itemType = itemTypeRepository.selectItemType(typeId);
 
-                itemsMap.put(code, new Items(id, code, name, price, inventory, available, decreption, imageList, itemType));
+                itemsMap.put(code, new Items(id, code, name, price, inventory, available, description, imageList, itemType));
             }
             resultSet.close();
             connection.close();
@@ -228,10 +228,10 @@ public class ItemRepository implements IItemRepository {
         try {
             PreparedStatement preparedStatement;
             if (available) {
-                preparedStatement = connection.prepareStatement(DELETE);
+                preparedStatement = connection.prepareStatement(AVAILABLE);
                 preparedStatement.setInt(1, id);
             } else {
-                preparedStatement = connection.prepareStatement(AVAILABLE);
+                preparedStatement = connection.prepareStatement(DELETE);
                 preparedStatement.setInt(1, id);
             }
             preparedStatement.executeUpdate();
@@ -250,7 +250,7 @@ public class ItemRepository implements IItemRepository {
             preparedStatement.setString(2, items.getName());
             preparedStatement.setInt(3, items.getPrice());
             preparedStatement.setInt(4, items.getInventory());
-            preparedStatement.setString(5, items.getDecreption());
+            preparedStatement.setString(5, items.getDescription());
             preparedStatement.setInt(6, items.getAvailable());
             preparedStatement.setInt(7, items.getItemType().getId());
             preparedStatement.setInt(8, id);

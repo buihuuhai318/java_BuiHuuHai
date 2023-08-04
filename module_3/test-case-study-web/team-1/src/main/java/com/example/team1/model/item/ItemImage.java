@@ -11,6 +11,11 @@ public class ItemImage {
         this.items = items;
     }
 
+    public ItemImage(int id, String url) {
+        this.id = id;
+        this.url = url;
+    }
+
     public ItemImage(String url, Items items) {
         this.url = url;
         this.items = items;
