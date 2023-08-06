@@ -63,7 +63,7 @@ public class EmployeeServlet extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Employees employees = employeeService.selectEmployee(id);
-        Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getEmail());
+        Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getAccount().getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
             accountService.setAvailableAccount(accounts.getId(), false);
@@ -130,7 +130,7 @@ public class EmployeeServlet extends HttpServlet {
         String image = request.getParameter("image");
 
         Employees employees = employeeService.selectEmployee(id);
-        Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getEmail());
+        Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getAccount().getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
             accountService.setAvailableAccount(accounts.getId(), available == 0);

@@ -198,7 +198,7 @@ public class CustomerServlet extends HttpServlet {
         String image = request.getParameter("image");
 
         Customers customers = customerService.selectCustomer(id);
-        Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getEmail());
+        Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getAccount().getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
             accountService.setAvailableAccount(accounts.getId(), available == 0);
@@ -249,7 +249,7 @@ public class CustomerServlet extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Customers customers = customerService.selectCustomer(id);
-        Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getEmail());
+        Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getAccount().getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
             accountService.setAvailableAccount(accounts.getId(), false);

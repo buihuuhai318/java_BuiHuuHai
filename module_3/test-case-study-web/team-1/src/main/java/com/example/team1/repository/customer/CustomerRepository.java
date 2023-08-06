@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerRepository implements ICustomerRepository {
-    private static final String INSERT = "insert into customers (customer_name, customer_gender, customer_birthday, customer_phone, account_email, customer_address, customer_image, customer_type_id, account_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String INSERT = "insert into customers (customer_name, customer_gender, customer_birthday, customer_phone, customer_address, customer_image, customer_type_id, account_id) values (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_ALL = "select * from customers";
     private static final String DELETE = "update customers set customer_status = 1 where customer_id = ?";
     private static final String AVAILABLE = "update customers set customer_status = 0 where customer_id = ?";
@@ -41,11 +41,10 @@ public class CustomerRepository implements ICustomerRepository {
             preparedStatement.setInt(2, customers.isGender());
             preparedStatement.setString(3, customers.getBirthday());
             preparedStatement.setString(4, customers.getPhone());
-            preparedStatement.setString(5, customers.getEmail());
-            preparedStatement.setString(6, customers.getAddress());
-            preparedStatement.setString(7, customers.getImage());
-            preparedStatement.setInt(8, customers.getType().getId());
-            preparedStatement.setInt(9, customers.getAccount().getId());
+            preparedStatement.setString(5, customers.getAddress());
+            preparedStatement.setString(6, customers.getImage());
+            preparedStatement.setInt(7, customers.getType().getId());
+            preparedStatement.setInt(8, customers.getAccount().getId());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
