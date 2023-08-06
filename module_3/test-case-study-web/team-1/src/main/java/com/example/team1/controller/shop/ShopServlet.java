@@ -64,6 +64,7 @@ public class ShopServlet extends HttpServlet {
                 break;
             case "search":
                 searchItem(request, response);
+                break;
             default:
                 showIndex(request, response);
                 break;
@@ -161,10 +162,10 @@ public class ShopServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
+//        String action = request.getParameter("action");
+//        if (action == null) {
+//            action = "";
+//        }
 //        switch (action) {
 //            case "create":
 //                create(request, response);

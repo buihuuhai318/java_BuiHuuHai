@@ -101,7 +101,7 @@
                                         <td>${employee.getSalary()}</td>
                                         <td>
                                             <c:if test="${employee.getStatus() == 0}">Available</c:if>
-                                            <c:if test="${employee.getStatus() == 1}">Not Available</c:if>
+                                            <c:if test="${employee.getStatus() == 1}"><p style="color: red">Not Available</p></c:if>
                                         </td>
                                         <td>${employee.getAccount().username}</td>
                                         <c:if test="${sessionScope.get('role') == 1}">
@@ -128,7 +128,7 @@
                                                 <div class="modal-body">Delete Employee: ${employee.getName()}</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-danger" href="CustomerServlet?action=delete&id=${employee.getId()}">Delete</a>
+                                                    <a class="btn btn-danger" href="/CustomerServlet?action=delete&id=${employee.getId()}">Delete</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -102,25 +102,23 @@ public class PaymentServlet extends HttpServlet {
         String vnp_TxnRef = Config.getRandomNumber(8);
         String vnp_OrderInfo = "Thanh toán đơn hàng: " + vnp_TxnRef;
         String orderType = "150000";
-
         String vnp_IpAddr = "0:0:0:0:0:0:0:1";
         String vnp_TmnCode = Config.vnp_TmnCode;
         int price = Integer.parseInt(request.getParameter("totalPrice"));
-        int amount = price * 23000;
+        int amount = price * 23000 * 100;
         Map vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
         vnp_Params.put("vnp_CurrCode", "VND");
-        String bank_code = "NCB";
+        String bank_code = request.getParameter("bankcode");
         if (bank_code != null && !bank_code.isEmpty()) {
             vnp_Params.put("vnp_BankCode", bank_code);
         }
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", vnp_OrderInfo);
         vnp_Params.put("vnp_OrderType", orderType);
-
         vnp_Params.put("vnp_Locale", "vn");
         vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
@@ -182,7 +180,11 @@ public class PaymentServlet extends HttpServlet {
             int quantity = Integer.parseInt(request.getParameter("totalQuantity"));
             int paymentId = Integer.parseInt(request.getParameter("paymentMethod"));
             PaymentMethod paymentMethod = paymentMethodService.selectAll().get(paymentId);
-            Bill bill = new Bill(cart.getId(), paymentMethod, quantity, price, phone, address);
+            int paymentStatus = 0;
+            if (request.getParameter("billDone") != null) {
+                paymentStatus = 1;
+            }
+            Bill bill = new Bill(cart.getId(), paymentMethod, quantity, price, phone, address, paymentStatus);
             billService.insertBill(bill);
             List<OrderDetail> orderDetailList = new ArrayList<>(cart.getDetailList().values());
             Items items;

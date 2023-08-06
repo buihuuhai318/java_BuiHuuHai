@@ -12,4 +12,6 @@ public interface IBillService {
     List<Bill> selectAllByAccount(int id);
 
     List<Bill> selectAll();
+
+    void setPurchase(int id, boolean available);
 }

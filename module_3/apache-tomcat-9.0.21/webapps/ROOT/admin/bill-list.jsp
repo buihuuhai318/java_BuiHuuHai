@@ -64,6 +64,7 @@
                                     <th>Quantity</th>
                                     <th>Total</th>
                                     <th>Payment</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -74,6 +75,7 @@
                                     <th>Quantity</th>
                                     <th>Total</th>
                                     <th>Payment</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </tfoot>
@@ -86,13 +88,58 @@
                                         <td>${bill.totalPrice}</td>
                                         <td>${bill.getPaymentMethod().getName()}</td>
                                         <td>
+                                            <c:if test="${bill.getPaymentStatus() == 1}">Purchased</c:if>
+                                            <c:if test="${bill.getPaymentStatus() == 0}"><p style="color: red">Not
+                                                Purchased</p></c:if>
+                                        </td>
+                                        <td>
                                             <a href="/AdminServlet?action=showCart&idCart=${bill.cart}"
                                                class="btn btn-info btn-circle"
                                                style="margin-left: 8%; margin-bottom: 4%">
                                                 <i class="fas fa-user-check"></i>
                                             </a>
+                                            <c:if test="${sessionScope.get('role') == 1}">
+                                            <a href="#" class="btn btn-success btn-circle"
+                                               data-target="#delete${bill.id}" data-toggle="modal"
+                                               style="margin-left: 8%">
+                                                <i class="fas fa-angle-down"></i>
+                                            </a>
+                                            </c:if>
                                         </td>
                                     </tr>
+                                    <div class="modal fade" id="delete${bill.id}" tabindex="-1" role="dialog"
+                                         aria-labelledby="deleteLabel${bill.id}"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteLabel${bill.id}">Sure to
+                                                        change?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Change Payment Status - Bill
+                                                    ID: ${bill.id}</div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button"
+                                                            data-dismiss="modal">Cancel
+                                                    </button>
+                                                    <c:if test="${bill.getPaymentStatus() == 1}"><a
+                                                            class="btn btn-danger"
+                                                            href="/AdminServlet?action=purchased&idBill=${bill.id}&billStatus=${bill.getPaymentStatus()}">
+                                                        Not Purchased
+                                                    </a></c:if>
+                                                    <c:if test="${bill.getPaymentStatus() == 0}"><a
+                                                            class="btn btn-success"
+                                                            href="/AdminServlet?action=purchased&idBill=${bill.id}&billStatus=${bill.getPaymentStatus()}">
+                                                        Purchased
+                                                    </a></c:if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </c:forEach>
                                 </tbody>
                             </table>

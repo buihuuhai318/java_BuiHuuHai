@@ -99,7 +99,7 @@
                                         </td>
                                         <td>
                                             <c:if test="${account1.isAvailable() == 0}">Available</c:if>
-                                            <c:if test="${account1.isAvailable() == 1}">Not Available</c:if>
+                                            <c:if test="${account1.isAvailable() == 1}"><p style="color: red">Not Available</p></c:if>
                                         </td>
                                         <c:if test="${sessionScope.get('role') == 1}">
                                             <td>

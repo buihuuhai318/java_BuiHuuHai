@@ -29,4 +29,9 @@ public class BillService implements IBillService {
     public List<Bill> selectAll() {
         return billRepository.selectAll();
     }
+
+    @Override
+    public void setPurchase(int id, boolean available) {
+        billRepository.setPurchase(id, available);
+    }
 }

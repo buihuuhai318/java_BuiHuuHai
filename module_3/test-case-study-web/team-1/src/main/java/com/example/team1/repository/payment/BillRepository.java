@@ -16,7 +16,7 @@ import java.util.List;
 
 public class BillRepository implements IBillRepository {
 
-    private static final String INSERT = "insert into bill (cart_id, payment_id, bill_date, total_quantity, total_price, phone, address) values (?, ?, ?, ?, ?, ?, ?);";
+    private static final String INSERT = "insert into bill (cart_id, payment_id, bill_date, total_quantity, total_price, phone, address, payment_status) values (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_BY_ID = "select * from bill where bill_id = ?;";
     private static final String SELECT_ALL = "select * from bill order by bill_id desc;";
     private static final String SELECT_ALL_BY_ACC = "select * from bill " +
@@ -25,6 +25,7 @@ public class BillRepository implements IBillRepository {
             "where accounts.account_id = ? " +
             "order by bill_id desc";
 
+    private static final String SET_PURCHASED = "update bill set payment_status = ? where bill_id = ?";
     private static final ICartRepository cartRepository = new CartRepository();
     private static final IPaymentMethodRepository paymentMethodRepository = new PaymentMethodRepository();
 
@@ -41,6 +42,7 @@ public class BillRepository implements IBillRepository {
             preparedStatement.setInt(5, bill.getTotalPrice());
             preparedStatement.setString(6, bill.getPhone());
             preparedStatement.setString(7, bill.getAddress());
+            preparedStatement.setInt(8, bill.getPaymentStatus());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -65,7 +67,8 @@ public class BillRepository implements IBillRepository {
                 int totalPrice = resultSet.getInt("total_price");
                 String phone = resultSet.getString("phone");
                 String address = resultSet.getString("address");
-                bill = new Bill(id, cartId, paymentMethod, billDate, totalQuantity, totalPrice, phone, address);
+                int paymentStatus = resultSet.getInt("payment_status");
+                bill = new Bill(id, cartId, paymentMethod, billDate, totalQuantity, totalPrice, phone, address, paymentStatus);
             }
             connection.close();
         } catch (SQLException e) {
@@ -92,7 +95,8 @@ public class BillRepository implements IBillRepository {
                 int totalPrice = resultSet.getInt("total_price");
                 String phone = resultSet.getString("phone");
                 String address = resultSet.getString("address");
-                billList.add(new Bill(billId, cartId, paymentMethod, billDate, totalQuantity, totalPrice, phone, address));
+                int paymentStatus = resultSet.getInt("payment_status");
+                billList.add(new Bill(billId, cartId, paymentMethod, billDate, totalQuantity, totalPrice, phone, address, paymentStatus));
             }
             connection.close();
         } catch (SQLException e) {
@@ -118,12 +122,34 @@ public class BillRepository implements IBillRepository {
                 int totalPrice = resultSet.getInt("total_price");
                 String phone = resultSet.getString("phone");
                 String address = resultSet.getString("address");
-                billList.add(new Bill(billId, cartId, paymentMethod, billDate, totalQuantity, totalPrice, phone, address));
+                int paymentStatus = resultSet.getInt("payment_status");
+                billList.add(new Bill(billId, cartId, paymentMethod, billDate, totalQuantity, totalPrice, phone, address, paymentStatus));
             }
             connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return billList;
+    }
+
+    @Override
+    public void setPurchase(int id, boolean available) {
+        Connection connection = Base.getConnection();
+        try {
+            PreparedStatement preparedStatement;
+            if (available) {
+                preparedStatement = connection.prepareStatement(SET_PURCHASED);
+                preparedStatement.setInt(1, 1);
+                preparedStatement.setInt(2, id);
+            } else {
+                preparedStatement = connection.prepareStatement(SET_PURCHASED);
+                preparedStatement.setInt(1, 0);
+                preparedStatement.setInt(2, id);
+            }
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

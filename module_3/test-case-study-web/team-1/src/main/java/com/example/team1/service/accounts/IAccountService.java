@@ -20,5 +20,5 @@ public interface IAccountService {
 
     boolean checkAccount(String email, String username);
 
-    void forgetPass(String email);
+    void forgetPass(String email, String newPass);
 }

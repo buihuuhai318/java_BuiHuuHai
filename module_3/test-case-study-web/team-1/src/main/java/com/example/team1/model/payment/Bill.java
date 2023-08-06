@@ -13,8 +13,9 @@ public class Bill {
     private int totalPrice;
     private String phone;
     private String address;
+    private int paymentStatus;
 
-    public Bill(int id, int cart, PaymentMethod paymentMethod, String date, int totalQuantity, int totalPrice, String phone, String address) {
+    public Bill(int id, int cart, PaymentMethod paymentMethod, String date, int totalQuantity, int totalPrice, String phone, String address, int paymentStatus) {
         this.id = id;
         this.cart = cart;
         this.paymentMethod = paymentMethod;
@@ -23,9 +24,10 @@ public class Bill {
         this.totalPrice = totalPrice;
         this.phone = phone;
         this.address = address;
+        this.paymentStatus = paymentStatus;
     }
 
-    public Bill(int cart, PaymentMethod paymentMethod, int totalQuantity, int totalPrice, String phone, String address) {
+    public Bill(int cart, PaymentMethod paymentMethod, int totalQuantity, int totalPrice, String phone, String address, int paymentStatus) {
         this.cart = cart;
         this.paymentMethod = paymentMethod;
         this.date = String.valueOf(LocalDate.now());
@@ -33,9 +35,18 @@ public class Bill {
         this.totalPrice = totalPrice;
         this.phone = phone;
         this.address = address;
+        this.paymentStatus = paymentStatus;
     }
 
     public Bill() {
+    }
+
+    public int getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(int paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
     public int getTotalQuantity() {

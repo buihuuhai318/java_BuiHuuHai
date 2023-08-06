@@ -105,7 +105,7 @@
                                         </td>
                                         <td>
                                             <c:if test="${customer.isStatus() == 0}">Available</c:if>
-                                            <c:if test="${customer.isStatus() == 1}">Not Available</c:if>
+                                            <c:if test="${customer.isStatus() == 1}"><p style="color: red">Not Available</p></c:if>
                                         </td>
                                         <td>${customer.getAccount().username}</td>
                                         <c:if test="${sessionScope.get('role') == 1}">
@@ -132,7 +132,7 @@
                                                 <div class="modal-body">Delete Customer: ${customer.getName()}</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-danger" href="CustomerServlet?action=delete&id=${customer.getId()}">Delete</a>
+                                                    <a class="btn btn-danger" href="/CustomerServlet?action=delete&id=${customer.getId()}">Delete</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -13,4 +13,6 @@ public interface IBillRepository {
     List<Bill> selectAllByAccount(int id);
 
     List<Bill> selectAll();
+
+    void setPurchase(int id, boolean available);
 }

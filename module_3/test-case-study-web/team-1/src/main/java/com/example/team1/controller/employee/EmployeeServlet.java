@@ -43,6 +43,19 @@ public class EmployeeServlet extends HttpServlet {
         }
     }
 
+    private boolean checkRole(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("role") != null) {
+                return (Integer) session.getAttribute("role") == 1;
+            } else {
+                return false;
+            }
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
     private void showInfo(HttpServletRequest request, HttpServletResponse response) {
 
     }
@@ -56,22 +69,30 @@ public class EmployeeServlet extends HttpServlet {
             accountService.setAvailableAccount(accounts.getId(), false);
             employeeService.setAvailableEmployee(id, false);
         }
-        response.sendRedirect("EmployeeServlet?action=list");
+        response.sendRedirect("/EmployeeServlet?action=list");
     }
 
     private void showEditList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Employees employees = employeeService.selectEmployee(id);
-        request.setAttribute("employees", employees);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-employee.jsp");
-        dispatcher.forward(request, response);
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Employees employees = employeeService.selectEmployee(id);
+            request.setAttribute("employees", employees);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-employee.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Employees> employeesList = new ArrayList<>(employeeService.selectAllEmployee().values());
-        request.setAttribute("employeesList", employeesList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/employee-list.jsp");
-        dispatcher.forward(request, response);
+        if (checkRole(request, response)) {
+            List<Employees> employeesList = new ArrayList<>(employeeService.selectAllEmployee().values());
+            request.setAttribute("employeesList", employeesList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin/employee-list.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showEdit(HttpServletRequest request, HttpServletResponse response) {

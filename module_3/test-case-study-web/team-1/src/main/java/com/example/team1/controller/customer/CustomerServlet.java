@@ -68,6 +68,19 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
+    private boolean checkRole(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("role") != null) {
+                return (Integer) session.getAttribute("role") == 1;
+            } else {
+                return false;
+            }
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
     private void headCart(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         if (session.getAttribute("cart") != null) {
@@ -98,16 +111,21 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void showEditList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Customers customers = customerService.selectCustomer(id);
-        List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
-        request.setAttribute("customers", customers);
-        request.setAttribute("typesList", typesList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-customer.jsp");
-        dispatcher.forward(request, response);
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Customers customers = customerService.selectCustomer(id);
+            List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
+            request.setAttribute("customers", customers);
+            request.setAttribute("typesList", typesList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-customer.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
         HttpSession session = request.getSession();
         int id = (int) session.getAttribute("id_account");
 
@@ -127,10 +145,14 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Customers> customersList = new ArrayList<>(customerService.selectAllCustomer().values());
-        request.setAttribute("customersList", customersList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/customer-list.jsp");
-        dispatcher.forward(request, response);
+        if (checkRole(request, response)) {
+            List<Customers> customersList = new ArrayList<>(customerService.selectAllCustomer().values());
+            request.setAttribute("customersList", customersList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin/customer-list.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -193,7 +215,7 @@ public class CustomerServlet extends HttpServlet {
             }
             customerService.updateCustomer(customers.getId(), customers);
         }
-        response.sendRedirect("CustomerServlet?action=list");
+        response.sendRedirect("/CustomerServlet?action=list");
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -233,7 +255,7 @@ public class CustomerServlet extends HttpServlet {
             accountService.setAvailableAccount(accounts.getId(), false);
             customerService.setAvailableCustomer(id, false);
         }
-        response.sendRedirect("CustomerServlet?action=list");
+        response.sendRedirect("/CustomerServlet?action=list");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

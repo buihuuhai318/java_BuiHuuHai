@@ -19,7 +19,7 @@ public class AccountRepository implements IAccountRepository {
     private static final String DELETE = "update accounts set account_status = 1 where account_id = ?;";
     private static final String AVAILABLE = "update accounts set account_status = 0 where account_id = ?";
     private static final String UPDATE = "update accounts set account_password = ?, account_status = ?, role_id = ? where account_id = ?";
-    private static final String FORGET_PASS = "update accounts set account_password = 123 where account_email = ?";
+    private static final String FORGET_PASS = "update accounts set account_password = ? where account_email = ?";
 
     private static final RoleRepository roleRepository = new RoleRepository();
 
@@ -153,11 +153,12 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public void forgetPass(String email) {
+    public void forgetPass(String email, String newPass) {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(FORGET_PASS);
-            preparedStatement.setString(1, email);
+            preparedStatement.setString(1, newPass);
+            preparedStatement.setString(2, email);
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {

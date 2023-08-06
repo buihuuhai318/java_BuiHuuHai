@@ -50,7 +50,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void forgetPass(String email) {
-        accountRepository.forgetPass(email);
+    public void forgetPass(String email, String newPass) {
+        accountRepository.forgetPass(email, newPass);
     }
 }

@@ -101,6 +101,7 @@ total_quantity int,
 total_price int,
 phone varchar(20),
 address varchar(200),
+payment_status int,
 foreign key (cart_id) references carts(cart_id),
 foreign key (payment_id) references payment_method(payment_id)
 );

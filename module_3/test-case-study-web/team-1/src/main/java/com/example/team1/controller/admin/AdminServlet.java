@@ -31,34 +31,61 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "showBill":
-                showBill(request, response);
-                break;
-            case "showCart":
-                showCart(request, response);
-                break;
-            case "showPayment":
-                showPayment(request, response);
-                break;
-            case "deleteMethod":
-                deleteMethod(request, response);
-                break;
-            default:
-                showIndex(request, response);
-                break;
+        if (checkRole(request, response)) {
+            String action = request.getParameter("action");
+            if (action == null) {
+                action = "";
+            }
+            switch (action) {
+                case "purchased":
+                    setPurchased(request, response);
+                    break;
+                case "showBill":
+                    showBill(request, response);
+                    break;
+                case "showCart":
+                    showCart(request, response);
+                    break;
+                case "showPayment":
+                    showPayment(request, response);
+                    break;
+                case "deleteMethod":
+                    deleteMethod(request, response);
+                    break;
+                default:
+                    showIndex(request, response);
+                    break;
+            }
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
     }
 
-    private void deleteMethod(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private boolean checkRole(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("role") != null) {
+                return (Integer) session.getAttribute("role") == 1;
+            } else {
+                return false;
+            }
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
+    private void setPurchased(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int billId = Integer.parseInt(request.getParameter("idBill"));
+        int billStatus = Integer.parseInt(request.getParameter("billStatus"));
+        billService.setPurchase(billId, billStatus != 1);
+        response.sendRedirect("/AdminServlet?action=showBill");
+    }
+
+    private void deleteMethod(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int idMethod = Integer.parseInt(request.getParameter("idMethod"));
         PaymentMethod paymentMethod = paymentMethodService.getPayment(idMethod);
         paymentMethodService.setAvailableMethod(idMethod, paymentMethod.getAvailable() != 0);
-        response.sendRedirect("AdminServlet?action=showPayment");
+        response.sendRedirect("/AdminServlet?action=showPayment");
     }
 
     private void showPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

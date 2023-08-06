@@ -87,13 +87,12 @@
             <div class="container">
                 <div class="row">
                     <form class="checkout-form" id="payment" method="post"
-                    <c:if test='${requestScope["done"] == null}'>
-                          action="/PaymentServlet"
-                    </c:if>
-                    <c:if test='${requestScope["done"] != null}'>
-                        action="/PaymentServlet?action=getBill"
-                    </c:if>
-                    >
+                            <c:if test='${requestScope["done"] == null}'>
+                                action="/PaymentServlet"
+                            </c:if>
+                            <c:if test='${requestScope["done"] != null}'>
+                                action="/PaymentServlet?action=getBill"
+                            </c:if>>
                         <div class="col-md-8">
                             <div class="block billing-details">
                                 <h4 class="widget-title">Billing Details</h4>
@@ -101,7 +100,7 @@
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder=""
-                                           value="${customers.getName()}">
+                                           value="${customers.getName()}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
@@ -115,39 +114,44 @@
                                 </div>
                             </div>
                             <div class="block">
-                                <c:if test='${requestScope["fail"] != null}'>
-                                    <div class="alert alert-danger alert-common" role="alert" style="margin-top: 3%">
-                                        <i class="tf-ion-close-circled"></i>
-                                        <span>Warning!</span> Thanh Toán Không Thành Công !!!
-                                    </div>
-                                </c:if>
-                                    <h4 class="widget-title">Payment Method</h4>
-                                    <div class="checkout-product-details">
-                                        <div class="payment">
-                                            <div class="card-details">
-                                                <div class="product-size">
-                                                    <select class="form-control" name="paymentMethod">
-                                                        <c:if test='${requestScope["done"] == null}'>
+                                <h4 class="widget-title">Payment Method</h4>
+                                <div class="checkout-product-details">
+                                    <div class="payment">
+                                        <div class="card-details">
+                                            <div class="product-size">
+                                                <select class="form-control" name="paymentMethod">
+                                                    <c:if test='${requestScope["done"] == null}'>
                                                         <c:forEach items="${paymentMethodList}" var="method">
                                                             <option value="${method.getId()}">${method.getName()}</option>
                                                         </c:forEach>
-                                                        </c:if>
-                                                        <c:if test='${requestScope["done"] != null}'>
-
-                                                                <option value="2">VN-PAY</option>
-
-                                                        </c:if>
-                                                    </select>
-                                                </div>
-                                                <button type="submit" class="btn btn-main mt-20">Place Order</button>
+                                                    </c:if>
+                                                    <c:if test='${requestScope["done"] != null}'>
+                                                        <option value="2">VN-PAY</option>
+                                                    </c:if>
+                                                </select>
                                             </div>
+                                            <c:if test='${requestScope["fail"] != null}'>
+                                                <div class="alert alert-danger alert-common" role="alert" style="margin-top: 3%">
+                                                    <i class="tf-ion-close-circled"></i>
+                                                    <span>Warning!</span> Thanh Toán Không Thành Công !!!
+                                                </div>
+                                            </c:if>
+                                            <c:if test='${requestScope["done"] != null}'>
+                                                <div class="alert alert-success alert-common" role="alert" style="margin-top: 3%">
+                                                    <i class="tf-ion-close-circled"></i>
+                                                    <span>Thanh Toán Thành Công !</span> Xin Đợi Chuyển Tiếp trang !!!
+                                                </div>
+                                            </c:if>
+                                            <button type="submit" class="btn btn-main mt-20">Place Order</button>
                                         </div>
                                     </div>
+                                </div>
                                 <c:if test='${requestScope["done"] != null}'>
+                                    <input type="hidden" name="billDone" value="done">
                                     <script>
-                                        setTimeout(function() {
+                                        setTimeout(function () {
                                             document.getElementById("payment").submit();
-                                        }, 5000);
+                                        }, 5);
                                     </script>
                                 </c:if>
                             </div>
@@ -192,7 +196,8 @@
                                                 <span>Free</span>
                                             </li>
                                         </ul>
-                                        <c:set var="sum" value="${sum + orderList.getQuantity() * orderList.getPrice()}"/>
+                                        <c:set var="sum"
+                                               value="${sum + orderList.getQuantity() * orderList.getPrice()}"/>
                                         <c:set var="quantity" value="${quantity + orderList.getQuantity()}"/>
                                         <!-- Modal -->
                                         <div class="modal fade" id="coupon-modal${orderList.getItems().getId()}"
