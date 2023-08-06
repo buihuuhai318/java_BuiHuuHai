@@ -92,6 +92,24 @@ payment_status int default 0,
 foreign key (account_id) references accounts(account_id)
 );
 
+create table order_details (
+cart_id int,
+item_id int,
+detail_quantity int not null,
+detail_price_total int,
+primary key (cart_id, item_id),
+foreign key (item_id) references items(item_id),
+foreign key (cart_id) references carts(cart_id)
+);
+
+create table payment_method (
+payment_id int primary key auto_increment,
+payment_name varchar(50),
+payment_available int
+);
+
+select * from bill order by bill_id desc;
+
 create table bill (
 bill_id int primary key auto_increment,
 cart_id int,
@@ -105,6 +123,99 @@ payment_status int,
 foreign key (cart_id) references carts(cart_id),
 foreign key (payment_id) references payment_method(payment_id)
 );
+
+
+DELIMITER //
+CREATE PROCEDURE search_items(IN searchKeyword VARCHAR(100))
+BEGIN
+    SELECT * FROM items
+    join item_types on items.item_type_id = item_types.item_type_id
+    WHERE item_type_name LIKE CONCAT('%', searchKeyword, '%') OR item_name LIKE CONCAT('%', searchKeyword, '%');
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE hot_items ()
+BEGIN
+SELECT items.item_id, items.item_name, item_types.item_type_name, SUM(detail_quantity) AS total_quantity, (items.item_price * SUM(detail_quantity)) as total_price
+FROM items
+left JOIN order_details ON order_details.item_id = items.item_id
+left join item_types on items.item_type_id = item_types.item_type_id
+GROUP BY items.item_id, items.item_type_id
+ORDER BY total_quantity DESC
+limit 9;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE hot_accounts ()
+BEGIN
+SELECT customers.customer_id, accounts.account_username, customers.customer_name, customer_types.customer_type_name, count(bill.cart_id) AS total_bill, SUM(bill.total_price) as total_price
+FROM accounts
+left JOIN customers ON accounts.account_id = customers.account_id
+left JOIN customer_types ON customers.customer_type_id = customer_types.customer_type_id
+left JOIN carts ON accounts.account_id = carts.account_id
+left join bill on carts.cart_id = bill.cart_id
+GROUP BY customer_id, account_username having total_bill > 0
+ORDER BY total_price DESC
+limit 9;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE revenue_by_current_day()
+BEGIN
+    DECLARE currentDate DATE;
+    SET currentDate = CURDATE();
+
+    SELECT DATE(c.order_date) AS date,
+           SUM(b.total_price) AS total_revenue
+    FROM carts AS c
+    JOIN bill AS b ON c.cart_id = b.cart_id
+    WHERE DATE(c.order_date) = currentDate
+    GROUP BY DATE(c.order_date);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE revenue_by_current_month()
+BEGIN
+    DECLARE currentYear INT;
+    DECLARE currentMonth INT;
+
+    SET currentYear = YEAR(CURDATE());
+    SET currentMonth = MONTH(CURDATE());
+
+    SELECT YEAR(c.order_date) AS year,
+           MONTH(c.order_date) AS month,
+           SUM(b.total_price) AS total_revenue
+    FROM carts AS c
+    JOIN bill AS b ON c.cart_id = b.cart_id
+    WHERE YEAR(c.order_date) = currentYear AND MONTH(c.order_date) = currentMonth
+    GROUP BY YEAR(c.order_date), MONTH(c.order_date);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE revenue_by_current_year()
+BEGIN
+    DECLARE currentYear INT;
+    SET currentYear = YEAR(CURDATE());
+
+    SELECT YEAR(c.order_date) AS year,
+           SUM(b.total_price) AS total_revenue
+    FROM carts AS c
+    JOIN bill AS b ON c.cart_id = b.cart_id
+    WHERE YEAR(c.order_date) = currentYear
+    GROUP BY YEAR(c.order_date);
+END //
+DELIMITER ;
+
+
+
+
+
 
 select * from bill
 join carts on carts.cart_id = bill.cart_id
@@ -126,35 +237,9 @@ join order_details on carts.cart_id = order_details.cart_id
 join accounts on carts.account_id = accounts.account_id
 group by bill_id;
 
-
-create table payment_method (
-payment_id int primary key auto_increment,
-payment_name varchar(50),
-payment_available int
-);
-
 insert into payment_method value (1, "Cash On Delivery", 0), (2, "VN-PAY", 0);
 
-create table order_details (
-cart_id int,
-item_id int,
-detail_quantity int not null,
-detail_price_total int,
-primary key (cart_id, item_id),
-foreign key (item_id) references items(item_id),
-foreign key (cart_id) references carts(cart_id)
-);
-
 select * from order_details;
-
-DELIMITER //
-CREATE PROCEDURE search_items(IN searchKeyword VARCHAR(100))
-BEGIN
-    SELECT * FROM items
-    join item_types on items.item_type_id = item_types.item_type_id
-    WHERE item_type_name LIKE CONCAT('%', searchKeyword, '%') OR item_name LIKE CONCAT('%', searchKeyword, '%');
-END //
-DELIMITER ;
 
 call search_items("Bracelet");
 
@@ -194,96 +279,17 @@ GROUP BY items.item_id, items.item_type_id
 ORDER BY total_quantity DESC
 limit 9;
 
-DELIMITER //
-CREATE PROCEDURE hot_items ()
-BEGIN
-SELECT items.item_id, items.item_name, item_types.item_type_name, SUM(detail_quantity) AS total_quantity, (items.item_price * SUM(detail_quantity)) as total_price
-FROM items
-left JOIN order_details ON order_details.item_id = items.item_id
-left join item_types on items.item_type_id = item_types.item_type_id
-GROUP BY items.item_id, items.item_type_id
-ORDER BY total_quantity DESC
-limit 9;
-END //
-DELIMITER ;
-
 call hot_items;
-
-DELIMITER //
-CREATE PROCEDURE hot_accounts ()
-BEGIN
-SELECT customers.customer_id, accounts.account_username, customers.customer_name, customer_types.customer_type_name, count(bill.cart_id) AS total_bill, SUM(bill.total_price) as total_price
-FROM accounts
-left JOIN customers ON accounts.account_id = customers.account_id
-left JOIN customer_types ON customers.customer_type_id = customer_types.customer_type_id
-left JOIN carts ON accounts.account_id = carts.account_id
-left join bill on carts.cart_id = bill.cart_id
-GROUP BY customer_id, account_username having total_bill > 0
-ORDER BY total_price DESC
-limit 9;
-END //
-DELIMITER ;
 
 call hot_accounts;
 
 call hot_items;
 
-DELIMITER //
-CREATE PROCEDURE revenue_by_current_day()
-BEGIN
-    DECLARE currentDate DATE;
-    SET currentDate = CURDATE();
-
-    SELECT DATE(c.order_date) AS date,
-           SUM(b.total_price) AS total_revenue
-    FROM carts AS c
-    JOIN bill AS b ON c.cart_id = b.cart_id
-    WHERE DATE(c.order_date) = currentDate
-    GROUP BY DATE(c.order_date);
-END //
-DELIMITER ;
-
 call revenue_by_current_day;
-
-DELIMITER //
-CREATE PROCEDURE revenue_by_current_month()
-BEGIN
-    DECLARE currentYear INT;
-    DECLARE currentMonth INT;
-
-    SET currentYear = YEAR(CURDATE());
-    SET currentMonth = MONTH(CURDATE());
-
-    SELECT YEAR(c.order_date) AS year,
-           MONTH(c.order_date) AS month,
-           SUM(b.total_price) AS total_revenue
-    FROM carts AS c
-    JOIN bill AS b ON c.cart_id = b.cart_id
-    WHERE YEAR(c.order_date) = currentYear AND MONTH(c.order_date) = currentMonth
-    GROUP BY YEAR(c.order_date), MONTH(c.order_date);
-END //
-DELIMITER ;
 
 call revenue_by_current_month;
 
-DELIMITER //
-CREATE PROCEDURE revenue_by_current_year()
-BEGIN
-    DECLARE currentYear INT;
-    SET currentYear = YEAR(CURDATE());
-
-    SELECT YEAR(c.order_date) AS year,
-           SUM(b.total_price) AS total_revenue
-    FROM carts AS c
-    JOIN bill AS b ON c.cart_id = b.cart_id
-    WHERE YEAR(c.order_date) = currentYear
-    GROUP BY YEAR(c.order_date);
-END //
-DELIMITER ;
-
 call revenue_by_current_year;
-
-
 
 -- delete from item_images where image_id = 1;
 insert into customers value (1, "bui huu hai", 0, "1996-08-31", "0942409424", "buihuuhai318@gmail.com", "da nang", 0, "", 1, 1);

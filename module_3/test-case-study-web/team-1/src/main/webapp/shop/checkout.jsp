@@ -41,8 +41,51 @@
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Tạo nền mờ */
+            z-index: 9999; /* Đặt z-index cao để spinner đè lên tất cả */
+        }
 
+        /* CSS của spinner vẫn như trong ví dụ trước */
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid black;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
+
 
 <body id="body">
 <!-- Start Top Header Bar -->
@@ -82,6 +125,11 @@
 </c:if>
 
 <c:if test="${not empty requestScope['orderList']}">
+    <c:if test='${requestScope["done"] != null}'>
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+    </c:if>
     <div class="page-wrapper">
         <div class="checkout shopping">
             <div class="container">
@@ -131,13 +179,15 @@
                                                 </select>
                                             </div>
                                             <c:if test='${requestScope["fail"] != null}'>
-                                                <div class="alert alert-danger alert-common" role="alert" style="margin-top: 3%">
+                                                <div class="alert alert-danger alert-common" role="alert"
+                                                     style="margin-top: 3%">
                                                     <i class="tf-ion-close-circled"></i>
                                                     <span>Warning!</span> Thanh Toán Không Thành Công !!!
                                                 </div>
                                             </c:if>
                                             <c:if test='${requestScope["done"] != null}'>
-                                                <div class="alert alert-success alert-common" role="alert" style="margin-top: 3%">
+                                                <div class="alert alert-success alert-common" role="alert"
+                                                     style="margin-top: 3%">
                                                     <i class="tf-ion-close-circled"></i>
                                                     <span>Thanh Toán Thành Công !</span> Xin Đợi Chuyển Tiếp trang !!!
                                                 </div>
