@@ -1,5 +1,6 @@
 package com.example.team1.controller.accounts;
 
+import com.example.team1.controller.payment.Config;
 import com.example.team1.model.accounts.Accounts;
 import com.example.team1.model.accounts.Roles;
 import com.example.team1.model.customers.Customers;
@@ -70,14 +71,34 @@ public class AccountServlet extends HttpServlet {
             case "res":
                 showResetPassword(request, response);
                 break;
+            default:
+                showIndex(request, response);
+                break;
+        }
+    }
+
+    private boolean checkRole(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("role") != null) {
+                return (Integer) session.getAttribute("role") != 3;
+            } else {
+                return false;
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
     }
 
     private void showCreateNew(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
-        request.setAttribute("rolesList", rolesList);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/create-new-account.jsp");
-        requestDispatcher.forward(request, response);
+        if (checkRole(request, response)) {
+            List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
+            request.setAttribute("rolesList", rolesList);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/create-new-account.jsp");
+            requestDispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,23 +112,29 @@ public class AccountServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Accounts> accountsList = new ArrayList<>(accountService.selectAllAccount().values());
-        System.out.println(accountsList);
-
-        request.setAttribute("accountsList", accountsList);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/account-list.jsp");
-        dispatcher.forward(request, response);
+        if (checkRole(request, response)) {
+            List<Accounts> accountsList = new ArrayList<>(accountService.selectAllAccount().values());
+            System.out.println(accountsList);
+            request.setAttribute("accountsList", accountsList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin/account-list.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Accounts accounts = accountService.selectAccount(id);
-        List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
-        request.setAttribute("accounts", accounts);
-        request.setAttribute("rolesList", rolesList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-account.jsp");
-        dispatcher.forward(request, response);
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Accounts accounts = accountService.selectAccount(id);
+            List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
+            request.setAttribute("accounts", accounts);
+            request.setAttribute("rolesList", rolesList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-account.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -200,40 +227,46 @@ public class AccountServlet extends HttpServlet {
             Types types = typeService.selectType(Integer.parseInt(request.getParameter("customerTypes")));
             Customers customers = new Customers(name, gender, date, phone, address, available, image, types, accounts);
             customerService.insertCustomer(customers);
-            response.sendRedirect("CustomerServlet?action=list");
+            response.sendRedirect("/CustomerServlet?action=list");
         } else {
             int salary = Integer.parseInt(request.getParameter("salary"));
             Employees employees = new Employees(name, salary, gender, date, phone, address, available, image, accounts);
             employeeService.insertEmployee(employees);
-            response.sendRedirect("EmployeeServlet?action=list");
+            response.sendRedirect("/EmployeeServlet?action=list");
         }
     }
 
     private void createNew(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
-        RequestDispatcher dispatcher;
-        if (accountService.checkAccount(email, username)) {
-            Accounts accounts = new Accounts(email, username, password, roles);
-            accountService.insertAccount(accounts);
-            request.setAttribute("accounts", accounts);
-            if (roles.getId() == Roles.CUSTOMER) {
-                request.setAttribute("cus", "cus");
+        if (checkRole(request, response)) {
+            String email = request.getParameter("email");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
+            RequestDispatcher dispatcher;
+            if (accountService.checkAccount(email, username)) {
+                Accounts accounts = new Accounts(email, username, password, roles);
+                accountService.insertAccount(accounts);
+                String content = Email.getNewAccount(accounts);
+                Email.sendEmail(accounts.getEmail(), "#Thehome - Welcome !!!", content);
+                request.setAttribute("accounts", accounts);
+                if (roles.getId() == Roles.CUSTOMER) {
+                    request.setAttribute("cus", "cus");
+                } else {
+                    request.setAttribute("emp", "emp");
+                }
+                List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
+                request.setAttribute("typesList", typesList);
+                dispatcher = request.getRequestDispatcher("/admin/new-profile.jsp");
+                dispatcher.forward(request, response);
             } else {
-                request.setAttribute("emp", "emp");
+                request.setAttribute("fail", "fail");
+                List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
+                request.setAttribute("rolesList", rolesList);
+                dispatcher = getServletContext().getRequestDispatcher("/admin/create-new-account.jsp");
+                dispatcher.forward(request, response);
             }
-            List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
-            request.setAttribute("typesList", typesList);
-            dispatcher = request.getRequestDispatcher("admin/new-profile.jsp");
-            dispatcher.forward(request, response);
         } else {
-            request.setAttribute("fail", "fail");
-            List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
-            request.setAttribute("rolesList", rolesList);
-            dispatcher = getServletContext().getRequestDispatcher("/admin/create-new-account.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect("/ShopServlet");
         }
     }
 
@@ -249,6 +282,8 @@ public class AccountServlet extends HttpServlet {
         if (accounts.getPassword().equals(oldPass)) {
             if (newPass.equals(confirmPass)) {
                 accounts.setPassword(newPass);
+                String content = Email.getNewPass(accounts);
+                Email.sendEmail(accounts.getEmail(), "#Thehome - Changed Password", content);
                 accountService.updateAccount(id, accounts);
                 request.setAttribute("done", "done");
             } else {
@@ -262,39 +297,52 @@ public class AccountServlet extends HttpServlet {
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String pass = request.getParameter("pass");
-        int available = Integer.parseInt(request.getParameter("available"));
-        Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String pass = request.getParameter("pass");
+            int available = Integer.parseInt(request.getParameter("available"));
+            Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
 
-        Accounts accounts = accountService.selectAccount(id);
-        Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
+            Accounts accounts = accountService.selectAccount(id);
+            Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
+            Employees employees = employeeService.selectAllEmployeeByEmail().get(accounts.getEmail());
 
-        if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accounts.setRole(roles);
-            accounts.setPassword(pass);
-            accounts.setAvailable(available);
-            if (customers != null) {
-                customerService.deleteCustomer(customers.getId(), available == 1);
+            if (accounts.getRole().getId() != Accounts.ADNIN) {
+                accounts.setRole(roles);
+                accounts.setPassword(pass);
+                accounts.setAvailable(available);
+                if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
+                    customerService.setAvailableCustomer(customers.getId(), available == 0);
+                } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
+                    employeeService.setAvailableEmployee(employees.getId(), available == 0);
+                }
+                accountService.updateAccount(id, accounts);
             }
-            accountService.updateAccount(id, accounts);
+            response.sendRedirect("/AccountServlet?action=list");
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
-        response.sendRedirect("AccountServlet?action=list");
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Accounts accounts = accountService.selectAccount(id);
+            Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
+            Employees employees = employeeService.selectAllEmployeeByEmail().get(accounts.getEmail());
 
-        Accounts accounts = accountService.selectAccount(id);
-        Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
-
-        if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.deleteAccount(id, true);
-            if (customers != null) {
-                customerService.deleteCustomer(customers.getId(), true);
+            if (accounts.getRole().getId() != Accounts.ADNIN) {
+                accountService.setAvailableAccount(id, false);
+                if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
+                    customerService.setAvailableCustomer(customers.getId(), false);
+                } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
+                    employeeService.setAvailableEmployee(employees.getId(), false);
+                }
             }
+            response.sendRedirect("/AccountServlet?action=list");
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
-        response.sendRedirect("AccountServlet?action=list");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -304,6 +352,8 @@ public class AccountServlet extends HttpServlet {
         if (accountService.checkAccount(email, username)) {
             Accounts accounts = new Accounts(email, username, password);
             accountService.insertAccount(accounts);
+            String content = Email.getNewAccount(accounts);
+            Email.sendEmail(accounts.getEmail(), "#Thehome - Welcome !!!", content);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/shop/create-done.jsp");
             dispatcher.forward(request, response);
         } else {
@@ -322,8 +372,7 @@ public class AccountServlet extends HttpServlet {
             session.setAttribute("accounts", accounts);
             session.setAttribute("username", accounts.getUsername());
             session.setAttribute("id_account", accounts.getId());
-
-            RequestDispatcher dispatcher;
+            session.setAttribute("role", accounts.getRole().getId());
             if (accounts.getRole().getId() == Roles.CUSTOMER) {
                 Cookie user = new Cookie("username", username);
                 Cookie pass = new Cookie("password", password);
@@ -351,8 +400,11 @@ public class AccountServlet extends HttpServlet {
         String email = request.getParameter("email");
         Accounts accounts = accountService.selectAllAccountByEmail().get(email);
         if (accounts != null) {
-            accountService.forgetPass(email);
-            Email.sendEmail(email, "Thehome - Reset Password", "Hi " + accounts.getUsername() + " ! <br> Password mới của bạn là: 123 <br> Good day !!!");
+            String newPass = Config.getRandomNumber(8);
+            accountService.forgetPass(email, newPass);
+            accounts.setPassword(newPass);
+            String content = Email.getNewPass(accounts);
+            Email.sendEmail(email, "#Thehome - Reset Password", content);
             request.setAttribute("done", "done");
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/forget-password.jsp");
             dispatcher.forward(request, response);

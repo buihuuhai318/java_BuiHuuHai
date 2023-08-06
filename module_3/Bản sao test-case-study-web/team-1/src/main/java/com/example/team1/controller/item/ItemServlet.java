@@ -40,52 +40,88 @@ public class ItemServlet extends HttpServlet {
         }
     }
 
+    private boolean checkRole(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("role") != null) {
+                return (Integer) session.getAttribute("role") != 3;
+            } else {
+                return false;
+            }
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Items> itemsList = new ArrayList<>(itemService.selectAllItem().values());
-        List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
-        request.setAttribute("itemsList", itemsList);
-        request.setAttribute("itemTypeList", itemTypeList);
-        request.getRequestDispatcher("admin/item-list.jsp").forward(request, response);
+        if (checkRole(request, response)) {
+            List<Items> itemsList = new ArrayList<>(itemService.selectAllItem().values());
+            List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
+            request.setAttribute("itemsList", itemsList);
+            request.setAttribute("itemTypeList", itemTypeList);
+            request.getRequestDispatcher("admin/item-list.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Items items = itemService.selectItem(id);
-        List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
-        List<ItemImage> imageList = itemImageService.selectImageByItem(id);
-        request.setAttribute("items", items);
-        request.setAttribute("itemTypeList", itemTypeList);
-        request.setAttribute("imageList", imageList);
-        request.getRequestDispatcher("admin/item-edit.jsp").forward(request, response);
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Items items = itemService.selectItem(id);
+            List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
+            List<ItemImage> imageList = itemImageService.selectImageByItem(id);
+            request.setAttribute("items", items);
+            request.setAttribute("itemTypeList", itemTypeList);
+            request.setAttribute("imageList", imageList);
+            request.getRequestDispatcher("admin/item-edit.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
-    private void showDelete(HttpServletRequest request, HttpServletResponse response) {
-
+    private void showDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            itemService.availableItem(id, false);
+            response.sendRedirect("/ItemServlet?action=list");
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
-        request.setAttribute("itemTypeList", itemTypeList);
-        request.getRequestDispatcher("admin/item-create.jsp").forward(request, response);
+        if (checkRole(request, response)) {
+            List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
+            request.setAttribute("itemTypeList", itemTypeList);
+            request.getRequestDispatcher("admin/item-create.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "create":
-                create(request, response);
-                break;
-            case "edit":
-                edit(request, response);
-                break;
+        if (checkRole(request, response)) {
+            String action = request.getParameter("action");
+            if (action == null) {
+                action = "";
+            }
+            switch (action) {
+                case "create":
+                    create(request, response);
+                    break;
+                case "edit":
+                    edit(request, response);
+                    break;
+            }
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
     }
 
-    private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        checkRole(request, response);
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String code = request.getParameter("code");
@@ -94,7 +130,7 @@ public class ItemServlet extends HttpServlet {
         int typeId = Integer.parseInt(request.getParameter("type"));
         ItemType itemType = itemTypeService.selectItemType(typeId);
         int available = Integer.parseInt(request.getParameter("available"));
-        String decreption = request.getParameter("decreption");
+        String description = request.getParameter("description");
 
         Items items = itemService.selectItem(id);
 
@@ -104,12 +140,14 @@ public class ItemServlet extends HttpServlet {
         items.setInventory(inventory);
         items.setItemType(itemType);
         items.setAvailable(available);
-        items.setDecreption(decreption);
+        items.setDescription(description);
 
         String image1 = request.getParameter("image1");
         String image2 = request.getParameter("image2");
         String image3 = request.getParameter("image3");
         String image4 = request.getParameter("image4");
+
+        itemService.updateItem(id, items);
 
         List<ItemImage> imageListTemp = new ArrayList<>();
         imageListTemp.add(new ItemImage(image1, items));
@@ -117,27 +155,45 @@ public class ItemServlet extends HttpServlet {
         imageListTemp.add(new ItemImage(image3, items));
         imageListTemp.add(new ItemImage(image4, items));
 
+        boolean flag = false;
+        for (ItemImage itemImage : imageListTemp) {
+            if (itemImage.getUrl().equals("")) {
+                continue;
+            }
+            flag = true;
+            break;
+        }
+
         List<ItemImage> imageList = itemImageService.selectImageByItem(id);
-        if (imageList.size() == 0) {
-            for (ItemImage itemImage : imageListTemp) {
-                if (itemImage.getUrl().equals("")) {
-                    continue;
-                }
+        if (imageList.size() < 4) {
+            while (imageList.size() < 4) {
+                ItemImage itemImage = new ItemImage("", items);
+                imageList.add(itemImage);
                 itemImageService.insertImage(itemImage);
             }
-        } else {
-            itemImageService.deleteImageByItem(id);
-            for (ItemImage itemImage : imageListTemp) {
-                if (itemImage.getUrl().equals("")) {
+            for (int i = 0; i < imageListTemp.size(); i++) {
+                if (imageListTemp.get(i).getUrl().equals("")) {
                     continue;
                 }
-                itemImageService.updateImage(id, itemImage);
+                imageList.get(i).setUrl(imageListTemp.get(i).getUrl());
+                itemImageService.updateImage(imageList.get(i).getId(), imageList.get(i));
+            }
+        } else {
+            if (flag) {
+                for (int i = 0; i < imageListTemp.size(); i++) {
+                    if (imageListTemp.get(i).getUrl().equals("")) {
+                        continue;
+                    }
+                    imageList.get(i).setUrl(imageListTemp.get(i).getUrl());
+                    itemImageService.updateImage(imageList.get(i).getId(), imageList.get(i));
+                }
             }
         }
         response.sendRedirect("ItemServlet?action=list");
     }
 
-    private void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void create(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        checkRole(request, response);
         String name = request.getParameter("name");
         String code = request.getParameter("code");
         int price = Integer.parseInt(request.getParameter("price"));
@@ -145,8 +201,8 @@ public class ItemServlet extends HttpServlet {
         int typeId = Integer.parseInt(request.getParameter("type"));
         ItemType itemType = itemTypeService.selectItemType(typeId);
         int available = Integer.parseInt(request.getParameter("available"));
-        String decreption = request.getParameter("decreption");
-        Items items = new Items(code, name, price, inventory, available, decreption, itemType);
+        String description = request.getParameter("description");
+        Items items = new Items(code, name, price, inventory, available, description, itemType);
         itemService.insertItem(items);
         Items itemsTemp = itemService.selectAllItemByCode().get(code);
         String image1 = request.getParameter("image1");

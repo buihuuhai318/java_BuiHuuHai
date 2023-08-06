@@ -55,7 +55,7 @@
                                 <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Email</label>
                                 <input type="text" class="form-control"
                                        placeholder="ID" value="${requestScope["accounts"].getEmail()}"
-                                       name="email" style="text-align: center" required>
+                                       name="email" style="text-align: center" required maxlength="100">
                             </div>
                         </fieldset>
                     </div>
@@ -66,7 +66,7 @@
                                 <div class="p-5">
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Name</p>
-                                        <input type="text" class="form-control" placeholder="Name" name="name" required>
+                                        <input type="text" class="form-control" placeholder="Name" name="name" required maxlength="50">
                                     </div>
                                     <div class="form-group row">
                                         <c:if test='${requestScope["cus"] != null}'>
@@ -84,7 +84,7 @@
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <div class="form-group">
                                                     <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Salary</p>
-                                                    <input type="text" class="form-control" placeholder="Salary" name="salary" required min="0">
+                                                    <input type="text" class="form-control" placeholder="Salary" name="salary" required min="0" max="100000000">
                                                 </div>
                                             </div>
                                         </c:if>
@@ -114,15 +114,15 @@
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Phone</p>
-                                        <input type="text" class="form-control" placeholder="Phone" name="phone" required>
+                                        <input type="text" class="form-control" placeholder="Phone" name="phone" required maxlength="20">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Address</p>
-                                        <input type="text" class="form-control" placeholder="Address" name="address" required>
+                                        <input type="text" class="form-control" placeholder="Address" name="address" required maxlength="100">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image</p>
-                                        <input type="file" class="form-control" placeholder="image" style="height: fit-content" name="image">
+                                        <input type="file" class="form-control" placeholder="image" style="height: fit-content" name="image" maxlength="100">
                                     </div>
                                 </div>
                             </div>

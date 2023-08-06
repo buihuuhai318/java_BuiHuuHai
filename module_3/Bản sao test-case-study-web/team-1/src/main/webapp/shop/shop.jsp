@@ -119,9 +119,11 @@
 											<h2 class="product-title">${items.getName()}</h2>
 											<p class="product-price">$${items.getPrice()}</p>
 											<p class="product-short-description">
-													${items.getDecreption()}
+													${items.getDescription()}
 											</p>
-											<a href="/CartServlet?itemId=${items.getId()}" class="btn btn-main">Add To Cart</a>
+											<c:if test="${items.getInventory() > 0}">
+												<a href="/CartServlet?itemId=${items.getId()}" class="btn btn-main">Add To Cart</a>
+											</c:if>
 											<a href="/ShopServlet?action=viewDetail&id=${items.getId()}" class="btn btn-transparent">View Product
 												Details</a>
 										</div>

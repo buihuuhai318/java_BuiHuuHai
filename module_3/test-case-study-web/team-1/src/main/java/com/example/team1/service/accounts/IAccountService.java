@@ -10,7 +10,10 @@ public interface IAccountService {
     Accounts selectAccount(int id);
 
     Map<String, Accounts> selectAllAccount();
+
     public Map<String, Accounts> selectAllAccountByEmail();
+
+    Map<Integer, Accounts> selectAllAccountById();
 
     void setAvailableAccount(int id, boolean available);
 

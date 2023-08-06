@@ -68,7 +68,7 @@
                                      alt="">
                                 <input type="file" class="form-control" id=""
                                        placeholder="image" value="${requestScope["customers"].getImage()}"
-                                       style="margin-top: 5%; height: fit-content" name="image">
+                                       style="margin-top: 5%; height: fit-content" name="image" maxlength="100">
                             </div>
                             <div class="col-lg-7">
                                 <div class="p-5">
@@ -78,7 +78,7 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Name</p>
                                         <input type="text" class="form-control"
                                                placeholder="Name" value="${requestScope["customers"].getName()}"
-                                               name="name" required>
+                                               name="name" required maxlength="50">
                                     </div>
 
                                     <div class="form-group row">
@@ -134,13 +134,13 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Phone</p>
                                         <input type="text" class="form-control"
                                                placeholder="Phone" value="${requestScope["customers"].getPhone()}"
-                                               name="phone" required>
+                                               name="phone" required maxlength="50">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Address</p>
                                         <input type="text" class="form-control"
                                                placeholder="Address" value="${requestScope["customers"].getAddress()}"
-                                               name="address" required>
+                                               name="address" required maxlength="100">
                                     </div>
                                 </div>
                             </div>

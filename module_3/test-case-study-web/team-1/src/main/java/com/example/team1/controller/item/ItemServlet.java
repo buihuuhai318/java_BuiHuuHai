@@ -44,7 +44,7 @@ public class ItemServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             if (session.getAttribute("role") != null) {
-                return (Integer) session.getAttribute("role") == 1;
+                return (Integer) session.getAttribute("role") != 3;
             } else {
                 return false;
             }
@@ -81,9 +81,13 @@ public class ItemServlet extends HttpServlet {
     }
 
     private void showDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        itemService.availableItem(id, false);
-        response.sendRedirect("/ItemServlet?action=list");
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            itemService.availableItem(id, false);
+            response.sendRedirect("/ItemServlet?action=list");
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -98,17 +102,21 @@ public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "create":
-                create(request, response);
-                break;
-            case "edit":
-                edit(request, response);
-                break;
+        if (checkRole(request, response)) {
+            String action = request.getParameter("action");
+            if (action == null) {
+                action = "";
+            }
+            switch (action) {
+                case "create":
+                    create(request, response);
+                    break;
+                case "edit":
+                    edit(request, response);
+                    break;
+            }
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
     }
 

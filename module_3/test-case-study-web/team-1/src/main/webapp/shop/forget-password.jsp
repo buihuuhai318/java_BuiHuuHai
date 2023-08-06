@@ -61,7 +61,7 @@
                             your account.</p>
                         <div class="form-group">
                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                   placeholder="Account email address" name="email">
+                                   placeholder="Account email address" name="email" maxlength="100">
                         </div>
                         <c:if test='${requestScope["mess"] != null}'>
                             <div class="alert alert-danger alert-common" role="alert">

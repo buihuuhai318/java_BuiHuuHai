@@ -47,7 +47,7 @@ public class EmployeeServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             if (session.getAttribute("role") != null) {
-                return (Integer) session.getAttribute("role") == 1;
+                return (Integer) session.getAttribute("role") != 3;
             } else {
                 return false;
             }
@@ -61,15 +61,19 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Employees employees = employeeService.selectEmployee(id);
-        Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getAccount().getEmail());
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Employees employees = employeeService.selectEmployee(id);
+            Accounts accounts = accountService.selectAllAccountByEmail().get(employees.getAccount().getEmail());
 
-        if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.setAvailableAccount(accounts.getId(), false);
-            employeeService.setAvailableEmployee(id, false);
+            if (accounts.getRole().getId() != Accounts.ADNIN) {
+                accountService.setAvailableAccount(accounts.getId(), false);
+                employeeService.setAvailableEmployee(id, false);
+            }
+            response.sendRedirect("/EmployeeServlet?action=list");
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
-        response.sendRedirect("/EmployeeServlet?action=list");
     }
 
     private void showEditList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -101,20 +105,24 @@ public class EmployeeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "create":
-                create(request, response);
-                break;
-            case "edit":
-                edit(request, response);
-                break;
-            case "editList":
-                editList(request, response);
-                break;
+        if (checkRole(request, response)) {
+            String action = request.getParameter("action");
+            if (action == null) {
+                action = "";
+            }
+            switch (action) {
+                case "create":
+                    create(request, response);
+                    break;
+                case "edit":
+                    edit(request, response);
+                    break;
+                case "editList":
+                    editList(request, response);
+                    break;
+            }
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
     }
 

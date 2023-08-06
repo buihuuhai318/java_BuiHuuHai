@@ -50,89 +50,92 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Customer Info</h1>
+                <h1 class="h3 mb-2 text-gray-800">Bill Info</h1>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Customer</h6>
-                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Gender</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Type</th>
-                                    <th>Available</th>
-                                    <th>Username</th>
-                                    <c:if test="${sessionScope.get('role') == 1}">
-                                        <th>Action</th>
-                                    </c:if>
+                                    <th>Bill ID</th>
+                                    <th>Date</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Payment</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Gender</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Type</th>
-                                    <th>Available</th>
-                                    <th>Username</th>
-                                    <c:if test="${sessionScope.get('role') == 1}">
-                                        <th>Action</th>
-                                    </c:if>
+                                    <th>Bill ID</th>
+                                    <th>Date</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Payment</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <c:forEach items="${customersList}" var="customer">
+                                <c:forEach items="${listBill}" var="bill">
                                     <tr>
-                                        <td>${customer.getName()}</td>
+                                        <td>${bill.id}</td>
+                                        <td>${bill.date}</td>
+                                        <td>${bill.totalQuantity}</td>
+                                        <td>${bill.totalPrice}</td>
+                                        <td>${bill.getPaymentMethod().getName()}</td>
                                         <td>
-                                            <c:if test="${customer.isGender() == 0}">Female</c:if>
-                                            <c:if test="${customer.isGender() == 1}">Male</c:if>
-                                        </td>
-                                        <td>${customer.getPhone()}</td>
-                                        <td>${customer.getAddress()}</td>
-                                        <td>
-                                            <c:if test="${customer.type.id == 1}">Diamond</c:if>
-                                            <c:if test="${customer.type.id == 2}">Gold</c:if>
-                                            <c:if test="${customer.type.id == 3}">Sliver</c:if>
+                                            <c:if test="${bill.getPaymentStatus() == 1}">Purchased</c:if>
+                                            <c:if test="${bill.getPaymentStatus() == 0}"><p style="color: red">Not
+                                                Purchased</p></c:if>
                                         </td>
                                         <td>
-                                            <c:if test="${customer.isStatus() == 0}">Available</c:if>
-                                            <c:if test="${customer.isStatus() == 1}"><p style="color: red">Not Available</p></c:if>
+                                            <a href="/AdminServlet?action=showCart&idCart=${bill.cart}"
+                                               class="btn btn-info btn-circle"
+                                               style="margin-left: 8%; margin-bottom: 4%">
+                                                <i class="fas fa-user-check"></i>
+                                            </a>
+                                            <c:if test="${sessionScope.get('role') == 1}">
+                                            <a href="#" class="btn btn-success btn-circle"
+                                               data-target="#delete${bill.id}" data-toggle="modal"
+                                               style="margin-left: 8%">
+                                                <i class="fas fa-angle-down"></i>
+                                            </a>
+                                            </c:if>
                                         </td>
-                                        <td>${customer.getAccount().username}</td>
-                                        <c:if test="${sessionScope.get('role') == 1}">
-                                            <td>
-                                                <a href="CustomerServlet?action=editList&id=${customer.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
-                                                    <i class="fas fa-user-edit"></i>
-                                                </a>
-                                                <a href="#" class="btn btn-danger btn-circle" data-target="#delete${customer.getId()}" data-toggle="modal" style="margin-left: 8%">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </td>
-                                        </c:if>
                                     </tr>
-                                    <div class="modal fade" id="delete${customer.getId()}" tabindex="-1" role="dialog" aria-labelledby="deleteLabel${customer.getId()}"
+                                    <div class="modal fade" id="delete${bill.id}" tabindex="-1" role="dialog"
+                                         aria-labelledby="deleteLabel${bill.id}"
                                          aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteLabel${customer.getId()}">Sure to delete?</h5>
-                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <h5 class="modal-title" id="deleteLabel${bill.id}">Sure to
+                                                        change?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                            aria-label="Close">
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Delete Customer: ${customer.getName()}</div>
+                                                <div class="modal-body">Change Payment Status - Bill
+                                                    ID: ${bill.id}</div>
                                                 <div class="modal-footer">
-                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-danger" href="/CustomerServlet?action=delete&id=${customer.getId()}">Delete</a>
+                                                    <button class="btn btn-secondary" type="button"
+                                                            data-dismiss="modal">Cancel
+                                                    </button>
+                                                    <c:if test="${bill.getPaymentStatus() == 1}"><a
+                                                            class="btn btn-danger"
+                                                            href="/AdminServlet?action=purchased&idBill=${bill.id}&billStatus=${bill.getPaymentStatus()}">
+                                                        Not Purchased
+                                                    </a></c:if>
+                                                    <c:if test="${bill.getPaymentStatus() == 0}"><a
+                                                            class="btn btn-success"
+                                                            href="/AdminServlet?action=purchased&idBill=${bill.id}&billStatus=${bill.getPaymentStatus()}">
+                                                        Purchased
+                                                    </a></c:if>
                                                 </div>
                                             </div>
                                         </div>

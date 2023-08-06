@@ -9,7 +9,6 @@ public class Employees {
     private int gender;
     private String birthday;
     private String phone;
-    private String email;
     private String address;
     private int status;
     private String image;
@@ -22,7 +21,6 @@ public class Employees {
         this.gender = gender;
         this.birthday = birthday;
         this.phone = phone;
-        this.email = account.getEmail();
         this.address = address;
         this.status = status;
         this.image = image;
@@ -35,7 +33,6 @@ public class Employees {
         this.gender = gender;
         this.birthday = birthday;
         this.phone = phone;
-        this.email = account.getEmail();
         this.address = address;
         this.status = status;
         this.image = image;
@@ -48,7 +45,6 @@ public class Employees {
         this.gender = gender;
         this.birthday = birthday;
         this.phone = phone;
-        this.email = account.getEmail();
         this.address = address;
         this.image = image;
         this.account = account;
@@ -100,14 +96,6 @@ public class Employees {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getAddress() {

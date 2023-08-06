@@ -12,14 +12,10 @@ import com.example.team1.service.customer.CustomerService;
 import com.example.team1.service.customer.ICustomerService;
 import com.example.team1.service.customer.ITypeService;
 import com.example.team1.service.customer.TypeService;
-import com.example.team1.service.order.CartService;
-import com.example.team1.service.order.ICartService;
 import com.example.team1.service.order.IOrderDetailService;
 import com.example.team1.service.order.OrderDetailService;
 import com.example.team1.service.payment.BillService;
 import com.example.team1.service.payment.IBillService;
-import com.example.team1.service.statistical_board.IStatisticalBoardService;
-import com.example.team1.service.statistical_board.StatisticalBoardService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -33,7 +29,6 @@ public class CustomerServlet extends HttpServlet {
     private static final ICustomerService customerService = new CustomerService();
     private static final IAccountService accountService = new AccountService();
     private static final ITypeService typeService = new TypeService();
-    private static final IStatisticalBoardService boardService = new StatisticalBoardService();
     private static final IOrderDetailService orderDetailService = new OrderDetailService();
     private static final IBillService billService = new BillService();
 
@@ -72,7 +67,7 @@ public class CustomerServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             if (session.getAttribute("role") != null) {
-                return (Integer) session.getAttribute("role") == 1;
+                return (Integer) session.getAttribute("role") != 3;
             } else {
                 return false;
             }
@@ -247,15 +242,19 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Customers customers = customerService.selectCustomer(id);
-        Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getAccount().getEmail());
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Customers customers = customerService.selectCustomer(id);
+            Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getAccount().getEmail());
 
-        if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.setAvailableAccount(accounts.getId(), false);
-            customerService.setAvailableCustomer(id, false);
+            if (accounts.getRole().getId() != Accounts.ADNIN) {
+                accountService.setAvailableAccount(accounts.getId(), false);
+                customerService.setAvailableCustomer(id, false);
+            }
+            response.sendRedirect("/CustomerServlet?action=list");
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
-        response.sendRedirect("/CustomerServlet?action=list");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

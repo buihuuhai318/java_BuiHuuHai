@@ -80,14 +80,14 @@
                                                 Name</p>
                                             <input type="text" class="form-control"
                                                    placeholder="Name" value="${requestScope["items"].getName()}"
-                                                   name="name">
+                                                   name="name" required maxlength="50">
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Code</p>
                                             <input type="text" class="form-control"
                                                    placeholder="Code" value="${requestScope["items"].getCode()}"
-                                                   name="code">
+                                                   name="code" required maxlength="50">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -96,7 +96,7 @@
                                                 Price</p>
                                             <input type="text" class="form-control"
                                                    placeholder="Price" value="${requestScope["items"].getPrice()}"
-                                                   name="price">
+                                                   name="price" required min="0" max="1000000">
 
                                         </div>
                                         <div class="col-sm-6">
@@ -105,7 +105,7 @@
                                             <input type="text" class="form-control"
                                                    placeholder="Inventory"
                                                    value="${requestScope["items"].getInventory()}"
-                                                   name="inventory">
+                                                   name="inventory" required min="0" max="1000000">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -136,27 +136,27 @@
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Decreption</p>
+                                            Description</p>
                                         <input type="text" class="form-control"
-                                               placeholder="Decreption" value="${requestScope["items"].getDecreption()}"
-                                               name="decreption">
+                                               placeholder="Description" value="${requestScope["items"].getDescription()}"
+                                               name="description" required maxlength="200">
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 1
-                                                + 2</p>
+                                                + 3</p>
                                             <input type="file" class="form-control" name="image1"
-                                                   style="height: fit-content; margin-bottom: 5%">
-                                            <input type="file" class="form-control" name="image2"
-                                                   style="height: fit-content">
+                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">
+                                            <input type="file" class="form-control" name="image4"
+                                                   style="height: fit-content" maxlength="100">
                                         </div>
                                         <div class="col-sm-6">
-                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 3
+                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 2
                                                 + 4</p>
-                                            <input type="file" class="form-control" name="image3"
-                                                   style="height: fit-content; margin-bottom: 5%">
+                                            <input type="file" class="form-control" name="image2"
+                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">
                                             <input type="file" class="form-control" name="image4"
-                                                   style="height: fit-content">
+                                                   style="height: fit-content" maxlength="100">
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@
                         </div>
                         <hr>
                         <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="ItemServlet?action=list" class="btn btn-google btn-user btn-block">
+                        <a href="/ItemServlet?action=list" class="btn btn-google btn-user btn-block">
                             Cancel
                         </a>
                     </div>

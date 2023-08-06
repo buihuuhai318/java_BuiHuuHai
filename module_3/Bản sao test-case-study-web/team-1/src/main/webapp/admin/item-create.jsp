@@ -50,10 +50,10 @@
             <div class="card o-hidden border-0 shadow-lg my-5"
                  style="padding: 5%; width: 50%; margin-left: auto; margin-right: auto">
 
-                <form class="user" action="ItemServlet?action=create" method="post">
+                <form class="user" action="/ItemServlet?action=create" method="post">
                     <div class="text-center" style="width: 20%; margin-left: auto; margin-right: auto">
                         <div class="form-group">
-                            <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Create New
+                            <label class="font-weight-bold text-primary text-uppercase mb-4">New
                                 Item</label>
                         </div>
                     </div>
@@ -66,12 +66,12 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Name</p>
-                                            <input type="text" class="form-control" placeholder="Name" name="name">
+                                            <input type="text" class="form-control" placeholder="Name" name="name" required maxlength="50">
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Code</p>
-                                            <input type="text" class="form-control" placeholder="Code" name="code">
+                                            <input type="text" class="form-control" placeholder="Code" name="code" required maxlength="50">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -79,13 +79,13 @@
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Price</p>
                                             <input type="text" class="form-control" placeholder="Price"
-                                                   name="price">
+                                                   name="price" required min="0" value="0" max="100000">
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Inventory</p>
                                             <input type="text" class="form-control" placeholder="Inventory"
-                                                   name="inventory">
+                                                   name="inventory" required min="0" value="0" max="100000">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -109,26 +109,26 @@
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Decreption</p>
-                                        <input type="text" class="form-control" placeholder="Decreption"
-                                               name="decreption">
+                                            Description</p>
+                                        <input type="text" class="form-control" placeholder="Description"
+                                               name="description" required maxlength="190">
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 1
                                                 + 2</p>
                                             <input type="file" class="form-control" name="image1"
-                                                   style="height: fit-content; margin-bottom: 5%">
+                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">
                                             <input type="file" class="form-control" name="image2"
-                                                   style="height: fit-content">
+                                                   style="height: fit-content" maxlength="100">
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 3
                                                 + 4</p>
                                             <input type="file" class="form-control" name="image3"
-                                                   style="height: fit-content; margin-bottom: 5%">
+                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">
                                             <input type="file" class="form-control" name="image4"
-                                                   style="height: fit-content">
+                                                   style="height: fit-content" maxlength="100">
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
                         </div>
                         <hr>
                         <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="ItemServlet?action=list" class="btn btn-google btn-user btn-block">
+                        <a href="/ItemServlet?action=list" class="btn btn-google btn-user btn-block">
                             Cancel
                         </a>
                     </div>

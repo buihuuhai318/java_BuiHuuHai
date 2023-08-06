@@ -20,6 +20,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "AdminServlet", value = "/AdminServlet")
 public class AdminServlet extends HttpServlet {
@@ -65,7 +66,7 @@ public class AdminServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             if (session.getAttribute("role") != null) {
-                return (Integer) session.getAttribute("role") == 1;
+                return (Integer) session.getAttribute("role") != 3;
             } else {
                 return false;
             }
@@ -110,10 +111,17 @@ public class AdminServlet extends HttpServlet {
     private void showIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<HotCustomer> customerList = boardService.selectAllCustomer();
         List<HotItems> itemsList = boardService.selectAllItem();
+        List<Integer>  revenueList = boardService.revenueList();
+        Map<String, Integer> quantityTotal = boardService.quantityTotalByType();
+        List<String> name = new ArrayList<>(quantityTotal.keySet());
+        List<Integer> quantity = new ArrayList<>(quantityTotal.values());
         int day = boardService.totalByDay();
         int month = boardService.totalByMonth();
         int year = boardService.totalByYear();
+        request.setAttribute("name", name);
+        request.setAttribute("quantity", quantity);
         request.setAttribute("day", day);
+        request.setAttribute("revenueList", revenueList);
         request.setAttribute("month", month);
         request.setAttribute("year", year);
         request.setAttribute("customerList", customerList);

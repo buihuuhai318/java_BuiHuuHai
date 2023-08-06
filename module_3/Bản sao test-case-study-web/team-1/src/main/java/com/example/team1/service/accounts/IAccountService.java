@@ -10,9 +10,12 @@ public interface IAccountService {
     Accounts selectAccount(int id);
 
     Map<String, Accounts> selectAllAccount();
+
     public Map<String, Accounts> selectAllAccountByEmail();
 
-    void deleteAccount(int id, boolean available);
+    Map<Integer, Accounts> selectAllAccountById();
+
+    void setAvailableAccount(int id, boolean available);
 
     void updateAccount(int id, Accounts accounts);
 
@@ -20,5 +23,5 @@ public interface IAccountService {
 
     boolean checkAccount(String email, String username);
 
-    void forgetPass(String email);
+    void forgetPass(String email, String newPass);
 }

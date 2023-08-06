@@ -8,7 +8,9 @@ import com.example.team1.repository.Base;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class StatisticalBoardRepository implements IStatisticalBoardRepository {
@@ -17,6 +19,9 @@ public class StatisticalBoardRepository implements IStatisticalBoardRepository {
     private static final String DAY = "call revenue_by_current_day;";
     private static final String MONTH = "call revenue_by_current_month;";
     private static final String YEAR = "call revenue_by_current_year;";
+    private static final String REVENUE_EACH_MONTH = "call revenue_year;";
+    private static final String TOTAL_EACH_TYPE = "call total_each_type;";
+
     @Override
     public List<HotCustomer> selectAllCustomer() {
         List<HotCustomer> list = new ArrayList<>();
@@ -115,5 +120,39 @@ public class StatisticalBoardRepository implements IStatisticalBoardRepository {
             throw new RuntimeException(e);
         }
         return total;
+    }
+
+    @Override
+    public List<Integer> revenueList() {
+        List<Integer> revenueList = new ArrayList<>();
+        Connection connection = Base.getConnection();
+        try {
+            CallableStatement callableStatement = connection.prepareCall(REVENUE_EACH_MONTH);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                revenueList.add(resultSet.getInt("revenue"));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return revenueList;
+    }
+
+    @Override
+    public Map<String, Integer> quantityTotalByType() {
+        Map<String, Integer> quantityTotal = new HashMap<>();
+        Connection connection = Base.getConnection();
+        try {
+            CallableStatement callableStatement = connection.prepareCall(TOTAL_EACH_TYPE);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                quantityTotal.put(resultSet.getString("type_name"), resultSet.getInt("total_quantity_sold"));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return quantityTotal;
     }
 }

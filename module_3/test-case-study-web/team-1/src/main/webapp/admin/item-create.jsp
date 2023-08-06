@@ -66,12 +66,12 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Name</p>
-                                            <input type="text" class="form-control" placeholder="Name" name="name" required>
+                                            <input type="text" class="form-control" placeholder="Name" name="name" required maxlength="50">
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Code</p>
-                                            <input type="text" class="form-control" placeholder="Code" name="code" required>
+                                            <input type="text" class="form-control" placeholder="Code" name="code" required maxlength="50">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -79,13 +79,13 @@
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Price</p>
                                             <input type="text" class="form-control" placeholder="Price"
-                                                   name="price" required min="0" value="0">
+                                                   name="price" required min="0" value="0" max="100000">
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Inventory</p>
                                             <input type="text" class="form-control" placeholder="Inventory"
-                                                   name="inventory" required min="0" value="0">
+                                                   name="inventory" required min="0" value="0" max="100000">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -111,24 +111,24 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             Description</p>
                                         <input type="text" class="form-control" placeholder="Description"
-                                               name="description" required>
+                                               name="description" required maxlength="190">
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 1
                                                 + 2</p>
                                             <input type="file" class="form-control" name="image1"
-                                                   style="height: fit-content; margin-bottom: 5%">
+                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">
                                             <input type="file" class="form-control" name="image2"
-                                                   style="height: fit-content">
+                                                   style="height: fit-content" maxlength="100">
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 3
                                                 + 4</p>
                                             <input type="file" class="form-control" name="image3"
-                                                   style="height: fit-content; margin-bottom: 5%">
+                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">
                                             <input type="file" class="form-control" name="image4"
-                                                   style="height: fit-content">
+                                                   style="height: fit-content" maxlength="100">
                                         </div>
                                     </div>
                                 </div>

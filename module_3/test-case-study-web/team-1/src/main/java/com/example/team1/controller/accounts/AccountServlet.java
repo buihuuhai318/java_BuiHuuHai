@@ -81,7 +81,7 @@ public class AccountServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             if (session.getAttribute("role") != null) {
-                return (Integer) session.getAttribute("role") == 1;
+                return (Integer) session.getAttribute("role") != 3;
             } else {
                 return false;
             }
@@ -237,32 +237,36 @@ public class AccountServlet extends HttpServlet {
     }
 
     private void createNew(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
-        RequestDispatcher dispatcher;
-        if (accountService.checkAccount(email, username)) {
-            Accounts accounts = new Accounts(email, username, password, roles);
-            accountService.insertAccount(accounts);
-            String content = Email.getNewAccount(accounts);
-            Email.sendEmail(accounts.getEmail(), "#Thehome - Welcome !!!", content);
-            request.setAttribute("accounts", accounts);
-            if (roles.getId() == Roles.CUSTOMER) {
-                request.setAttribute("cus", "cus");
+        if (checkRole(request, response)) {
+            String email = request.getParameter("email");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
+            RequestDispatcher dispatcher;
+            if (accountService.checkAccount(email, username)) {
+                Accounts accounts = new Accounts(email, username, password, roles);
+                accountService.insertAccount(accounts);
+                String content = Email.getNewAccount(accounts);
+                Email.sendEmail(accounts.getEmail(), "#Thehome - Welcome !!!", content);
+                request.setAttribute("accounts", accounts);
+                if (roles.getId() == Roles.CUSTOMER) {
+                    request.setAttribute("cus", "cus");
+                } else {
+                    request.setAttribute("emp", "emp");
+                }
+                List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
+                request.setAttribute("typesList", typesList);
+                dispatcher = request.getRequestDispatcher("/admin/new-profile.jsp");
+                dispatcher.forward(request, response);
             } else {
-                request.setAttribute("emp", "emp");
+                request.setAttribute("fail", "fail");
+                List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
+                request.setAttribute("rolesList", rolesList);
+                dispatcher = getServletContext().getRequestDispatcher("/admin/create-new-account.jsp");
+                dispatcher.forward(request, response);
             }
-            List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
-            request.setAttribute("typesList", typesList);
-            dispatcher = request.getRequestDispatcher("/admin/new-profile.jsp");
-            dispatcher.forward(request, response);
         } else {
-            request.setAttribute("fail", "fail");
-            List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
-            request.setAttribute("rolesList", rolesList);
-            dispatcher = getServletContext().getRequestDispatcher("/admin/create-new-account.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect("/ShopServlet");
         }
     }
 
@@ -293,45 +297,52 @@ public class AccountServlet extends HttpServlet {
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String pass = request.getParameter("pass");
-        int available = Integer.parseInt(request.getParameter("available"));
-        Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String pass = request.getParameter("pass");
+            int available = Integer.parseInt(request.getParameter("available"));
+            Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
 
-        Accounts accounts = accountService.selectAccount(id);
-        Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
-        Employees employees = employeeService.selectAllEmployeeByEmail().get(accounts.getEmail());
+            Accounts accounts = accountService.selectAccount(id);
+            Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
+            Employees employees = employeeService.selectAllEmployeeByEmail().get(accounts.getEmail());
 
-        if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accounts.setRole(roles);
-            accounts.setPassword(pass);
-            accounts.setAvailable(available);
-            if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
-                customerService.setAvailableCustomer(customers.getId(), available == 0);
-            } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
-                employeeService.setAvailableEmployee(employees.getId(), available == 0);
+            if (accounts.getRole().getId() != Accounts.ADNIN) {
+                accounts.setRole(roles);
+                accounts.setPassword(pass);
+                accounts.setAvailable(available);
+                if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
+                    customerService.setAvailableCustomer(customers.getId(), available == 0);
+                } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
+                    employeeService.setAvailableEmployee(employees.getId(), available == 0);
+                }
+                accountService.updateAccount(id, accounts);
             }
-            accountService.updateAccount(id, accounts);
+            response.sendRedirect("/AccountServlet?action=list");
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
-        response.sendRedirect("/AccountServlet?action=list");
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Accounts accounts = accountService.selectAccount(id);
+            Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
+            Employees employees = employeeService.selectAllEmployeeByEmail().get(accounts.getEmail());
 
-        Accounts accounts = accountService.selectAccount(id);
-        Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
-        Employees employees = employeeService.selectAllEmployeeByEmail().get(accounts.getEmail());
-
-        if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.setAvailableAccount(id, false);
-            if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
-                customerService.setAvailableCustomer(customers.getId(), false);
-            } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
-                employeeService.setAvailableEmployee(employees.getId(), false);
+            if (accounts.getRole().getId() != Accounts.ADNIN) {
+                accountService.setAvailableAccount(id, false);
+                if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
+                    customerService.setAvailableCustomer(customers.getId(), false);
+                } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
+                    employeeService.setAvailableEmployee(employees.getId(), false);
+                }
             }
+            response.sendRedirect("/AccountServlet?action=list");
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
-        response.sendRedirect("/AccountServlet?action=list");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -69,7 +69,9 @@
                                     <th>Salary</th>
                                     <th>Available</th>
                                     <th>Username</th>
-                                    <th>Action</th>
+                                    <c:if test="${sessionScope.get('role') == 1}">
+                                        <th>Action</th>
+                                    </c:if>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -81,7 +83,9 @@
                                     <th>Salary</th>
                                     <th>Available</th>
                                     <th>Username</th>
-                                    <th>Action</th>
+                                    <c:if test="${sessionScope.get('role') == 1}">
+                                        <th>Action</th>
+                                    </c:if>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -97,17 +101,19 @@
                                         <td>${employee.getSalary()}</td>
                                         <td>
                                             <c:if test="${employee.getStatus() == 0}">Available</c:if>
-                                            <c:if test="${employee.getStatus() == 1}">Not Available</c:if>
+                                            <c:if test="${employee.getStatus() == 1}"><p style="color: red">Not Available</p></c:if>
                                         </td>
                                         <td>${employee.getAccount().username}</td>
-                                        <td>
-                                            <a href="EmployeeServlet?action=editList&id=${employee.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
-                                                <i class="fas fa-user-edit"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-danger btn-circle" data-target="#delete${employee.getId()}" data-toggle="modal" style="margin-left: 8%">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        <c:if test="${sessionScope.get('role') == 1}">
+                                            <td>
+                                                <a href="EmployeeServlet?action=editList&id=${employee.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
+                                                    <i class="fas fa-user-edit"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-danger btn-circle" data-target="#delete${employee.getId()}" data-toggle="modal" style="margin-left: 8%">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </c:if>
                                     </tr>
                                     <div class="modal fade" id="delete${employee.getId()}" tabindex="-1" role="dialog" aria-labelledby="deleteLabel${employee.getId()}"
                                          aria-hidden="true">
@@ -122,7 +128,7 @@
                                                 <div class="modal-body">Delete Employee: ${employee.getName()}</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-danger" href="CustomerServlet?action=delete&id=${employee.getId()}">Delete</a>
+                                                    <a class="btn btn-danger" href="/CustomerServlet?action=delete&id=${employee.getId()}">Delete</a>
                                                 </div>
                                             </div>
                                         </div>

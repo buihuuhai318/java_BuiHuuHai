@@ -106,7 +106,7 @@
                         <p class="product-price">$${requestScope["items"].getPrice()}</p>
 
                         <p class="product-description mt-20">
-                            ${requestScope["items"].getDecreption()}
+                            ${requestScope["items"].getDescription()}
                         </p>
                         <div class="product-size">
                             <span>Size:</span>
@@ -203,7 +203,7 @@
                                                 <h2 class="product-title">${items.getName()}</h2>
                                                 <p class="product-price">$${items.getPrice()}</p>
                                                 <p class="product-short-description">
-                                                        ${items.getDecreption()}
+                                                        ${items.getDescription()}
                                                 </p>
                                                 <c:if test="${items.getInventory() == 0}">
                                                     <button onclick="window.location.href='/CartServlet?itemId=${items.getId()}'" type="button" class="btn btn-main" disabled>Sold Out</button>

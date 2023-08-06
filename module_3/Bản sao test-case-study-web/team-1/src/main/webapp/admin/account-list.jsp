@@ -54,9 +54,11 @@
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
+                    <c:if test="${sessionScope.get('role') == 1}">
                     <div class="card-header py-3">
                         <a href="AccountServlet?action=createNew" class="btn btn-success btn-block">Create New Account</a>
                     </div>
+                    </c:if>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -67,7 +69,9 @@
                                     <th>Create</th>
                                     <th>Role</th>
                                     <th>Status</th>
+                                    <c:if test="${sessionScope.get('role') == 1}">
                                     <th>Action</th>
+                                    </c:if>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -77,7 +81,9 @@
                                     <th>Create</th>
                                     <th>Role</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <c:if test="${sessionScope.get('role') == 1}">
+                                        <th>Action</th>
+                                    </c:if>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -93,19 +99,21 @@
                                         </td>
                                         <td>
                                             <c:if test="${account1.isAvailable() == 0}">Available</c:if>
-                                            <c:if test="${account1.isAvailable() == 1}">Not Available</c:if>
+                                            <c:if test="${account1.isAvailable() == 1}"><p style="color: red">Not Available</p></c:if>
                                         </td>
-                                        <td>
-                                            <a href="AccountServlet?action=edit&id=${account1.getId()}"
-                                               class="btn btn-info btn-circle"
-                                               style="margin-left: 8%; margin-bottom: 4%">
-                                                <i class="fas fa-user-edit"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-danger btn-circle"
-                                               data-target="#delete${account1.getId()}" data-toggle="modal" style="margin-left: 8%">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        <c:if test="${sessionScope.get('role') == 1}">
+                                            <td>
+                                                <a href="AccountServlet?action=edit&id=${account1.getId()}"
+                                                   class="btn btn-info btn-circle"
+                                                   style="margin-left: 8%; margin-bottom: 4%">
+                                                    <i class="fas fa-user-edit"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-danger btn-circle"
+                                                   data-target="#delete${account1.getId()}" data-toggle="modal" style="margin-left: 8%">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </c:if>
                                     </tr>
                                     <div class="modal fade" id="delete${account1.getId()}" tabindex="-1" role="dialog"
                                          aria-labelledby="deleteLabel${account1.getId()}"
@@ -126,7 +134,7 @@
                                                             data-dismiss="modal">Cancel
                                                     </button>
                                                     <a class="btn btn-danger"
-                                                       href="AccountServlet?action=delete&id=${account1.getId()}">Delete</a>
+                                                       href="/AccountServlet?action=delete&id=${account1.getId()}">Delete</a>
                                                 </div>
                                             </div>
                                         </div>

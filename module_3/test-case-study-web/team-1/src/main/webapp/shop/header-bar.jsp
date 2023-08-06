@@ -140,7 +140,7 @@
                             <li>
                                 <form action="/ShopServlet">
                                     <input type="hidden" class="form-control" placeholder="Search..." name="action" value="search">
-                                    <input type="search" class="form-control" placeholder="Search..." name="searchKeyword">
+                                    <input type="search" class="form-control" placeholder="Search..." name="searchKeyword" maxlength="50">
                                 </form>
                             </li>
                         </ul>

@@ -12,7 +12,7 @@ public interface ICustomerRepository {
     Map<Integer, Customers> selectAllCustomer();
     public Map<String, Customers> selectAllCustomerByEmail();
 
-    void deleteCustomer(int id, boolean available);
+    void setAvailableCustomer(int id, boolean available);
 
     void updateCustomer(int id, Customers customers);
 }

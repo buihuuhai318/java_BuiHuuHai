@@ -76,7 +76,7 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Name</p>
                                         <input type="text" class="form-control"
                                                placeholder="Name" value="${requestScope["employees"].getName()}"
-                                               name="name" required>
+                                               name="name" required maxlength="50">
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -84,7 +84,7 @@
                                                 <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Salary</p>
                                                 <input type="text" class="form-control"
                                                        placeholder="Salary" value="${requestScope["employees"].getSalary()}"
-                                                       name="salary" required>
+                                                       name="salary" required min="0" max="100000000">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -129,13 +129,13 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Phone</p>
                                         <input type="text" class="form-control"
                                                placeholder="Phone" value="${requestScope["employees"].getPhone()}"
-                                               name="phone" required>
+                                               name="phone" required maxlength="50">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Address</p>
                                         <input type="text" class="form-control"
                                                placeholder="Address" value="${requestScope["employees"].getAddress()}"
-                                               name="address" required>
+                                               name="address" required maxlength="100">
                                     </div>
                                 </div>
                             </div>

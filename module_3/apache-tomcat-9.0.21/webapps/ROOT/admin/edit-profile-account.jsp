@@ -56,7 +56,7 @@
                                 <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Username</label>
                                 <input type="hidden" class="form-control" name="id" value="${requestScope["accounts"].getId()}">
                                 <input type="text" class="form-control" value="${requestScope["accounts"].getUsername()}"
-                                       name="username" style="text-align: center" required>
+                                       name="username" style="text-align: center" required maxlength="50">
                             </div>
                         </fieldset>
                     </div>
@@ -69,7 +69,7 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="text-align: left">Password</p>
                                         <input type="text" class="form-control"
                                                placeholder="Pass" value="${requestScope["accounts"].getPassword()}"
-                                               name="pass" required>
+                                               name="pass" required maxlength="50">
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -102,7 +102,7 @@
                         </div>
                         <hr>
                         <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="AccountServlet?action=list" class="btn btn-google btn-user btn-block">
+                        <a href="/AccountServlet?action=list" class="btn btn-google btn-user btn-block">
                      Cancel
                         </a>
                     </div>

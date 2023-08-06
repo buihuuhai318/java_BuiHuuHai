@@ -43,28 +43,40 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item active">
-        <a class="nav-link" href="AccountServlet?action=list">
+        <a class="nav-link" href="/AccountServlet?action=list">
             <i class="fas fa-fw fa-table"></i>
             <span>Account</span></a>
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="EmployeeServlet?action=list">
+        <a class="nav-link" href="/EmployeeServlet?action=list">
             <i class="fas fa-fw fa-table"></i>
             <span>Employee</span></a>
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="CustomerServlet?action=list">
+        <a class="nav-link" href="/CustomerServlet?action=list">
             <i class="fas fa-fw fa-table"></i>
             <span>Customer</span></a>
     </li>
 
 
     <li class="nav-item active">
-        <a class="nav-link" href="ItemServlet?action=list">
+        <a class="nav-link" href="/ItemServlet?action=list">
             <i class="fas fa-fw fa-table"></i>
             <span>Item</span></a>
+    </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="/AdminServlet?action=showBill">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Bill</span></a>
+    </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="/AdminServlet?action=showPayment">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Payment Method</span></a>
     </li>
 
     <!-- Divider -->

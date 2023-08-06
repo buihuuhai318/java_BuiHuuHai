@@ -57,13 +57,13 @@
                     <h2 class="text-center" style="margin: 3%">Welcome Back</h2>
                     <form class="text-left clearfix" action="/AccountServlet?action=login" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username" name="username" value="${username}" required>
+                            <input type="text" class="form-control" placeholder="Username" name="username" value="${username}" required maxlength="50">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" name="password" value="${password}" required>
+                            <input type="password" class="form-control" placeholder="Password" name="password" value="${password}" required maxlength="50">
                         </div>
                         <div class="btn-group" data-toggle="buttons" style="margin-left: auto">
-                            <input type="checkbox" class="btn-check" style="margin-right: 5px; margin-left: 10px" id="btncheck1" name="rememberMe">
+                            <input type="checkbox" class="btn-check" style="margin-right: 5px; margin-left: 10px" id="btncheck1" name="rememberMe" checked>
                             Remember
                         </div>
                         <c:if test='${requestScope["mess"] != null}'>

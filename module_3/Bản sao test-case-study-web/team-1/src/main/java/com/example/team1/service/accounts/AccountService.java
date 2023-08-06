@@ -7,7 +7,7 @@ import com.example.team1.repository.accounts.IAccountRepository;
 import java.util.Map;
 
 public class AccountService implements IAccountService {
-    private final IAccountRepository accountRepository = new AccountRepository();
+    private static final IAccountRepository accountRepository = new AccountRepository();
 
     @Override
     public void insertAccount(Accounts accounts) {
@@ -30,8 +30,13 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void deleteAccount(int id, boolean available) {
-        accountRepository.deleteAccount(id, available);
+    public Map<Integer, Accounts> selectAllAccountById() {
+        return accountRepository.selectAllAccountById();
+    }
+
+    @Override
+    public void setAvailableAccount(int id, boolean available) {
+        accountRepository.setAvailableAccount(id, available);
     }
 
     @Override
@@ -50,7 +55,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void forgetPass(String email) {
-        accountRepository.forgetPass(email);
+    public void forgetPass(String email, String newPass) {
+        accountRepository.forgetPass(email, newPass);
     }
 }

@@ -30,12 +30,12 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public void deleteEmployee(int id, boolean available) {
-
+    public void setAvailableEmployee(int id, boolean available) {
+        employeeRepository.setAvailableEmployee(id, available);
     }
 
     @Override
     public void updateEmployee(int id, Employees employees) {
-
+        employeeRepository.updateEmployee(id, employees);
     }
 }

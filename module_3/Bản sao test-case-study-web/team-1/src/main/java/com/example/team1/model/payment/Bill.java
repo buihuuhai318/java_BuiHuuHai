@@ -6,33 +6,55 @@ import java.time.LocalDate;
 
 public class Bill {
     private int id;
-    private Cart cart;
+    private int cart;
     private PaymentMethod paymentMethod;
     private String date;
+    private int totalQuantity;
     private int totalPrice;
     private String phone;
     private String address;
+    private int paymentStatus;
 
-    public Bill(int id, Cart cart, PaymentMethod paymentMethod, String date, int totalPrice, String phone, String address) {
+    public Bill(int id, int cart, PaymentMethod paymentMethod, String date, int totalQuantity, int totalPrice, String phone, String address, int paymentStatus) {
         this.id = id;
         this.cart = cart;
         this.paymentMethod = paymentMethod;
         this.date = date;
+        this.totalQuantity = totalQuantity;
         this.totalPrice = totalPrice;
         this.phone = phone;
         this.address = address;
+        this.paymentStatus = paymentStatus;
     }
 
-    public Bill(Cart cart, PaymentMethod paymentMethod, int totalPrice, String phone, String address) {
+    public Bill(int cart, PaymentMethod paymentMethod, int totalQuantity, int totalPrice, String phone, String address, int paymentStatus) {
         this.cart = cart;
         this.paymentMethod = paymentMethod;
-        this.date = String.valueOf(LocalDate.now());;
+        this.date = String.valueOf(LocalDate.now());
+        this.totalQuantity = totalQuantity;
         this.totalPrice = totalPrice;
         this.phone = phone;
         this.address = address;
+        this.paymentStatus = paymentStatus;
     }
 
     public Bill() {
+    }
+
+    public int getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(int paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
     public int getId() {
@@ -43,11 +65,11 @@ public class Bill {
         this.id = id;
     }
 
-    public Cart getCart() {
+    public int getCart() {
         return cart;
     }
 
-    public void setCart(Cart cart) {
+    public void setCart(int cart) {
         this.cart = cart;
     }
 

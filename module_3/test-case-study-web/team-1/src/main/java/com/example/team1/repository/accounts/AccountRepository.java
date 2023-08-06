@@ -192,4 +192,31 @@ public class AccountRepository implements IAccountRepository {
         }
         return accountsMap;
     }
+
+    @Override
+    public Map<Integer, Accounts> selectAllAccountById() {
+        Map<Integer, Accounts> accountsMap = new HashMap<>();
+        Connection connection = Base.getConnection();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("account_id");
+                String email = resultSet.getString("account_email");
+                String username = resultSet.getString("account_username");
+                String password = resultSet.getString("account_password");
+                String createDate = resultSet.getString("account_create_date");
+                int accountStatus = resultSet.getInt("account_status");
+                int roleId = resultSet.getInt("role_id");
+                Roles roles = roleRepository.selectRole(roleId);
+                accountsMap.put(id, new Accounts(id, email, username, password, createDate, accountStatus, roles));
+            }
+            resultSet.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return accountsMap;
+    }
 }

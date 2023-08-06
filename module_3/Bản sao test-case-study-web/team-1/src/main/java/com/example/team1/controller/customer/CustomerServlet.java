@@ -3,7 +3,6 @@ package com.example.team1.controller.customer;
 import com.example.team1.model.customers.Customers;
 import com.example.team1.model.accounts.Accounts;
 import com.example.team1.model.customers.Types;
-import com.example.team1.model.dto.BillDto;
 import com.example.team1.model.order.Cart;
 import com.example.team1.model.order.OrderDetail;
 import com.example.team1.model.payment.Bill;
@@ -13,14 +12,10 @@ import com.example.team1.service.customer.CustomerService;
 import com.example.team1.service.customer.ICustomerService;
 import com.example.team1.service.customer.ITypeService;
 import com.example.team1.service.customer.TypeService;
-import com.example.team1.service.order.CartService;
-import com.example.team1.service.order.ICartService;
 import com.example.team1.service.order.IOrderDetailService;
 import com.example.team1.service.order.OrderDetailService;
 import com.example.team1.service.payment.BillService;
 import com.example.team1.service.payment.IBillService;
-import com.example.team1.service.statistical_board.IStatisticalBoardService;
-import com.example.team1.service.statistical_board.StatisticalBoardService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -34,8 +29,6 @@ public class CustomerServlet extends HttpServlet {
     private static final ICustomerService customerService = new CustomerService();
     private static final IAccountService accountService = new AccountService();
     private static final ITypeService typeService = new TypeService();
-    private static final IStatisticalBoardService boardService = new StatisticalBoardService();
-    private static final ICartService cartService = new CartService();
     private static final IOrderDetailService orderDetailService = new OrderDetailService();
     private static final IBillService billService = new BillService();
 
@@ -70,48 +63,64 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
-    private void showCartDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("id_account");
-        List<BillDto> listBill = boardService.selectAllBillByAccount(id);
-        int idBill = Integer.parseInt(request.getParameter("idBill"));
-        int idCart = 0;
-        for (BillDto billDto : listBill) {
-            if (billDto.getBillId() == idBill) {
-                idCart = billDto.getCartId();
-                break;
+    private boolean checkRole(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("role") != null) {
+                return (Integer) session.getAttribute("role") != 3;
+            } else {
+                return false;
             }
+        } catch (NullPointerException e) {
+            return false;
         }
-        Cart cart = cartService.selectCart(idCart);
-        List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
-        request.setAttribute("orderList", orderList);
+    }
+
+    private void headCart(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("cart") != null) {
+            Cart cart = (Cart) session.getAttribute("cart");
+            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
+            request.setAttribute("orderList", orderList);
+        }
+    }
+
+    private void showCartDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
+        int idCart = Integer.parseInt(request.getParameter("idCart"));
+        List<OrderDetail> orderList = new ArrayList<>(orderDetailService.selectAllOrderByIdCart(idCart).values());
+        request.setAttribute("order", orderList);
         request.getRequestDispatcher("shop/view-cart-detail.jsp").forward(request, response);
     }
 
     private void showBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
         HttpSession session = request.getSession();
         int id = (int) session.getAttribute("id_account");
-
         Accounts accounts = accountService.selectAccount(id);
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
         request.setAttribute("customers", customers);
-
-        List<BillDto> listBill = boardService.selectAllBillByAccount(id);
+        List<Bill> listBill = billService.selectAllByAccount(id);
         request.setAttribute("listBill", listBill);
         request.getRequestDispatcher("/shop/dashboard.jsp").forward(request, response);
     }
 
     private void showEditList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Customers customers = customerService.selectCustomer(id);
-        List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
-        request.setAttribute("customers", customers);
-        request.setAttribute("typesList", typesList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-customer.jsp");
-        dispatcher.forward(request, response);
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Customers customers = customerService.selectCustomer(id);
+            List<Types> typesList = new ArrayList<>(typeService.selectAllType().values());
+            request.setAttribute("customers", customers);
+            request.setAttribute("typesList", typesList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin/edit-profile-customer.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
         HttpSession session = request.getSession();
         int id = (int) session.getAttribute("id_account");
 
@@ -123,6 +132,7 @@ public class CustomerServlet extends HttpServlet {
         if (customers == null) {
             requestDispatcher = request.getRequestDispatcher("/shop/create-info-customer.jsp");
         } else {
+            headCart(request, response);
             request.setAttribute("customers", customers);
             requestDispatcher = request.getRequestDispatcher("/shop/profile-details.jsp");
         }
@@ -130,10 +140,14 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Customers> customersList = new ArrayList<>(customerService.selectAllCustomer().values());
-        request.setAttribute("customersList", customersList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/customer-list.jsp");
-        dispatcher.forward(request, response);
+        if (checkRole(request, response)) {
+            List<Customers> customersList = new ArrayList<>(customerService.selectAllCustomer().values());
+            request.setAttribute("customersList", customersList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin/customer-list.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/ShopServlet");
+        }
     }
 
     private void showEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -141,7 +155,7 @@ public class CustomerServlet extends HttpServlet {
         int id = (int) session.getAttribute("id_account");
         Accounts accounts = accountService.selectAccount(id);
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
-
+        headCart(request, response);
         request.setAttribute("customers", customers);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shop/edit-info-customer.jsp");
         requestDispatcher.forward(request, response);
@@ -167,6 +181,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void editList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        headCart(request, response);
         int id = Integer.parseInt(request.getParameter("id"));
         Types types = typeService.selectType(Integer.parseInt(request.getParameter("customerTypes")));
         String name = request.getParameter("name");
@@ -178,10 +193,10 @@ public class CustomerServlet extends HttpServlet {
         String image = request.getParameter("image");
 
         Customers customers = customerService.selectCustomer(id);
-        Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getEmail());
+        Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getAccount().getEmail());
 
         if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.deleteAccount(accounts.getId(), available == 1);
+            accountService.setAvailableAccount(accounts.getId(), available == 0);
             customers.setId(id);
             customers.setType(types);
             customers.setName(name);
@@ -195,10 +210,11 @@ public class CustomerServlet extends HttpServlet {
             }
             customerService.updateCustomer(customers.getId(), customers);
         }
-        response.sendRedirect("CustomerServlet?action=list");
+        response.sendRedirect("/CustomerServlet?action=list");
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
         HttpSession session = request.getSession();
         int id = (int) session.getAttribute("id_account");
         Accounts accounts = accountService.selectAccount(id);
@@ -210,10 +226,6 @@ public class CustomerServlet extends HttpServlet {
         int gender = Integer.parseInt(request.getParameter("gender"));
         String phone = request.getParameter("phone");
         String image = request.getParameter("image");
-
-        if (image.trim().equals("")) {
-            image = customers.getImage();
-        }
 
         customers.setName(name);
         customers.setAddress(address);
@@ -230,18 +242,23 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Customers customers = customerService.selectCustomer(id);
-        Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getEmail());
+        if (checkRole(request, response)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Customers customers = customerService.selectCustomer(id);
+            Accounts accounts = accountService.selectAllAccountByEmail().get(customers.getAccount().getEmail());
 
-        if (accounts.getRole().getId() != Accounts.ADNIN) {
-            accountService.deleteAccount(accounts.getId(), true);
-            customerService.deleteCustomer(id, true);
+            if (accounts.getRole().getId() != Accounts.ADNIN) {
+                accountService.setAvailableAccount(accounts.getId(), false);
+                customerService.setAvailableCustomer(id, false);
+            }
+            response.sendRedirect("/CustomerServlet?action=list");
+        } else {
+            response.sendRedirect("/ShopServlet");
         }
-        response.sendRedirect("CustomerServlet?action=list");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String date = request.getParameter("birthday");

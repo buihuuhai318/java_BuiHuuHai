@@ -16,4 +16,8 @@ public interface IStatisticalBoardRepository {
     int totalByMonth();
 
     int totalByYear();
+
+    List<Integer> revenueList();
+
+    Map<String, Integer> quantityTotalByType();
 }

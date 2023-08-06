@@ -49,11 +49,11 @@
             <!-- Begin Page Content -->
             <div class="card o-hidden border-0 shadow-lg my-5"
                  style="padding: 5%; width: 50%; margin-left: auto; margin-right: auto ">
-                <form class="user" action="AccountServlet?action=createNew" method="post">
+                <form class="user" action="/AccountServlet?action=createNew" method="post">
                     <div class="text-center" style="width: 50%; margin-left: auto; margin-right: auto">
 
                         <div class="form-group">
-                            <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Create New
+                            <label class="font-weight-bold text-primary text-uppercase mb-1">Create New
                                 Account</label>
                         </div>
 
@@ -74,19 +74,19 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                                            style="text-align: left">Email</p>
                                         <input type="email" class="form-control"
-                                               placeholder="Email" name="email">
+                                               placeholder="Email" name="email" required maxlength="100">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                                            style="text-align: left">Username</p>
                                         <input type="text" class="form-control"
-                                               placeholder="Username" name="username">
+                                               placeholder="Username" name="username" required maxlength="50">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                                            style="text-align: left">Password</p>
                                         <input type="text" class="form-control"
-                                               placeholder="Password" name="password">
+                                               placeholder="Password" name="password" required maxlength="50">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"

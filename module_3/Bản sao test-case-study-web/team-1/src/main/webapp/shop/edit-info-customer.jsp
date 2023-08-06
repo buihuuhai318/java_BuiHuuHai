@@ -59,18 +59,18 @@
                             <div class="form-group">
                                 <label for="full_name">Full Name</label>
                                 <input type="text" class="form-control" id="full_name" placeholder="" name="name"
-                                       value="${requestScope["customers"].getName()}">
+                                       value="${requestScope["customers"].getName()}" required maxlength="50">
                             </div>
                             <div class="form-group">
                                 <label for="user_address">Address</label>
                                 <input type="text" class="form-control" id="user_address" placeholder="" name="address"
-                                       value="${requestScope["customers"].getAddress()}">
+                                       value="${requestScope["customers"].getAddress()}" required maxlength="100">
                             </div>
                             <div class="checkout-country-code clearfix">
                                 <div class="form-group">
                                     <label for="user_post_code">Birthday</label>
                                     <input type="date" class="form-control" id="user_post_code" name="birthday"
-                                           value="${requestScope["customers"].getBirthday()}">
+                                           value="${requestScope["customers"].getBirthday()}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="gender"></label>
@@ -89,11 +89,11 @@
                             <div class="form-group">
                                 <label for="user_country">Phone</label>
                                 <input type="text" class="form-control" id="user_country" placeholder="" name="phone"
-                                       value="${requestScope["customers"].getPhone()}">
+                                       value="${requestScope["customers"].getPhone()}" required maxlength="20">
                             </div>
                             <div class="form-group">
                                 <label for="user_country">Avatar</label>
-                                <input type="file" name="image" class="form-control btn-transparent" style="padding-bottom: 15px; padding-top: 15px" id="" placeholder="" accept=".jpg, .png, .pdf">
+                                <input type="file" name="image" class="form-control btn-transparent" style="padding-bottom: 15px; padding-top: 15px" id="" placeholder="" accept=".jpg, .png, .pdf" maxlength="100">
                             </div>
                             <c:if test='${requestScope["done"] != null}'>
                                 <div class="alert alert-success alert-common" role="alert">

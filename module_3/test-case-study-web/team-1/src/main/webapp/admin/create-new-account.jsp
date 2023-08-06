@@ -74,19 +74,19 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                                            style="text-align: left">Email</p>
                                         <input type="email" class="form-control"
-                                               placeholder="Email" name="email"required>
+                                               placeholder="Email" name="email" required maxlength="100">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                                            style="text-align: left">Username</p>
                                         <input type="text" class="form-control"
-                                               placeholder="Username" name="username" required>
+                                               placeholder="Username" name="username" required maxlength="50">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                                            style="text-align: left">Password</p>
                                         <input type="text" class="form-control"
-                                               placeholder="Password" name="password" required>
+                                               placeholder="Password" name="password" required maxlength="50">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"

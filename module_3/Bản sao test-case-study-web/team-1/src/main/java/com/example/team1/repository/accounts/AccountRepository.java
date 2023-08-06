@@ -19,7 +19,7 @@ public class AccountRepository implements IAccountRepository {
     private static final String DELETE = "update accounts set account_status = 1 where account_id = ?;";
     private static final String AVAILABLE = "update accounts set account_status = 0 where account_id = ?";
     private static final String UPDATE = "update accounts set account_password = ?, account_status = ?, role_id = ? where account_id = ?";
-    private static final String FORGET_PASS = "update accounts set account_password = 123 where account_email = ?";
+    private static final String FORGET_PASS = "update accounts set account_password = ? where account_email = ?";
 
     private static final RoleRepository roleRepository = new RoleRepository();
 
@@ -97,15 +97,15 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public void deleteAccount(int id, boolean available) {
+    public void setAvailableAccount(int id, boolean available) {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement;
             if (available) {
-                preparedStatement = connection.prepareStatement(DELETE);
+                preparedStatement = connection.prepareStatement(AVAILABLE);
                 preparedStatement.setInt(1, id);
             } else {
-                preparedStatement = connection.prepareStatement(AVAILABLE);
+                preparedStatement = connection.prepareStatement(DELETE);
                 preparedStatement.setInt(1, id);
             }
             preparedStatement.executeUpdate();
@@ -153,11 +153,12 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public void forgetPass(String email) {
+    public void forgetPass(String email, String newPass) {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(FORGET_PASS);
-            preparedStatement.setString(1, email);
+            preparedStatement.setString(1, newPass);
+            preparedStatement.setString(2, email);
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -183,6 +184,33 @@ public class AccountRepository implements IAccountRepository {
                 int roleId = resultSet.getInt("role_id");
                 Roles roles = roleRepository.selectRole(roleId);
                 accountsMap.put(email, new Accounts(id, email, username, password, createDate, accountStatus, roles));
+            }
+            resultSet.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return accountsMap;
+    }
+
+    @Override
+    public Map<Integer, Accounts> selectAllAccountById() {
+        Map<Integer, Accounts> accountsMap = new HashMap<>();
+        Connection connection = Base.getConnection();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("account_id");
+                String email = resultSet.getString("account_email");
+                String username = resultSet.getString("account_username");
+                String password = resultSet.getString("account_password");
+                String createDate = resultSet.getString("account_create_date");
+                int accountStatus = resultSet.getInt("account_status");
+                int roleId = resultSet.getInt("role_id");
+                Roles roles = roleRepository.selectRole(roleId);
+                accountsMap.put(id, new Accounts(id, email, username, password, createDate, accountStatus, roles));
             }
             resultSet.close();
             connection.close();

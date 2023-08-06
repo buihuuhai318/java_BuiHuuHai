@@ -7,7 +7,7 @@ import com.example.team1.repository.accounts.IAccountRepository;
 import java.util.Map;
 
 public class AccountService implements IAccountService {
-    private final IAccountRepository accountRepository = new AccountRepository();
+    private static final IAccountRepository accountRepository = new AccountRepository();
 
     @Override
     public void insertAccount(Accounts accounts) {
@@ -27,6 +27,11 @@ public class AccountService implements IAccountService {
     @Override
     public Map<String, Accounts> selectAllAccountByEmail() {
         return accountRepository.selectAllAccountByEmail();
+    }
+
+    @Override
+    public Map<Integer, Accounts> selectAllAccountById() {
+        return accountRepository.selectAllAccountById();
     }
 
     @Override

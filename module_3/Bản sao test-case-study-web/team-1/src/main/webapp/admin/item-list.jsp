@@ -54,9 +54,11 @@
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <a href="ItemServlet?action=create" class="btn btn-success btn-block">Create New Item</a>
-                    </div>
+                    <c:if test="${sessionScope.get('role') == 1}">
+                        <div class="card-header py-3">
+                            <a href="/ItemServlet?action=create" class="btn btn-success btn-block">Create New Item</a>
+                        </div>
+                    </c:if>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -68,7 +70,9 @@
                                     <th>Inventory</th>
                                     <th>Type</th>
                                     <th>Available</th>
-                                    <th>Action</th>
+                                    <c:if test="${sessionScope.get('role') == 1}">
+                                        <th>Action</th>
+                                    </c:if>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -79,7 +83,9 @@
                                     <th>Inventory</th>
                                     <th>Type</th>
                                     <th>Available</th>
-                                    <th>Action</th>
+                                    <c:if test="${sessionScope.get('role') == 1}">
+                                        <th>Action</th>
+                                    </c:if>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -96,22 +102,22 @@
                                         </td>
                                         <td>
                                             <c:if test="${items.getAvailable() == 0}">Available</c:if>
-                                            <c:if test="${items.getAvailable() == 1}">Not Available</c:if>
+                                            <c:if test="${items.getAvailable() == 1}"><p style="color: red">Not Available</p></c:if>
                                         </td>
-
-
-                                        <td>
-                                            <a href="ItemServlet?action=edit&id=${items.getId()}"
-                                               class="btn btn-info btn-circle"
-                                               style="margin-left: 8%; margin-bottom: 4%">
-                                                <i class="fas fa-user-edit"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-danger btn-circle"
-                                               data-target="#delete${items.getId()}" data-toggle="modal"
-                                               style="margin-left: 8%">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        <c:if test="${sessionScope.get('role') == 1}">
+                                            <td>
+                                                <a href="/ItemServlet?action=edit&id=${items.getId()}"
+                                                   class="btn btn-info btn-circle"
+                                                   style="margin-left: 8%; margin-bottom: 4%">
+                                                    <i class="fas fa-user-edit"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-danger btn-circle"
+                                                   data-target="#delete${items.getId()}" data-toggle="modal"
+                                                   style="margin-left: 8%">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </c:if>
                                     </tr>
                                     <div class="modal fade" id="delete${items.getId()}" tabindex="-1" role="dialog"
                                          aria-labelledby="deleteLabel${items.getId()}"
@@ -132,7 +138,7 @@
                                                             data-dismiss="modal">Cancel
                                                     </button>
                                                     <a class="btn btn-danger"
-                                                       href="ItemServlet?action=delete&id=${items.getId()}">Delete</a>
+                                                       href="/ItemServlet?action=delete&id=${items.getId()}">Delete</a>
                                                 </div>
                                             </div>
                                         </div>

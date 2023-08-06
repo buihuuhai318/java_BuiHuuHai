@@ -41,8 +41,51 @@
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Tạo nền mờ */
+            z-index: 9999; /* Đặt z-index cao để spinner đè lên tất cả */
+        }
 
+        /* CSS của spinner vẫn như trong ví dụ trước */
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid black;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
+
 
 <body id="body">
 <!-- Start Top Header Bar -->
@@ -82,11 +125,22 @@
 </c:if>
 
 <c:if test="${not empty requestScope['orderList']}">
+    <c:if test='${requestScope["done"] != null}'>
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+    </c:if>
     <div class="page-wrapper">
         <div class="checkout shopping">
             <div class="container">
                 <div class="row">
-                    <form class="checkout-form" method="post" action="/PaymentServlet">
+                    <form class="checkout-form" id="payment" method="post"
+                            <c:if test='${requestScope["done"] == null}'>
+                                action="/PaymentServlet"
+                            </c:if>
+                            <c:if test='${requestScope["done"] != null}'>
+                                action="/PaymentServlet?action=getBill"
+                            </c:if>>
                         <div class="col-md-8">
                             <div class="block billing-details">
                                 <h4 class="widget-title">Billing Details</h4>
@@ -94,7 +148,7 @@
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder=""
-                                           value="${customers.getName()}">
+                                           value="${customers.getName()}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
@@ -114,15 +168,42 @@
                                         <div class="card-details">
                                             <div class="product-size">
                                                 <select class="form-control" name="paymentMethod">
-                                                    <c:forEach items="${paymentMethodList}" var="method">
-                                                        <option value="${method.getId()}">${method.getName()}</option>
-                                                    </c:forEach>
+                                                    <c:if test='${requestScope["done"] == null}'>
+                                                        <c:forEach items="${paymentMethodList}" var="method">
+                                                            <option value="${method.getId()}">${method.getName()}</option>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                    <c:if test='${requestScope["done"] != null}'>
+                                                        <option value="2">VN-PAY</option>
+                                                    </c:if>
                                                 </select>
                                             </div>
+                                            <c:if test='${requestScope["fail"] != null}'>
+                                                <div class="alert alert-danger alert-common" role="alert"
+                                                     style="margin-top: 3%">
+                                                    <i class="tf-ion-close-circled"></i>
+                                                    <span>Warning!</span> Thanh Toán Không Thành Công !!!
+                                                </div>
+                                            </c:if>
+                                            <c:if test='${requestScope["done"] != null}'>
+                                                <div class="alert alert-success alert-common" role="alert"
+                                                     style="margin-top: 3%">
+                                                    <i class="tf-ion-close-circled"></i>
+                                                    <span>Thanh Toán Thành Công !</span> Xin Đợi Chuyển Tiếp trang !!!
+                                                </div>
+                                            </c:if>
                                             <button type="submit" class="btn btn-main mt-20">Place Order</button>
                                         </div>
                                     </div>
                                 </div>
+                                <c:if test='${requestScope["done"] != null}'>
+                                    <input type="hidden" name="billDone" value="done">
+                                    <script>
+                                        setTimeout(function () {
+                                            document.getElementById("payment").submit();
+                                        }, 5);
+                                    </script>
+                                </c:if>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -130,6 +211,7 @@
                                 <div class="block">
                                     <h4 class="widget-title">Order Summary</h4>
                                     <c:set var="sum" value="${0}"/>
+                                    <c:set var="quantity" value="${0}"/>
                                     <c:forEach items="${orderList}" var="orderList">
                                         <div class="media product-card">
                                             <a class="pull-left"
@@ -166,6 +248,7 @@
                                         </ul>
                                         <c:set var="sum"
                                                value="${sum + orderList.getQuantity() * orderList.getPrice()}"/>
+                                        <c:set var="quantity" value="${quantity + orderList.getQuantity()}"/>
                                         <!-- Modal -->
                                         <div class="modal fade" id="coupon-modal${orderList.getItems().getId()}"
                                              tabindex="-1" role="dialog">
@@ -189,6 +272,7 @@
                                         <span>Total</span>
                                         <span>$${sum}</span>
                                         <input type="hidden" value="${sum}" name="totalPrice">
+                                        <input type="hidden" value="${quantity}" name="totalQuantity">
                                     </div>
                                     <div class="verified-icon">
                                         <img src="images/shop/verified.png" alt="">

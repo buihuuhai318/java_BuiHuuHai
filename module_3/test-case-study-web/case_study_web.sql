@@ -138,7 +138,9 @@ BEGIN
 SELECT items.item_id, items.item_name, item_types.item_type_name, SUM(detail_quantity) AS total_quantity, (items.item_price * SUM(detail_quantity)) as total_price
 FROM items
 left JOIN order_details ON order_details.item_id = items.item_id
+left JOIN bill ON bill.cart_id = order_details.cart_id
 left join item_types on items.item_type_id = item_types.item_type_id
+where payment_status = 1
 GROUP BY items.item_id, items.item_type_id
 ORDER BY total_quantity DESC
 limit 9;
@@ -154,6 +156,7 @@ left JOIN customers ON accounts.account_id = customers.account_id
 left JOIN customer_types ON customers.customer_type_id = customer_types.customer_type_id
 left JOIN carts ON accounts.account_id = carts.account_id
 left join bill on carts.cart_id = bill.cart_id
+where bill.payment_status = 1
 GROUP BY customer_id, account_username having total_bill > 0
 ORDER BY total_price DESC
 limit 9;
@@ -210,8 +213,58 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE revenue_year()
+BEGIN
+    SELECT
+    months.month,
+    COALESCE(revenue, 0) AS revenue
+FROM (
+    SELECT 1 AS month UNION SELECT 2 UNION SELECT 3 UNION SELECT 4
+    UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8
+    UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12
+) AS months
+LEFT JOIN (
+    SELECT
+        MONTH(bill_date) AS month,
+        SUM(total_price) AS revenue
+    FROM
+        bill
+	WHERE
+        YEAR(bill_date) = YEAR(CURRENT_DATE)
+    GROUP BY
+        MONTH(bill_date)
+) AS monthly_revenue ON months.month = monthly_revenue.month
+ORDER BY months.month;
+END //
+DELIMITER ;
 
+ call revenue_year;
+ 
+DELIMITER //
+CREATE PROCEDURE total_each_type()
+BEGIN
+ SELECT
+    i.item_type_id, it.item_type_name as type_name,
+    SUM(od.detail_quantity) AS total_quantity_sold
+FROM
+    bill b
+JOIN
+    carts c ON b.cart_id = c.cart_id
+JOIN
+    order_details od ON c.cart_id = od.cart_id
+JOIN
+    items i ON od.item_id = i.item_id
+JOIN 
+	item_types it ON it.item_type_id = i.item_type_id
+WHERE
+    YEAR(b.bill_date) = YEAR(CURRENT_DATE)
+GROUP BY
+    i.item_type_id, it.item_type_name;
+END //
+DELIMITER ;
 
+call total_each_type;
 
 
 

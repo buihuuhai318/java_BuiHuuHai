@@ -49,14 +49,14 @@
             <!-- Begin Page Content -->
             <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%">
 
-                <form class="user" action="CustomerServlet?action=editList&id=${requestScope["customers"].getId()}" method="post">
+                <form class="user" action="/CustomerServlet?action=editList&id=${requestScope["customers"].getId()}" method="post">
                     <div class="text-center" style="width: 20%; margin-left: auto; margin-right: auto">
                         <fieldset disabled>
                             <div class="form-group">
                                 <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Customer ID</label>
                                 <input type="text" class="form-control"
                                        placeholder="ID" value="${requestScope["customers"].getId()}"
-                                       name="id" style="text-align: center">
+                                       name="id" style="text-align: center" required>
                             </div>
                         </fieldset>
                     </div>
@@ -68,7 +68,7 @@
                                      alt="">
                                 <input type="file" class="form-control" id=""
                                        placeholder="image" value="${requestScope["customers"].getImage()}"
-                                       style="margin-top: 5%; height: fit-content" name="image">
+                                       style="margin-top: 5%; height: fit-content" name="image" maxlength="100">
                             </div>
                             <div class="col-lg-7">
                                 <div class="p-5">
@@ -78,7 +78,7 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Name</p>
                                         <input type="text" class="form-control"
                                                placeholder="Name" value="${requestScope["customers"].getName()}"
-                                               name="name">
+                                               name="name" required maxlength="50">
                                     </div>
 
                                     <div class="form-group row">
@@ -113,7 +113,7 @@
                                                 Birthday</p>
                                             <input type="date" class="form-control"
                                                    placeholder="Birthday" value="${requestScope["customers"].getBirthday()}"
-                                                   name="birthday">
+                                                   name="birthday" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
@@ -134,20 +134,20 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Phone</p>
                                         <input type="text" class="form-control"
                                                placeholder="Phone" value="${requestScope["customers"].getPhone()}"
-                                               name="phone">
+                                               name="phone" required maxlength="50">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Address</p>
                                         <input type="text" class="form-control"
                                                placeholder="Address" value="${requestScope["customers"].getAddress()}"
-                                               name="address">
+                                               name="address" required maxlength="100">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="CustomerServlet?action=list" class="btn btn-google btn-user btn-block">
+                        <a href="/CustomerServlet?action=list" class="btn btn-google btn-user btn-block">
                      Cancel
                         </a>
                     </div>

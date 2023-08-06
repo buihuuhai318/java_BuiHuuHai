@@ -64,21 +64,26 @@ public class ShopServlet extends HttpServlet {
                 break;
             case "search":
                 searchItem(request, response);
+                break;
             default:
                 showIndex(request, response);
                 break;
         }
     }
 
-    private void searchItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String searchKeyword = request.getParameter("searchKeyword");
-        List<Items> itemsList = new ArrayList<>(itemService.searchItem(searchKeyword).values());
+    private void headCart(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         if (session.getAttribute("cart") != null) {
             Cart cart = (Cart) session.getAttribute("cart");
             List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
             request.setAttribute("orderList", orderList);
         }
+    }
+
+    private void searchItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String searchKeyword = request.getParameter("searchKeyword");
+        List<Items> itemsList = new ArrayList<>(itemService.searchItem(searchKeyword).values());
+        headCart(request, response);
         request.setAttribute("itemsList", itemsList);
         request.getRequestDispatcher("shop/shop.jsp").forward(request, response);
     }
@@ -90,7 +95,7 @@ public class ShopServlet extends HttpServlet {
         Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
         request.setAttribute("customers", customers);
         Cart cart = (Cart) session.getAttribute("cart");
-        List<PaymentMethod> paymentMethodList = new ArrayList<>(paymentMethodService.selectAll().values());
+        List<PaymentMethod> paymentMethodList = new ArrayList<>(paymentMethodService.selectAllAvailable().values());
         List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
         request.setAttribute("orderList", orderList);
         request.setAttribute("paymentMethodList", paymentMethodList);
@@ -132,12 +137,7 @@ public class ShopServlet extends HttpServlet {
         request.setAttribute("imageList", imageList);
         List<Items> itemsList = new ArrayList<>(itemService.selectItemByType(items.getItemType().getId()).values());
         request.setAttribute("itemsList", itemsList);
-        HttpSession session = request.getSession();
-        if (session.getAttribute("cart") != null) {
-            Cart cart = (Cart) session.getAttribute("cart");
-            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
-            request.setAttribute("orderList", orderList);
-        }
+        headCart(request, response);
         request.getRequestDispatcher("shop/product-single.jsp").forward(request, response);
     }
 
@@ -145,12 +145,7 @@ public class ShopServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("idType"));
         ItemType types = itemTypeService.selectItemType(id);
         List<Items> itemsList = new ArrayList<>(itemService.selectItemByType(id).values());
-        HttpSession session = request.getSession();
-        if (session.getAttribute("cart") != null) {
-            Cart cart = (Cart) session.getAttribute("cart");
-            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
-            request.setAttribute("orderList", orderList);
-        }
+        headCart(request, response);
         request.setAttribute("itemsList", itemsList);
         request.setAttribute("types", types);
         request.getRequestDispatcher("shop/shop.jsp").forward(request, response);
@@ -159,12 +154,7 @@ public class ShopServlet extends HttpServlet {
     private void showIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Items> itemsList = new ArrayList<>(itemService.selectItemHot().values());
         List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
-        HttpSession session = request.getSession();
-        if (session.getAttribute("cart") != null) {
-            Cart cart = (Cart) session.getAttribute("cart");
-            List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
-            request.setAttribute("orderList", orderList);
-        }
+        headCart(request, response);
         request.setAttribute("itemsList", itemsList);
         request.setAttribute("itemTypeList", itemTypeList);
         request.getRequestDispatcher("shop/index.jsp").forward(request, response);
@@ -172,10 +162,10 @@ public class ShopServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
+//        String action = request.getParameter("action");
+//        if (action == null) {
+//            action = "";
+//        }
 //        switch (action) {
 //            case "create":
 //                create(request, response);

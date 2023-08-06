@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmployeeRepository implements IEmployeeRepository {
-    private static final String INSERT = "insert into employees (employee_name, employee_salary, employee_gender, employee_birthday, employee_phone, account_email, employee_address, employee_image, account_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String INSERT = "insert into employees (employee_name, employee_salary, employee_gender, employee_birthday, employee_phone, employee_address, employee_image, account_id) values (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_BY_ID = "select * from employees where employee_id = ?;";
     private static final String SELECT_ALL = "select * from employees";
     private static final String DELETE = "update employees set employee_status = 1 where employee_id = ?";
@@ -28,7 +28,7 @@ public class EmployeeRepository implements IEmployeeRepository {
             "employee_address = ?, " +
             "employee_image = ?, " +
             "employee_status = ? " +
-            "where customer_id = ?";
+            "where employee_id = ?";
 
     IAccountRepository accountRepository = new AccountRepository();
     @Override
@@ -41,10 +41,9 @@ public class EmployeeRepository implements IEmployeeRepository {
             preparedStatement.setInt(3, employees.getGender());
             preparedStatement.setString(4, employees.getBirthday());
             preparedStatement.setString(5, employees.getPhone());
-            preparedStatement.setString(6, employees.getAccount().getEmail());
-            preparedStatement.setString(7, employees.getAddress());
-            preparedStatement.setString(8, employees.getImage());
-            preparedStatement.setInt(9, employees.getAccount().getId());
+            preparedStatement.setString(6, employees.getAddress());
+            preparedStatement.setString(7, employees.getImage());
+            preparedStatement.setInt(8, employees.getAccount().getId());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -77,7 +76,7 @@ public class EmployeeRepository implements IEmployeeRepository {
                 String image = resultSet.getString("employee_image");
                 int accountId = resultSet.getInt("account_id");
 
-                employeesMap.put(id, new Employees(id, name, salary, gender, birthday, phone, address, status, image, accountRepository.selectAccount(id)));
+                employeesMap.put(id, new Employees(id, name, salary, gender, birthday, phone, address, status, image, accountRepository.selectAccount(accountId)));
             }
             resultSet.close();
             connection.close();
@@ -119,15 +118,15 @@ public class EmployeeRepository implements IEmployeeRepository {
     }
 
     @Override
-    public void deleteEmployee(int id, boolean available) {
+    public void setAvailableEmployee(int id, boolean available) {
         Connection connection = Base.getConnection();
         try {
             PreparedStatement preparedStatement;
             if (available) {
-                preparedStatement = connection.prepareStatement(DELETE);
+                preparedStatement = connection.prepareStatement(AVAILABLE);
                 preparedStatement.setInt(1, id);
             } else {
-                preparedStatement = connection.prepareStatement(AVAILABLE);
+                preparedStatement = connection.prepareStatement(DELETE);
                 preparedStatement.setInt(1, id);
             }
             preparedStatement.executeUpdate();

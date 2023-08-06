@@ -13,6 +13,8 @@ public interface IAccountRepository {
 
     Map<String, Accounts> selectAllAccountByEmail();
 
+    Map<Integer, Accounts> selectAllAccountById();
+
     void setAvailableAccount(int id, boolean available);
 
     void updateAccount(int id, Accounts accounts);

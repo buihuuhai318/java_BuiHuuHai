@@ -14,6 +14,7 @@ public class ItemImageRepository implements IItemImageRepository {
     private static final String INSERT = "insert into item_images (image_url, item_id) values (?, ?);";
     private static final String SELECT_BY_ITEM_ID = "select * from item_images where item_id = ?;";
     private static final String DELETE = "delete from item_images where image_id = ?;";
+    private static final String UPDATE = "update item_images set image_url = ? where image_id = ?;";
     private static final String DELETE_BY_ITEM_ID = "delete from item_images where item_id = ?;";
 
     @Override
@@ -34,9 +35,9 @@ public class ItemImageRepository implements IItemImageRepository {
     public void updateImage(int id, ItemImage itemImage) {
         Connection connection = Base.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE);
             preparedStatement.setString(1, itemImage.getUrl());
-            preparedStatement.setInt(2, itemImage.getItems().getId());
+            preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -53,8 +54,9 @@ public class ItemImageRepository implements IItemImageRepository {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
+                int idImage = resultSet.getInt("image_id");
                 String url = resultSet.getString("image_url");
-                imageList.add(new ItemImage(url));
+                imageList.add(new ItemImage(idImage, url));
             }
             resultSet.close();
             connection.close();

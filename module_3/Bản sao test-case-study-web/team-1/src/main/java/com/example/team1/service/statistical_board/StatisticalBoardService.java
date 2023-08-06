@@ -1,12 +1,12 @@
 package com.example.team1.service.statistical_board;
 
-import com.example.team1.model.dto.BillDto;
 import com.example.team1.model.dto.HotCustomer;
 import com.example.team1.model.dto.HotItems;
 import com.example.team1.repository.statistical_board.IStatisticalBoardRepository;
 import com.example.team1.repository.statistical_board.StatisticalBoardRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class StatisticalBoardService implements IStatisticalBoardService {
 
@@ -38,7 +38,12 @@ public class StatisticalBoardService implements IStatisticalBoardService {
     }
 
     @Override
-    public List<BillDto> selectAllBillByAccount(int idAccount) {
-        return boardRepository.selectAllBillByAccount(idAccount);
+    public List<Integer> revenueList() {
+        return boardRepository.revenueList();
+    }
+
+    @Override
+    public Map<String, Integer> quantityTotalByType() {
+        return boardRepository.quantityTotalByType();
     }
 }

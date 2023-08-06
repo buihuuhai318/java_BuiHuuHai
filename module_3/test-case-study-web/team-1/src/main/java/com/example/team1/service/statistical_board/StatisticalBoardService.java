@@ -6,6 +6,7 @@ import com.example.team1.repository.statistical_board.IStatisticalBoardRepositor
 import com.example.team1.repository.statistical_board.StatisticalBoardRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class StatisticalBoardService implements IStatisticalBoardService {
 
@@ -34,5 +35,15 @@ public class StatisticalBoardService implements IStatisticalBoardService {
     @Override
     public int totalByYear() {
         return boardRepository.totalByYear();
+    }
+
+    @Override
+    public List<Integer> revenueList() {
+        return boardRepository.revenueList();
+    }
+
+    @Override
+    public Map<String, Integer> quantityTotalByType() {
+        return boardRepository.quantityTotalByType();
     }
 }
