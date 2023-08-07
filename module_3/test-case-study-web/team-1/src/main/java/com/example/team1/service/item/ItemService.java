@@ -58,4 +58,9 @@ public class ItemService implements IItemService {
     public Map<Integer, Items> searchItem(String searchKeyword) {
         return itemRepository.searchItem(searchKeyword);
     }
+
+    @Override
+    public Map<Integer, Items> selectAll() {
+        return itemRepository.selectAll();
+    }
 }

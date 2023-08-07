@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>Manager</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -50,16 +50,22 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Payment Method Info</h1>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
-                    <c:if test="${sessionScope.get('role') == 1}">
-                        <div class="card-header py-3">
-                            <a href="/AdminServlet?action=create" class="btn btn-success btn-block">Create New Payment
-                                Method</a>
+                    <div class="card-header py-3">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h1 class="h3 mb-2 text-gray-800">Payment Method Info</h1>
+                            </div>
+                            <c:if test="${sessionScope.get('role') == 1}">
+                                <div class="col-sm-9">
+                                    <a href="/AdminServlet?action=create" style="width: 20%; margin-left: auto"
+                                       class="btn btn-primary btn-block">Create New</a>
+                                </div>
+                            </c:if>
                         </div>
-                    </c:if>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -52,11 +52,11 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <div class="row">
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <h1 class="h3 mb-2 text-gray-800">Item Info</h1>
                             </div>
                             <c:if test="${sessionScope.get('role') == 1}">
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <a href="/ItemServlet?action=create" style="width: 20%; margin-left: auto"
                                        class="btn btn-primary btn-block">Create New Item</a>
                                 </div>
@@ -100,7 +100,7 @@
                                             <td>
                                                 <a href="/ItemServlet?action=edit&id=${items.getId()}"
                                                    class="btn btn-info btn-circle"
-                                                   style="margin-left: 8%; margin-bottom: 4%">
+                                                   style="margin-left: 8%">
                                                     <i class="fas fa-user-edit"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-danger btn-circle"

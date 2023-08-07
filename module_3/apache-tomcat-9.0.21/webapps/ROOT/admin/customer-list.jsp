@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>Manager</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -93,7 +93,7 @@
                                         <td>${customer.getAccount().username}</td>
                                         <c:if test="${sessionScope.get('role') == 1}">
                                             <td>
-                                                <a href="CustomerServlet?action=editList&id=${customer.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
+                                                <a href="/CustomerServlet?action=editList&id=${customer.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%">
                                                     <i class="fas fa-user-edit"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-danger btn-circle" data-target="#delete${customer.getId()}" data-toggle="modal" style="margin-left: 8%">

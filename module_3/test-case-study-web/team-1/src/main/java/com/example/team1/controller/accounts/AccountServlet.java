@@ -221,16 +221,15 @@ public class AccountServlet extends HttpServlet {
         int gender = Integer.parseInt(request.getParameter("gender"));
         String phone = request.getParameter("phone");
         String image = request.getParameter("image");
-        int available = Integer.parseInt(request.getParameter("available"));
 
         if (accounts.getRole().getId() == Roles.CUSTOMER) {
             Types types = typeService.selectType(Integer.parseInt(request.getParameter("customerTypes")));
-            Customers customers = new Customers(name, gender, date, phone, address, available, image, types, accounts);
+            Customers customers = new Customers(name, gender, date, phone, address, 0, image, types, accounts);
             customerService.insertCustomer(customers);
             response.sendRedirect("/CustomerServlet?action=list");
         } else {
             int salary = Integer.parseInt(request.getParameter("salary"));
-            Employees employees = new Employees(name, salary, gender, date, phone, address, available, image, accounts);
+            Employees employees = new Employees(name, salary, gender, date, phone, address, 0, image, accounts);
             employeeService.insertEmployee(employees);
             response.sendRedirect("/EmployeeServlet?action=list");
         }
@@ -260,6 +259,8 @@ public class AccountServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             } else {
                 request.setAttribute("fail", "fail");
+                request.setAttribute("username", username);
+                request.setAttribute("email", email);
                 List<Roles> rolesList = new ArrayList<>(roleService.selectAllRole().values());
                 request.setAttribute("rolesList", rolesList);
                 dispatcher = getServletContext().getRequestDispatcher("/admin/create-new-account.jsp");
@@ -296,10 +297,11 @@ public class AccountServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (checkRole(request, response)) {
             int id = Integer.parseInt(request.getParameter("id"));
             String pass = request.getParameter("pass");
+            String email = request.getParameter("email");
             int available = Integer.parseInt(request.getParameter("available"));
             Roles roles = roleService.selectRole(Integer.parseInt(request.getParameter("roleId")));
 
@@ -307,18 +309,26 @@ public class AccountServlet extends HttpServlet {
             Customers customers = customerService.selectAllCustomerByEmail().get(accounts.getEmail());
             Employees employees = employeeService.selectAllEmployeeByEmail().get(accounts.getEmail());
 
-            if (accounts.getRole().getId() != Accounts.ADNIN) {
-                accounts.setRole(roles);
-                accounts.setPassword(pass);
-                accounts.setAvailable(available);
-                if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
-                    customerService.setAvailableCustomer(customers.getId(), available == 0);
-                } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
-                    employeeService.setAvailableEmployee(employees.getId(), available == 0);
+            if (accountService.selectAllAccountByEmail().get(email) == null) {
+                if (accounts.getRole().getId() != Accounts.ADNIN) {
+                    accounts.setRole(roles);
+                    accounts.setPassword(pass);
+                    accounts.setAvailable(available);
+                    accounts.setEmail(email);
+                    if (accounts.getRole().getId() == Accounts.CUSTOMER && customers != null) {
+                        customerService.setAvailableCustomer(customers.getId(), available == 0);
+                    } else if (accounts.getRole().getId() == Accounts.EMPLOYEE && employees != null) {
+                        employeeService.setAvailableEmployee(employees.getId(), available == 0);
+                    }
+                    accountService.updateAccount(id, accounts);
                 }
-                accountService.updateAccount(id, accounts);
+                response.sendRedirect("/AccountServlet?action=list");
+            } else {
+                request.setAttribute("mess", "mess");
+                showEdit(request, response);
             }
-            response.sendRedirect("/AccountServlet?action=list");
+
+
         } else {
             response.sendRedirect("/ShopServlet");
         }
@@ -358,6 +368,8 @@ public class AccountServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } else {
             request.setAttribute("mess", "fail");
+            request.setAttribute("username", username);
+            request.setAttribute("email", email);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop/signin.jsp");
             dispatcher.forward(request, response);
         }

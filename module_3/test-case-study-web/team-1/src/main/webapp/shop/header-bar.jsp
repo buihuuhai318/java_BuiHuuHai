@@ -158,10 +158,9 @@
                                     <div class="col-lg-12 col-md-6 mb-sm-3">
                                         <ul>
                                             <li>
-                                                <a href="/CustomerServlet?action=view&id=${sessionScope.get('id_account')}">Thông
-                                                    tin tài khoản</a></li>
+                                                <a href="/CustomerServlet?action=view&id=${sessionScope.get('id_account')}">Account information</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="/AccountServlet?action=change">Đổi mật khẩu</a></li>
+                                            <li><a href="/AccountServlet?action=change">Change password</a></li>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="/AccountServlet?action=logout">Log out</a></li>
                                         </ul>
@@ -224,12 +223,12 @@
                                     <ul>
                                         <li class="dropdown-header">Necklace</li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=3">Dây Chuyền Bạc 925</a></li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=3">Mặt Dây Chuyền Bạc 925</a>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=3">S925 Sliver Necklace</a></li>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=3">S925 Sliver Pendant</a>
                                         </li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=3">Dây Chuyền Thời Trang</a>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=3">Fashion Necklace</a>
                                         </li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=3">Tất Cả</a></li>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=3">All</a></li>
                                     </ul>
                                 </div>
 
@@ -238,10 +237,10 @@
                                     <ul>
                                         <li class="dropdown-header">Bracelet</li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=1">Vòng Tay Bạc 925</a></li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=1">Vòng Tay Thời Trang</a>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=1">S925 Sliver Bracelet</a></li>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=1">Fashion Bracelet</a>
                                         </li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=1">Tất Cả</a></li>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=1">All</a></li>
                                     </ul>
                                 </div>
 
@@ -249,9 +248,9 @@
                                     <ul>
                                         <li class="dropdown-header">Ring</li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=4">Nhẫn Bạc Nam</a></li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=4">Nhẫn Thời Trang</a></li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=4">Tất Cả</a></li>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=4">S925 Sliver Ring</a></li>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=4">Fashion Ring</a></li>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=4">All</a></li>
                                     </ul>
                                 </div>
 
@@ -259,7 +258,7 @@
                                     <ul>
                                         <li class="dropdown-header">Earring</li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="/ShopServlet?action=viewByType&idType=2">KHuyên Tai Bạc Nam</a></li>
+                                        <li><a href="/ShopServlet?action=viewByType&idType=2">Sliver Earring</a></li>
                                     </ul>
                                 </div>
 

@@ -227,6 +227,10 @@ public class CustomerServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String image = request.getParameter("image");
 
+        if (image.equals("")) {
+            image = customers.getImage();
+        }
+
         customers.setName(name);
         customers.setAddress(address);
         customers.setBirthday(birthday);

@@ -1,10 +1,16 @@
 package com.example.team1.controller.admin;
 
+import com.example.team1.model.accounts.Accounts;
 import com.example.team1.model.dto.HotCustomer;
 import com.example.team1.model.dto.HotItems;
+import com.example.team1.model.order.Cart;
 import com.example.team1.model.order.OrderDetail;
 import com.example.team1.model.payment.Bill;
 import com.example.team1.model.payment.PaymentMethod;
+import com.example.team1.service.accounts.AccountService;
+import com.example.team1.service.accounts.IAccountService;
+import com.example.team1.service.order.CartService;
+import com.example.team1.service.order.ICartService;
 import com.example.team1.service.order.IOrderDetailService;
 import com.example.team1.service.order.OrderDetailService;
 import com.example.team1.service.payment.BillService;
@@ -29,6 +35,8 @@ public class AdminServlet extends HttpServlet {
     private static final IOrderDetailService orderDetailService = new OrderDetailService();
     private static final IBillService billService = new BillService();
     private static final IPaymentMethodService paymentMethodService = new PaymentMethodService();
+    private static final ICartService cartService = new CartService();
+    private static final IAccountService accountService = new AccountService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -97,8 +105,12 @@ public class AdminServlet extends HttpServlet {
 
     private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idCart = Integer.parseInt(request.getParameter("idCart"));
+        Cart cart = cartService.selectCart(idCart);
+        Accounts accounts = accountService.selectAccount(cart.getAccounts());
         List<OrderDetail> orderList = new ArrayList<>(orderDetailService.selectAllOrderByIdCart(idCart).values());
         request.setAttribute("order", orderList);
+        request.setAttribute("accounts", accounts.getUsername());
+        request.setAttribute("email", accounts.getEmail());
         request.getRequestDispatcher("/admin/view-cart-detail.jsp").forward(request, response);
     }
 

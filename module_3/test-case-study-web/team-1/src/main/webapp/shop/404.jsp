@@ -13,7 +13,7 @@
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title></title>
+  <title>#Thehome - 404</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->

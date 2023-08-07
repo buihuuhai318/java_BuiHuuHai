@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>Manager</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -81,7 +82,7 @@
                                         </td>
                                         <td>${employee.getPhone()}</td>
                                         <td>${employee.getAddress()}</td>
-                                        <td>${employee.getSalary()}</td>
+                                        <td><fmt:formatNumber value="${employee.getSalary()}" type="currency" currencyCode="VND" pattern="#,###" /></td>
                                         <td>
                                             <c:if test="${employee.getStatus() == 0}">Available</c:if>
                                             <c:if test="${employee.getStatus() == 1}"><p style="color: red">Not Available</p></c:if>
@@ -89,7 +90,7 @@
                                         <td>${employee.getAccount().username}</td>
                                         <c:if test="${sessionScope.get('role') == 1}">
                                             <td>
-                                                <a href="EmployeeServlet?action=editList&id=${employee.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%; margin-bottom: 4%">
+                                                <a href="/EmployeeServlet?action=editList&id=${employee.getId()}" class="btn btn-info btn-circle" style="margin-left: 8%">
                                                     <i class="fas fa-user-edit"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-danger btn-circle" data-target="#delete${employee.getId()}" data-toggle="modal" style="margin-left: 8%">
@@ -149,25 +150,6 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>

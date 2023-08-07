@@ -66,12 +66,14 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Name</p>
-                                            <input type="text" class="form-control" placeholder="Name" name="name" required maxlength="50">
+                                            <input type="text" class="form-control" placeholder="Name" name="name"
+                                                   required maxlength="50">
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Code</p>
-                                            <input type="text" class="form-control" placeholder="Code" name="code" required maxlength="50">
+                                            <input type="text" class="form-control" placeholder="Code" name="code"
+                                                   required maxlength="50">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -98,16 +100,16 @@
                                                 </c:forEach>
                                             </select>
                                         </div>
-                                        <fieldset disabled>
-                                            <div class="col-sm-6">
-                                                <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                    Available</p>
+                                        <div class="col-sm-6">
+                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Available</p>
+                                            <fieldset disabled>
                                                 <select class="user-select-auto form-control" name="available">
                                                     <option value="1">Not Available</option>
                                                     <option value="0" selected>Available</option>
                                                 </select>
-                                            </div>
-                                        </fieldset>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
@@ -136,10 +138,12 @@
                                     <hr>
                                     <div style="width: 80%; margin-left: auto; margin-right: auto" class="row">
                                         <div class="col-sm-6">
-                                            <button class="btn btn-primary btn-user btn-block" type="submit">Update</button>
+                                            <button class="btn btn-primary btn-user btn-block" type="submit">Update
+                                            </button>
                                         </div>
                                         <div class="col-sm-6">
-                                            <a href="/ItemServlet?action=list" class="btn btn-google btn-user btn-block">
+                                            <a href="/ItemServlet?action=list"
+                                               class="btn btn-google btn-user btn-block">
                                                 Cancel
                                             </a>
                                         </div>

@@ -43,8 +43,8 @@ public class CartServlet extends HttpServlet {
                 id = Integer.parseInt(request.getParameter("itemId"));
                 Items items = itemService.selectItem(id);
                 if (items != null) {
-                    if (request.getParameter("quantity") != null) {
-                        quantity = Integer.parseInt(request.getParameter("quantity"));
+                    if (request.getParameter("product-quantity") != null) {
+                        quantity = Integer.parseInt(request.getParameter("product-quantity"));
                     }
                     if (session.getAttribute("cart") == null) {
                         Cart cart = new Cart(accounts);

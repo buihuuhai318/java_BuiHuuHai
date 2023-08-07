@@ -15,7 +15,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>#Thehome - Check Out</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -115,7 +115,6 @@
                     <div class="block text-center">
                         <i class="tf-ion-ios-cart-outline"></i>
                         <h2 class="text-center">Your cart is currently empty.</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, sed.</p>
                         <a href="/ShopServlet" class="btn btn-main mt-20">Return to shop</a>
                     </div>
                 </div>
@@ -182,14 +181,14 @@
                                                 <div class="alert alert-danger alert-common" role="alert"
                                                      style="margin-top: 3%">
                                                     <i class="tf-ion-close-circled"></i>
-                                                    <span>Warning!</span> Thanh Toán Không Thành Công !!!
+                                                    <span>Warning!</span> Transaction failed! !!!
                                                 </div>
                                             </c:if>
                                             <c:if test='${requestScope["done"] != null}'>
                                                 <div class="alert alert-success alert-common" role="alert"
                                                      style="margin-top: 3%">
                                                     <i class="tf-ion-close-circled"></i>
-                                                    <span>Thanh Toán Thành Công !</span> Xin Đợi Chuyển Tiếp trang !!!
+                                                    <span> Transaction successfully!</span> Loading !!!
                                                 </div>
                                             </c:if>
                                             <button type="submit" class="btn btn-main mt-20">Place Order</button>

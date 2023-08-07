@@ -15,7 +15,7 @@
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title></title>
+  <title>#Thehome - Dashboard</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -81,8 +81,6 @@
 						</div>
 						<div class="media-body">
 							<h2 class="media-heading">Welcome ${requestScope['customers'].getName()}</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, iure, est. Sit mollitia est maxime! Eos
-								cupiditate tempore, tempora omnis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, nihil. </p>
 						</div>
 					</div>
 					<div class="total-order mt-20">
@@ -91,7 +89,6 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th>Order ID</th>
 										<th>Date</th>
 										<th>Items</th>
 										<th>Total</th>
@@ -101,8 +98,7 @@
 								<tbody>
 								<c:forEach items="${listBill}" var="bill">
 									<tr>
-										<td><a href="/CustomerServlet?action=showCartDetail&idCart=${bill.getCart()}">#${bill.getId()}</a></td>
-										<td>${bill.getDate()}</td>
+										<td><a href="/CustomerServlet?action=showCartDetail&idCart=${bill.getCart()}">${bill.getDate()}</a></td>
 										<td>${bill.getTotalQuantity()}</td>
 										<td>$ ${bill.getTotalPrice()}</td>
 									</tr>

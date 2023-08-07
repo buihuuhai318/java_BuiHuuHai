@@ -15,7 +15,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>#Thehome - Signin</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -55,10 +55,9 @@
             <div class="col-md-6 col-md-offset-3">
                 <div class="block text-center">
                     <i class="tf-ion-android-checkmark-circle" style="margin: 5%"></i>
-                    <h2 class="text-center">Bạn đã đăng ký thành công !!!</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, sed.</p>
+                    <h2 class="text-center">Sign up successfully !!!</h2>
                     <a href="/AccountServlet?action=login" class="btn btn-main mt-20" style="margin: 2%">Login</a>
-                    <a href="/ShopServlet" class="btn btn-main mt-20" style="margin: 2%">Shopping Now</a>
+                    <a href="/ShopServlet" class="btn btn-main mt-20" style="margin: 2%">Shop Now</a>
                 </div>
             </div>
         </div>

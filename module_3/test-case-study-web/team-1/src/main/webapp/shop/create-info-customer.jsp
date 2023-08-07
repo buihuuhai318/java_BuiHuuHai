@@ -15,7 +15,7 @@
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title></title>
+  <title>#Thehome - Info</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -88,7 +88,7 @@
                       <c:if test='${requestScope["done"] != null}'>
                           <div class="alert alert-success alert-common" role="alert">
                               <i class="tf-ion-thumbsup"></i>
-                              <span>Well done!</span> Update thông tin thành công !!!</div>
+                              <span>Well done!</span> Update successfully !!!</div>
                       </c:if>
                       <div class="form-group" style="margin-top: 3%">
                           <button type="submit" class="btn btn-main text-center">Update</button>

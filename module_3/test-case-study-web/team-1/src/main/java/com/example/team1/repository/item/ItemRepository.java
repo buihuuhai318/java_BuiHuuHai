@@ -64,7 +64,7 @@ public class ItemRepository implements IItemRepository {
 
     @Override
     public Items selectItem(int id) {
-        return selectAllItem().get(id);
+        return selectAll().get(id);
     }
 
     @Override
@@ -91,6 +91,36 @@ public class ItemRepository implements IItemRepository {
                 if (available == 0) {
                     itemsMap.put(id, new Items(id, code, name, price, inventory, available, description, imageList, itemType));
                 }
+            }
+            resultSet.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return itemsMap;
+    }
+
+    @Override
+    public Map<Integer, Items> selectAll() {
+        Map<Integer, Items> itemsMap = new HashMap<>();
+        Connection connection = Base.getConnection();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("item_id");
+                String code = resultSet.getString("item_code");
+                String name = resultSet.getString("item_name");
+                int price = resultSet.getInt("item_price");
+                int inventory = resultSet.getInt("item_inventory");
+                String description = resultSet.getString("item_description");
+                int available = resultSet.getInt("item_available");
+                int typeId = resultSet.getInt("item_type_id");
+
+                List<ItemImage> imageList = itemImageRepository.selectImageByItem(id);
+                ItemType itemType = itemTypeRepository.selectItemType(typeId);
+                itemsMap.put(id, new Items(id, code, name, price, inventory, available, description, imageList, itemType));
             }
             resultSet.close();
             connection.close();

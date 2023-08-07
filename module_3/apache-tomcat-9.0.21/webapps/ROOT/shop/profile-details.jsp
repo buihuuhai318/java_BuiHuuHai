@@ -15,7 +15,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>#Thehome - Profile details</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -81,7 +81,7 @@
                             <ul class="user-profile-list">
                                 <li><span>Full Name:</span>${requestScope['customers'].getName()}</li>
                                 <li><span>phone</span>${requestScope['customers'].getPhone()}</li>
-                                <li><span>Email:</span>${requestScope['customers'].getEmail()}</li>
+                                <li><span>Email:</span>${requestScope['customers'].getAccount().getEmail()}</li>
                                 <li><span>Address:</span>${requestScope['customers'].getAddress()}</li>
                                 <li><span>Date of Birth:</span>${requestScope['customers'].getBirthday()}</li>
                             </ul>

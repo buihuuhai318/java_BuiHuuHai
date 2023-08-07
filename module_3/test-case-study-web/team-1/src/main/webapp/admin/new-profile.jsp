@@ -47,8 +47,11 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%; width: 50%; margin-left: auto; margin-right: auto">
-                <form class="user" action="/AccountServlet?action=newProfile&email=${requestScope["accounts"].getEmail()}" method="post">
+            <div class="card o-hidden border-0 shadow-lg my-5"
+                 style="padding: 5%; width: 50%; margin-left: auto; margin-right: auto">
+                <form class="user"
+                      action="/AccountServlet?action=newProfile&email=${requestScope["accounts"].getEmail()}"
+                      method="post">
                     <div class="text-center" style="width: 50%; margin-left: auto; margin-right: auto">
                         <fieldset disabled>
                             <div class="form-group">
@@ -66,25 +69,28 @@
                                 <div class="p-5">
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Name</p>
-                                        <input type="text" class="form-control" placeholder="Name" name="name" required maxlength="50">
+                                        <input type="text" class="form-control" placeholder="Name" name="name" required
+                                               maxlength="50">
                                     </div>
                                     <div class="form-group row">
                                         <c:if test='${requestScope["cus"] != null}'>
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Type</p>
-                                            <select class="user-select-auto form-control" name="customerTypes">
-                                                <c:forEach items="${typesList}" var="types">
-                                                    <option value="${types.getId()}"> ${types.getName()} </option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    Type</p>
+                                                <select class="user-select-auto form-control" name="customerTypes">
+                                                    <c:forEach items="${typesList}" var="types">
+                                                        <option value="${types.getId()}"> ${types.getName()} </option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
                                         </c:if>
                                         <c:if test='${requestScope["emp"] != null}'>
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <div class="form-group">
-                                                    <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Salary</p>
-                                                    <input type="text" class="form-control" placeholder="Salary" name="salary" required min="0" max="100000000">
+                                                    <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                        Salary</p>
+                                                    <input type="text" class="form-control" placeholder="Salary"
+                                                           name="salary" required min="0" max="100000000">
                                                 </div>
                                             </div>
                                         </c:if>
@@ -101,30 +107,34 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Birthday</p>
-                                            <input type="date" class="form-control" placeholder="Birthday" name="birthday" required>
+                                            <input type="date" class="form-control" placeholder="Birthday"
+                                                   name="birthday" required>
                                         </div>
-                                        <fieldset disabled>
-                                            <div class="col-sm-6">
-                                                <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                    Available</p>
+                                        <div class="col-sm-6">
+                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Available</p>
+                                            <fieldset disabled>
                                                 <select class="user-select-auto form-control" name="available">
                                                     <option value="1">Not Available</option>
                                                     <option value="0" selected>Available</option>
                                                 </select>
-                                            </div>
-                                        </fieldset>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Phone</p>
-                                        <input type="text" class="form-control" placeholder="Phone" name="phone" required maxlength="20">
+                                        <input type="text" class="form-control" placeholder="Phone" name="phone"
+                                               required maxlength="20">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Address</p>
-                                        <input type="text" class="form-control" placeholder="Address" name="address" required maxlength="100">
+                                        <input type="text" class="form-control" placeholder="Address" name="address"
+                                               required maxlength="100">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image</p>
-                                        <input type="file" class="form-control" placeholder="image" style="height: fit-content" name="image" maxlength="100">
+                                        <input type="file" class="form-control" placeholder="image"
+                                               style="height: fit-content" name="image" maxlength="100">
                                     </div>
                                 </div>
                             </div>

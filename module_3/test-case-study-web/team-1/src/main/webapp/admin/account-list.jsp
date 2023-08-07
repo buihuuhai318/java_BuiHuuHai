@@ -52,11 +52,11 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <div class="row">
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <h1 class="h3 mb-2 text-gray-800">Accounts Info</h1>
                             </div>
                             <c:if test="${sessionScope.get('role') == 1}">
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <a href="/AccountServlet?action=createNew" style="width: 20%; margin-left: auto"
                                        class="btn btn-primary btn-block">Create New Account</a>
                                 </div>

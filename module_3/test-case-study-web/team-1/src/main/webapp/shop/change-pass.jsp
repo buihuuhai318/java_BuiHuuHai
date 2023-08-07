@@ -14,7 +14,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>#Thehome - Change Password</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -71,18 +71,18 @@
                             <c:if test='${requestScope["done"] != null}'>
                                 <div class="alert alert-success alert-common" role="alert">
                                     <i class="tf-ion-thumbsup"></i>
-                                    <span>Well done!</span> Đổi mật khẩu thành công !!!</div>
+                                    <span>Well done!</span> Change password successfully !!!</div>
                             </c:if>
                             <c:if test='${requestScope["pass"] != null}'>
                                 <div class="alert alert-danger alert-common" role="alert">
                                     <i class="tf-ion-close-circled"></i>
-                                    <span>Warning!</span> Mật khẩu mới không trùng khớp !!!
+                                    <span>Warning!</span> Incorrect confirmed password !!!
                                 </div>
                             </c:if>
                             <c:if test='${requestScope["fail"] != null}'>
                                 <div class="alert alert-danger alert-common" role="alert">
                                     <i class="tf-ion-close-circled"></i>
-                                    <span>Warning!</span> Mật khẩu không đúng !!!
+                                    <span>Warning!</span> Incorrect password !!!
                                 </div>
                             </c:if>
                             <div class="form-group" style="margin-top: 3%">

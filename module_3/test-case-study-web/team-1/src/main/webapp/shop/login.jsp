@@ -15,7 +15,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>#Thehome - Login</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -69,14 +69,14 @@
                         <c:if test='${requestScope["mess"] != null}'>
                             <div class="alert alert-danger alert-common" role="alert" style="margin-top: 3%">
                                 <i class="tf-ion-close-circled"></i>
-                                <span>Warning!</span> Username hoặc Password không đúng !!!
+                                <span>Warning!</span> Invalid username or password !!!
                             </div>
                         </c:if>
                         <div class="text-center" style="margin-top: 3%">
                             <button type="submit" class="btn btn-main text-center">Login</button>
                         </div>
                     </form>
-                    <p class="mt-20">New in this site ?<a href="/AccountServlet?action=create"> Create New Account</a>
+                    <p class="mt-20">New in this site ?<a href="/AccountServlet?action=create"> Create new account</a>
                     </p>
                     <p><a href="/AccountServlet?action=res"> Forgot your password?</a></p>
                 </div>

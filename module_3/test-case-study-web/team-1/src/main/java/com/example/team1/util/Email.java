@@ -225,10 +225,6 @@ public class Email {
                 "                          </tr>\n" +
                 "                         </thead>\n" +
                 "                          <tr>\n" +
-                "                           <td style=\"padding:2%;Margin:0;margin:2%;font-size:100%\"><strong>Password:</strong></td>\n" +
-                "                           <td style=\"padding:2%;Margin:0;margin:2%;font-size:100%\">" + accounts.getPassword() + "</td>\n" +
-                "                          </tr>\n" +
-                "                          <tr>\n" +
                 "                           <td style=\"padding:2%;Margin:0;margin:2%;font-size:100%\"><strong>Email:</strong></td>\n" +
                 "                           <td style=\"padding:2%;Margin:0;margin:2%;font-size:100%\">" + accounts.getEmail() + "</td>\n" +
                 "                          </tr>\n" +

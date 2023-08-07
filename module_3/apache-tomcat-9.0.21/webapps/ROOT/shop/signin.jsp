@@ -55,18 +55,18 @@
                         <img src="images/logo/logo.jpg" style="width: 70%" alt="">
                     </a>
                     <h2 class="text-center" style="margin: 3%">Create Your Account</h2>
-                    <form class="text-left clearfix" action="AccountServlet?action=create" method="post">
+                    <form class="text-left clearfix" action="/AccountServlet?action=create" method="post">
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" name="email" required>
+                            <input type="email" class="form-control" placeholder="Email" name="email" value="${email}" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username" name="username" required maxlength="20" minlength="6">
+                            <input type="text" class="form-control" placeholder="Username" name="username" value="${username}" required maxlength="20" minlength="6">
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" placeholder="Password" name="password" required maxlength="20" minlength="6">
                         </div>
                         <c:if test='${requestScope["mess"] != null}'>
-                            <div class="alert alert-danger alert-common" role="alert"><i class="tf-ion-close-circled"></i><span>Warning!</span> Email hoặc Username đã tồn tại !!!</div>
+                            <div class="alert alert-danger alert-common" role="alert"><i class="tf-ion-close-circled"></i><span>Warning!</span> Email or username already existed !!!</div>
                         </c:if>
                         <div class="text-center">
                             <button type="submit" class="btn btn-main text-center">Sign In</button>

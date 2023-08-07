@@ -61,7 +61,7 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-5" style="padding: 2%">
-                                <img class="card-img" src="image-customers/${requestScope["employees"].getImage()}"
+                                <img class="card-img" style="max-height: 80%" src="image-customers/${requestScope["employees"].getImage()}"
                                      alt="">
                                 <input type="file" class="form-control" id=""
                                        placeholder="image" value="${requestScope["employees"].getImage()}"
@@ -173,6 +173,17 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
+<script>
+    // Hàm để định dạng số với dấu phẩy hàng nghìn
+    function formatNumberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // Sử dụng hàm để định dạng số và gán giá trị vào một phần tử HTML
+    let originalNumber = 1000000; // Số gốc
+    let formattedNumber = formatNumberWithCommas(originalNumber);
+    document.getElementById("formatted-number").innerHTML = formattedNumber;
+</script>
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>

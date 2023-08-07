@@ -16,7 +16,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Trang Chủ</title>
+    <title>#Thehome - Home</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->

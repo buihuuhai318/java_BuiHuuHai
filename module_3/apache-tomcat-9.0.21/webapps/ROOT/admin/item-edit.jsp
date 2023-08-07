@@ -49,14 +49,11 @@
             <!-- Begin Page Content -->
             <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%">
 
-                <form class="user" action="ItemServlet?action=edit&id=${requestScope["items"].getId()}" method="post">
+                <form class="user" action="/ItemServlet?action=edit&id=${requestScope["items"].getId()}" method="post">
                     <div class="text-center" style="width: 20%; margin-left: auto; margin-right: auto">
                         <fieldset disabled>
                             <div class="form-group">
-                                <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Item ID</label>
-                                <input type="text" class="form-control"
-                                       placeholder="ID" value="${requestScope["items"].getId()}"
-                                       name="id" style="text-align: center">
+                                <label class="font-weight-bold text-primary text-uppercase mb-1">Edit Item</label>
                             </div>
                         </fieldset>
                     </div>
@@ -147,7 +144,7 @@
                                                 + 3</p>
                                             <input type="file" class="form-control" name="image1"
                                                    style="height: fit-content; margin-bottom: 5%" maxlength="100">
-                                            <input type="file" class="form-control" name="image4"
+                                            <input type="file" class="form-control" name="image3"
                                                    style="height: fit-content" maxlength="100">
                                         </div>
                                         <div class="col-sm-6">

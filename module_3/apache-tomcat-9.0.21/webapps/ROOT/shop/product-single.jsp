@@ -15,7 +15,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>#Thehome - Product Single</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -108,30 +108,23 @@
                         <p class="product-description mt-20">
                             ${requestScope["items"].getDescription()}
                         </p>
-                        <div class="product-size">
-                            <span>Size:</span>
-                            <select class="form-control">
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                                <option>XL</option>
-                            </select>
-                        </div>
                         <div class="product-quantity">
-                            <span style="margin-bottom: 38px">Quantity:</span>
+                            <span>Quantity:</span>
                             <div class="product-quantity-slider">
-                                <input type="number" value="0" name="quantity" min="0" max="${items.getInventory()}" style="margin-bottom: 10px">
-                                <p>Remain: ${items.getInventory()}</p>
+                                <input type="number" id="product-quantity" value="0" name="product-quantity" min="0" max="${items.getInventory()}">
                             </div>
-                            <div class="product-quantity">
+                        </div>
+                        <div class="product-category">
+                            <span>Remain:</span>
 
-                            </div>
+                            <c:if test="${items.getInventory() > 0 && items.getAvailable() == 0}"> ${items.getInventory()}</c:if>
+
 
                         </div>
-                        <c:if test="${items.getInventory() == 0}">
+                        <c:if test="${items.getInventory() == 0 || items.getAvailable() == 1}">
                             <button type="submit" class="btn btn-main mt-20" disabled>Sold Out</button>
                         </c:if>
-                        <c:if test="${items.getInventory() > 0}">
+                        <c:if test="${items.getInventory() > 0 && items.getAvailable() == 0}">
                             <button type="submit" class="btn btn-main mt-20">Add To Cart</button>
                         </c:if>
                     </div>

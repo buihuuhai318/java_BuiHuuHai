@@ -15,7 +15,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>#Thehome - Cart Details</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->

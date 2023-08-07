@@ -132,7 +132,13 @@ public class ShopServlet extends HttpServlet {
     private void viewDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Items items = itemService.selectItem(id);
-        List<ItemImage> imageList = itemImageService.selectImageByItem(id);
+        List<ItemImage> imageListTemp = itemImageService.selectImageByItem(id);
+        List<ItemImage> imageList = new ArrayList<>();
+        for (ItemImage itemImage : imageListTemp) {
+            if (!itemImage.getUrl().equals("")) {
+                imageList.add(itemImage);
+            }
+        }
         request.setAttribute("items", items);
         request.setAttribute("imageList", imageList);
         List<Items> itemsList = new ArrayList<>(itemService.selectItemByType(items.getItemType().getId()).values());

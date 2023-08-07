@@ -15,7 +15,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>#Thehome - Forget</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -66,13 +66,13 @@
                         <c:if test='${requestScope["mess"] != null}'>
                             <div class="alert alert-danger alert-common" role="alert">
                                 <i class="tf-ion-close-circled"></i>
-                                <span>Warning!</span> Email không tồn tại !!!
+                                <span>Warning!</span> Email doesn't exist !!!
                             </div>
                         </c:if>
                         <c:if test='${requestScope["done"] != null}'>
                             <div class="alert alert-success alert-common" role="alert">
                                 <i class="tf-ion-thumbsup"></i>
-                                <span>Well done!</span> Mật khẩu mới đã được gửi qua mail của bạn !!!
+                                <span>Well done!</span> New password has sent to your email !!!
                             </div>
                         </c:if>
                         <div class="text-center">

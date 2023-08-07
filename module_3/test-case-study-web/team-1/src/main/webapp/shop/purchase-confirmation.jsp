@@ -15,7 +15,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title></title>
+    <title>#Thehome - Purchase confirmation</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -71,7 +71,7 @@
             <div class="col-md-6 col-md-offset-3">
                 <div class="block text-center">
                     <i class="tf-ion-android-checkmark-circle" style="margin: 0"></i>
-                    <h2 class="text-center">Payment Successfull !!!</h2>
+                    <h2 class="text-center">Payment Successfully !!!</h2>
                 </div>
             </div>
         </div>

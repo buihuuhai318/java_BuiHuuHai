@@ -11,6 +11,8 @@ public interface IItemRepository {
 
     Map<Integer, Items> selectAllItem();
 
+    Map<Integer, Items> selectAll();
+
     Map<Integer, Items> selectItemHot();
 
     Map<Integer, Items> searchItem(String searchKeyword);

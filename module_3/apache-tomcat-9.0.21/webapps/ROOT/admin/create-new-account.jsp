@@ -60,8 +60,7 @@
                     <div class="text-center">
                         <c:if test='${requestScope["fail"] != null}'>
                             <div class="alert alert-danger alert-common" role="alert" style="text-align: center; width: 80%; margin-left: auto; margin-right: auto"><i
-                                    class="tf-ion-close-circled"></i><span>Warning!</span> Email hoặc Username đã tồn
-                                tại !!!
+                                    class="tf-ion-close-circled"></i><span>Warning!</span> Email or username already existed !!!
                             </div>
                         </c:if>
                         <!-- Nested Row within Card Body -->
@@ -72,13 +71,13 @@
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                                            style="text-align: left">Email</p>
                                         <input type="email" class="form-control"
-                                               placeholder="Email" name="email" required maxlength="100">
+                                               placeholder="Email" name="email" required maxlength="100" value="${email}">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                                            style="text-align: left">Username</p>
                                         <input type="text" class="form-control"
-                                               placeholder="Username" name="username" required maxlength="50">
+                                               placeholder="Username" name="username" required maxlength="50" value="${username}">
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1"

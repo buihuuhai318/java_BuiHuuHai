@@ -66,6 +66,12 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="form-group">
+                                        <p class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="text-align: left">Email</p>
+                                        <input type="text" class="form-control"
+                                               placeholder="Email" value="${requestScope["accounts"].getEmail()}"
+                                               name="email" required maxlength="50">
+                                    </div>
+                                    <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="text-align: left">Password</p>
                                         <input type="text" class="form-control"
                                                placeholder="Pass" value="${requestScope["accounts"].getPassword()}"
@@ -97,6 +103,9 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <c:if test='${requestScope["mess"] != null}'>
+                                        <div class="alert alert-danger alert-common" role="alert"><i class="tf-ion-close-circled"></i><span>Warning!</span> Email already existed !!!</div>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

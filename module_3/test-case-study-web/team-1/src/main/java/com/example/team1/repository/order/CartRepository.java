@@ -20,6 +20,7 @@ public class CartRepository implements ICartRepository {
     private static final String INSERT = "insert into carts (account_id, order_date, payment_status) values (?, ?, ?);";
     private static final String SELECT_LAST = "select * from carts order by cart_id desc limit 1;";
     private static final String SELECT_ALL = "select * from carts";
+    private static final String SELECT = "select * from carts where cart_id = ?;";
     private static final String DELETE = "delete from carts where cart_id = ?;";
     private static final String UPDATE = "update carts set " +
             "payment_date = ?, " +
@@ -47,7 +48,26 @@ public class CartRepository implements ICartRepository {
 
     @Override
     public Cart selectCart(int id) {
-        return selectAllCart().get(id);
+        Cart cart = null;
+        Connection connection = Base.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int accountId = resultSet.getInt("account_id");
+                String orderDate = resultSet.getString("order_date");
+                String paymentDate = resultSet.getString("payment_date");
+                int paymentStatus = resultSet.getInt("payment_status");
+                Map<Integer, OrderDetail> orderDetailList = orderDetailRepository.selectAllOrderByIdCart(id);
+                cart = new Cart(id, accountId, orderDate, paymentDate, orderDetailList, paymentStatus);
+            }
+            resultSet.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return cart;
     }
 
     @Override

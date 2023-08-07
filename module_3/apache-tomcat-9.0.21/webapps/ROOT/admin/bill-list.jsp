@@ -59,7 +59,6 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Bill ID</th>
                                     <th>Date</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
@@ -68,21 +67,9 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Bill ID</th>
-                                    <th>Date</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th>Payment</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </tfoot>
                                 <tbody>
                                 <c:forEach items="${listBill}" var="bill">
                                     <tr>
-                                        <td>${bill.id}</td>
                                         <td>${bill.date}</td>
                                         <td>${bill.totalQuantity}</td>
                                         <td>${bill.totalPrice}</td>
@@ -95,8 +82,8 @@
                                         <td>
                                             <a href="/AdminServlet?action=showCart&idCart=${bill.cart}"
                                                class="btn btn-info btn-circle"
-                                               style="margin-left: 8%; margin-bottom: 4%">
-                                                <i class="fas fa-user-check"></i>
+                                               style="margin-left: 8%">
+                                                <i class="fas fa-info"></i>
                                             </a>
                                             <c:if test="${sessionScope.get('role') == 1}">
                                             <a href="#" class="btn btn-success btn-circle"

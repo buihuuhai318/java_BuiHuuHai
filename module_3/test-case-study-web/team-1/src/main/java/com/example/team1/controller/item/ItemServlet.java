@@ -55,7 +55,7 @@ public class ItemServlet extends HttpServlet {
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (checkRole(request, response)) {
-            List<Items> itemsList = new ArrayList<>(itemService.selectAllItem().values());
+            List<Items> itemsList = new ArrayList<>(itemService.selectAll().values());
             List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
             request.setAttribute("itemsList", itemsList);
             request.setAttribute("itemTypeList", itemTypeList);
@@ -200,9 +200,8 @@ public class ItemServlet extends HttpServlet {
         int inventory = Integer.parseInt(request.getParameter("inventory"));
         int typeId = Integer.parseInt(request.getParameter("type"));
         ItemType itemType = itemTypeService.selectItemType(typeId);
-        int available = Integer.parseInt(request.getParameter("available"));
         String description = request.getParameter("description");
-        Items items = new Items(code, name, price, inventory, available, description, itemType);
+        Items items = new Items(code, name, price, inventory, 0, description, itemType);
         itemService.insertItem(items);
         Items itemsTemp = itemService.selectAllItemByCode().get(code);
         String image1 = request.getParameter("image1");
@@ -215,9 +214,6 @@ public class ItemServlet extends HttpServlet {
         imageList.add(new ItemImage(image3, itemsTemp));
         imageList.add(new ItemImage(image4, itemsTemp));
         for (ItemImage itemImage : imageList) {
-            if (itemImage.getUrl().equals("")) {
-                continue;
-            }
             itemImageService.insertImage(itemImage);
         }
         response.sendRedirect("ItemServlet?action=list");

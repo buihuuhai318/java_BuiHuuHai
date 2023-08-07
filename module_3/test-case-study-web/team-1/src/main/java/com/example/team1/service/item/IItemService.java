@@ -24,4 +24,6 @@ public interface IItemService {
     void updateInventoryItem(int id, Items items);
 
     Map<Integer, Items> searchItem(String searchKeyword);
+
+    Map<Integer, Items> selectAll();
 }
