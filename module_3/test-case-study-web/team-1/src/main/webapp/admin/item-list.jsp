@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>Manager</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -48,17 +48,21 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Item Info</h1>
-
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
-                    <c:if test="${sessionScope.get('role') == 1}">
-                        <div class="card-header py-3">
-                            <a href="/ItemServlet?action=create" class="btn btn-success btn-block">Create New Item</a>
+                    <div class="card-header py-3">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <h1 class="h3 mb-2 text-gray-800">Item Info</h1>
+                            </div>
+                            <c:if test="${sessionScope.get('role') == 1}">
+                                <div class="col-sm-10">
+                                    <a href="/ItemServlet?action=create" style="width: 20%; margin-left: auto"
+                                       class="btn btn-primary btn-block">Create New Item</a>
+                                </div>
+                            </c:if>
                         </div>
-                    </c:if>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -75,19 +79,6 @@
                                     </c:if>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Inventory</th>
-                                    <th>Type</th>
-                                    <th>Available</th>
-                                    <c:if test="${sessionScope.get('role') == 1}">
-                                        <th>Action</th>
-                                    </c:if>
-                                </tr>
-                                </tfoot>
                                 <tbody>
                                 <c:forEach items="${itemsList}" var="items">
                                     <tr>
@@ -102,7 +93,8 @@
                                         </td>
                                         <td>
                                             <c:if test="${items.getAvailable() == 0}">Available</c:if>
-                                            <c:if test="${items.getAvailable() == 1}"><p style="color: red">Not Available</p></c:if>
+                                            <c:if test="${items.getAvailable() == 1}"><p style="color: red">Not
+                                                Available</p></c:if>
                                         </td>
                                         <c:if test="${sessionScope.get('role') == 1}">
                                             <td>

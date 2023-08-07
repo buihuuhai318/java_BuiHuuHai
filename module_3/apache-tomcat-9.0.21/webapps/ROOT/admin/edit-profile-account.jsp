@@ -101,10 +101,14 @@
                             </div>
                         </div>
                         <hr>
-                        <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="/AccountServlet?action=list" class="btn btn-google btn-user btn-block">
-                     Cancel
-                        </a>
+                        <div style="width: 80%; margin-left: auto; margin-right: auto" class="row">
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary btn-user btn-block" type="submit">Update</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="/AccountServlet?action=list" class="btn btn-google btn-user btn-block">Cancel</a>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

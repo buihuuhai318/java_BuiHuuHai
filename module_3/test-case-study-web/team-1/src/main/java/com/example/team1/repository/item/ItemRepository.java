@@ -116,9 +116,7 @@ public class ItemRepository implements IItemRepository {
                 ItemType itemType = itemTypeRepository.selectItemType(typeId);
                 items.setItemType(itemType);
                 items.setImageList(imageList);
-                if (items.getAvailable() == 0) {
-                    itemsMap.put(id, items);
-                }
+                itemsMap.put(id, items);
             }
             resultSet.close();
             connection.close();

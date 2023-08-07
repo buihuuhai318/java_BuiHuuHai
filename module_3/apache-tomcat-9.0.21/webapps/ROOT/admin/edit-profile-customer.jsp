@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>Manager</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -53,10 +53,7 @@
                     <div class="text-center" style="width: 20%; margin-left: auto; margin-right: auto">
                         <fieldset disabled>
                             <div class="form-group">
-                                <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Customer ID</label>
-                                <input type="text" class="form-control"
-                                       placeholder="ID" value="${requestScope["customers"].getId()}"
-                                       name="id" style="text-align: center" required>
+                                <label class="font-weight-bold text-primary text-uppercase mb-1">Edit Customer</label>
                             </div>
                         </fieldset>
                     </div>
@@ -65,22 +62,19 @@
                         <div class="row">
                             <div class="col-lg-5" style="padding: 2%">
                                 <img class="card-img" src="image-customers/${requestScope["customers"].getImage()}"
-                                     alt="">
+                                     alt="" style="max-height: 80%">
                                 <input type="file" class="form-control" id=""
                                        placeholder="image" value="${requestScope["customers"].getImage()}"
                                        style="margin-top: 5%; height: fit-content" name="image" maxlength="100">
                             </div>
                             <div class="col-lg-7">
                                 <div class="p-5">
-
-
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Name</p>
                                         <input type="text" class="form-control"
                                                placeholder="Name" value="${requestScope["customers"].getName()}"
                                                name="name" required maxlength="50">
                                     </div>
-
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
@@ -142,14 +136,20 @@
                                                placeholder="Address" value="${requestScope["customers"].getAddress()}"
                                                name="address" required maxlength="100">
                                     </div>
+                                    <hr>
+                                    <div style="width: 80%; margin-left: auto; margin-right: auto" class="row form-group">
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-primary btn-user btn-block" type="submit">Update</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="/CustomerServlet?action=list" class="btn btn-google btn-user btn-block">
+                                                Cancel
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="/CustomerServlet?action=list" class="btn btn-google btn-user btn-block">
-                     Cancel
-                        </a>
                     </div>
                 </form>
             </div>

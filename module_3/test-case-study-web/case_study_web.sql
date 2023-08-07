@@ -140,7 +140,7 @@ FROM items
 left JOIN order_details ON order_details.item_id = items.item_id
 left JOIN bill ON bill.cart_id = order_details.cart_id
 left join item_types on items.item_type_id = item_types.item_type_id
-where payment_status = 1
+where payment_status = 1 and item_available = 0 and MONTH(bill_date) = MONTH(CURDATE())
 GROUP BY items.item_id, items.item_type_id
 ORDER BY total_quantity DESC
 limit 9;

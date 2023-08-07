@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Trang Chủ</title>
+    <title>Manager - Home</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -59,7 +59,7 @@
 
                     <!-- Earnings (dayly) Card Example -->
                     <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -78,7 +78,7 @@
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -97,7 +97,7 @@
 
                     <!-- Earnings (Annual) Card Example -->
                     <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -194,16 +194,6 @@
                                             <th>Total</th>
                                         </tr>
                                         </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Username</th>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Bill</th>
-                                            <th>Total</th>
-                                        </tr>
-                                        </tfoot>
-
                                         <tbody>
                                         <c:forEach items="${customerList}" var="customers">
                                             <tr>
@@ -241,14 +231,6 @@
                                             <th>Total</th>
                                         </tr>
                                         </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                        </tr>
-                                        </tfoot>
                                         <tbody>
                                         <c:forEach items="${itemsList}" var="items">
                                             <tr>

@@ -54,9 +54,6 @@
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Customer</h6>
-                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -74,20 +71,6 @@
                                     </c:if>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Gender</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Salary</th>
-                                    <th>Available</th>
-                                    <th>Username</th>
-                                    <c:if test="${sessionScope.get('role') == 1}">
-                                        <th>Action</th>
-                                    </c:if>
-                                </tr>
-                                </tfoot>
                                 <tbody>
                                 <c:forEach items="${employeesList}" var="employee">
                                     <tr>

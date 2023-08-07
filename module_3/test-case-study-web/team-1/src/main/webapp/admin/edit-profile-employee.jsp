@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>Manager</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -53,10 +53,7 @@
                     <div class="text-center" style="width: 20%; margin-left: auto; margin-right: auto">
                         <fieldset disabled>
                             <div class="form-group">
-                                <label class="text-xs font-weight-bold text-primary text-uppercase mb-1">Employee ID</label>
-                                <input type="text" class="form-control"
-                                       placeholder="ID" value="${requestScope["employees"].getId()}"
-                                       name="id" style="text-align: center">
+                                <label class="font-weight-bold text-primary text-uppercase mb-1">Edit Employee</label>
                             </div>
                         </fieldset>
                     </div>
@@ -137,14 +134,20 @@
                                                placeholder="Address" value="${requestScope["employees"].getAddress()}"
                                                name="address" required maxlength="100">
                                     </div>
+                                    <hr>
+                                    <div style="width: 80%; margin-left: auto; margin-right: auto" class="row form-group">
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-primary btn-user btn-block" type="submit">Update</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="/EmployeeServlet?action=list" class="btn btn-google btn-user btn-block">
+                                                Cancel
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="/EmployeeServlet?action=list" class="btn btn-google btn-user btn-block">
-                     Cancel
-                        </a>
                     </div>
                 </form>
             </div>

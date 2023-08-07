@@ -46,7 +46,23 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 
+    <style>
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Chiều cao của màn hình */
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%; /* Để video tràn chiều cao của vùng chứa */
+            object-fit: cover; /* Đảm bảo video tràn hết vùng chứa */
+        }
+    </style>
 </head>
+
 
 <body id="body">
 
@@ -146,7 +162,9 @@
                     <div class="product-item">
                         <div class="product-thumb">
                             <span class="bage">Hot</span>
-                            <img class="img-responsive" style="height: 30em" src="item-image/${items.getItemType().getName()}/${items.getImageList().get(0).getUrl()}" alt="product-img"/>
+                            <img class="img-responsive" style="height: 30em"
+                                 src="item-image/${items.getItemType().getName()}/${items.getImageList().get(0).getUrl()}"
+                                 alt="product-img"/>
                             <div class="preview-meta">
                                 <ul>
                                     <li>
@@ -158,7 +176,8 @@
                                         <a href="#!"><i class="tf-ion-ios-heart"></i></a>
                                     </li>
                                     <li>
-                                        <a href="/CartServlet?itemId=${items.getId()}"><i class="tf-ion-android-cart"></i></a>
+                                        <a href="/CartServlet?itemId=${items.getId()}"><i
+                                                class="tf-ion-android-cart"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -181,7 +200,8 @@
                                 <div class="row">
                                     <div class="col-md-8 col-sm-6 col-xs-12">
                                         <div class="modal-image">
-                                            <img class="img-responsive" src="item-image/${items.getItemType().getName()}/${items.getImageList().get(1).getUrl()}"
+                                            <img class="img-responsive"
+                                                 src="item-image/${items.getItemType().getName()}/${items.getImageList().get(1).getUrl()}"
                                                  alt="product-img"/>
                                         </div>
                                     </div>
@@ -190,12 +210,14 @@
                                             <h2 class="product-title">${items.getName()}</h2>
                                             <p class="product-price">$${items.getPrice()}</p>
                                             <p class="product-short-description">
-                                                ${items.getDescription()}
+                                                    ${items.getDescription()}
                                             </p>
                                             <c:if test="${items.getInventory() > 0}">
-                                                <a href="/CartServlet?itemId=${items.getId()}" class="btn btn-main">Add To Cart</a>
+                                                <a href="/CartServlet?itemId=${items.getId()}" class="btn btn-main">Add
+                                                    To Cart</a>
                                             </c:if>
-                                            <a href="/ShopServlet?action=viewDetail&id=${items.getId()}" class="btn btn-transparent">View Product
+                                            <a href="/ShopServlet?action=viewDetail&id=${items.getId()}"
+                                               class="btn btn-transparent">View Product
                                                 Details</a>
                                         </div>
                                     </div>
@@ -210,6 +232,37 @@
     </div>
 </section>
 
+<div class="slider-item th-fullpage hero-area">
+    <div class="video-container" style="height: 100%; background-color: #f9f9f9">
+        <video id="custom-video" width="100%" height="725" autoplay loop muted playsinline>
+            <source src="../video/HELIOS%20-%20HÃNG%20TRANG%20SỨC%20MỌI%20NGƯỜI%20CẦN%20BIẾT%20ĐẾN.mp4"
+                    type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const video = document.getElementById('custom-video');
+        let startTime = 213; // Thời gian bắt đầu (3:33)
+        let endTime = 256; // Thời gian kết thúc (4:16)
+
+        video.currentTime = startTime;
+        video.play();
+
+        video.addEventListener('timeupdate', () => {
+            if (video.currentTime >= endTime) {
+                video.currentTime = startTime;
+            }
+        });
+    });
+    window.onload = function () {
+        // Thực hiện cuộn trang lên đầu khi tải xong
+        window.scrollTo(0, 0);
+    };
+</script>
 
 <!--
 Start Call To Action
@@ -220,7 +273,8 @@ Start Call To Action
             <div class="col-md-12 text-center">
                 <div class="title">
                     <h2>SUBSCRIBE TO NEWSLETTER</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, <br> facilis numquam impedit ut
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, <br> facilis numquam
+                        impedit ut
                         sequi. Minus facilis vitae excepturi sit laboriosam.</p>
                 </div>
                 <div class="col-lg-6 col-md-offset-3">

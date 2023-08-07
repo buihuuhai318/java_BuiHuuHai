@@ -159,14 +159,21 @@
                                                    style="height: fit-content" maxlength="100">
                                         </div>
                                     </div>
+                                    <hr>
+                                    <div style="width: 80%; margin-left: auto; margin-right: auto" class="row form-group">
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-primary btn-user btn-block" type="submit">Update</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="/ItemServlet?action=list" class="btn btn-google btn-user btn-block">
+                                                Cancel
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="/ItemServlet?action=list" class="btn btn-google btn-user btn-block">
-                            Cancel
-                        </a>
+
                     </div>
                 </form>
             </div>

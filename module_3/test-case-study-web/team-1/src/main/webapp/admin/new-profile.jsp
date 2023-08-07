@@ -103,14 +103,16 @@
                                                 Birthday</p>
                                             <input type="date" class="form-control" placeholder="Birthday" name="birthday" required>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Available</p>
-                                            <select class="user-select-auto form-control" name="available">
-                                                <option value="1">Not Available</option>
-                                                <option value="0">Available</option>
-                                            </select>
-                                        </div>
+                                        <fieldset disabled>
+                                            <div class="col-sm-6">
+                                                <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    Available</p>
+                                                <select class="user-select-auto form-control" name="available">
+                                                    <option value="1">Not Available</option>
+                                                    <option value="0" selected>Available</option>
+                                                </select>
+                                            </div>
+                                        </fieldset>
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Phone</p>
@@ -128,10 +130,16 @@
                             </div>
                         </div>
                         <hr>
-                        <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="/CustomerServlet?action=list" class="btn btn-google btn-user btn-block">
-                     Cancel
-                        </a>
+                        <div style="width: 80%; margin-left: auto; margin-right: auto" class="row">
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary btn-user btn-block" type="submit">Update</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="/CustomerServlet?action=list" class="btn btn-google btn-user btn-block">
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

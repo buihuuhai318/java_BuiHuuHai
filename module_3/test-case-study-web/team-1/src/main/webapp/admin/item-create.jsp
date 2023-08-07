@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>Manager</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -98,14 +98,16 @@
                                                 </c:forEach>
                                             </select>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Available</p>
-                                            <select class="user-select-auto form-control" name="available">
-                                                <option value="1">Not Available</option>
-                                                <option value="0">Available</option>
-                                            </select>
-                                        </div>
+                                        <fieldset disabled>
+                                            <div class="col-sm-6">
+                                                <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    Available</p>
+                                                <select class="user-select-auto form-control" name="available">
+                                                    <option value="1">Not Available</option>
+                                                    <option value="0" selected>Available</option>
+                                                </select>
+                                            </div>
+                                        </fieldset>
                                     </div>
                                     <div class="form-group">
                                         <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">
@@ -131,14 +133,20 @@
                                                    style="height: fit-content" maxlength="100">
                                         </div>
                                     </div>
+                                    <hr>
+                                    <div style="width: 80%; margin-left: auto; margin-right: auto" class="row">
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-primary btn-user btn-block" type="submit">Update</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="/ItemServlet?action=list" class="btn btn-google btn-user btn-block">
+                                                Cancel
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <button class="btn btn-success btn-user btn-block" type="submit">Update</button>
-                        <a href="/ItemServlet?action=list" class="btn btn-google btn-user btn-block">
-                            Cancel
-                        </a>
                     </div>
                 </form>
             </div>

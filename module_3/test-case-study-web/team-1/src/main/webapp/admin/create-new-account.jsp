@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>Manager</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -51,12 +51,10 @@
                  style="padding: 5%; width: 50%; margin-left: auto; margin-right: auto ">
                 <form class="user" action="/AccountServlet?action=createNew" method="post">
                     <div class="text-center" style="width: 50%; margin-left: auto; margin-right: auto">
-
                         <div class="form-group">
                             <label class="font-weight-bold text-primary text-uppercase mb-1">Create New
                                 Account</label>
                         </div>
-
                     </div>
 
                     <div class="text-center">
@@ -102,8 +100,14 @@
                             </div>
                         </div>
                         <hr>
-                        <button class="btn btn-success btn-user btn-block" type="submit">Create</button>
-                        <a href="AccountServlet?action=list" class="btn btn-google btn-user btn-block">Cancel</a>
+                        <div style="width: 80%; margin-left: auto; margin-right: auto" class="row">
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary btn-user btn-block" type="submit">Create</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="/AccountServlet?action=list" class="btn btn-google btn-user btn-block">Cancel</a>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
