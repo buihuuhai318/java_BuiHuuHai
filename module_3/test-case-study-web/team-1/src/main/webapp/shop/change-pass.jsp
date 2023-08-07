@@ -14,7 +14,7 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Aviato | E-commerce template</title>
+    <title></title>
 
     <!-- Mobile Specific Metas
     ================================================== -->

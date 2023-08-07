@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>Trang Chủ</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -64,7 +64,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Earnings (To Day)
+                                            Earnings (Today)
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">$${day}</div>
                                     </div>
@@ -422,11 +422,11 @@
     let myPieChart = new Chart(ctx1, {
         type: 'doughnut',
         data: {
-            // labels: dataList3,
+            labels: dataList3,
             datasets: [{
                 data: dataList2,
                 backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#fd9cfd'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#800080'],
+                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#a64ba6'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
         },
