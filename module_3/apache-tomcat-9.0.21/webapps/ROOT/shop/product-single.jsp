@@ -116,10 +116,7 @@
                         </div>
                         <div class="product-category">
                             <span>Remain:</span>
-
                             <c:if test="${items.getInventory() > 0 && items.getAvailable() == 0}"> ${items.getInventory()}</c:if>
-
-
                         </div>
                         <c:if test="${items.getInventory() == 0 || items.getAvailable() == 1}">
                             <button type="submit" class="btn btn-main mt-20" disabled>Sold Out</button>

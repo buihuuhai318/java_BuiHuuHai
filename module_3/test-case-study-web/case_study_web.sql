@@ -461,3 +461,25 @@ INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('way-bling-
 INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('way-bling-2.PNG', '21');
 INSERT INTO `thehome`.`item_images` (`image_url`, `item_id`) VALUES ('way-bling-3.PNG', '21');
 
+UPDATE `thehome`.`items` SET `item_description` = 'Style, fashion trend, silver original' WHERE (`item_id` = '1');									
+UPDATE `thehome`.`items` SET `item_description` = 'Style, fashion trend, gold original' WHERE (`item_id` = '2');									
+UPDATE `thehome`.`items` SET `item_description` = 'Made by wood and silver, Pleasant natural scent' WHERE (`item_id` = '3');									
+UPDATE `thehome`.`items` SET `item_description` = 'White alloy, color plated when casting, extremely durable.' WHERE (`item_id` = '4');									
+UPDATE `thehome`.`items` SET `item_description` = 'Diamond Tennis bracelet silver s925 with very delicate 6mm Cubic Zirconia stones' WHERE (`item_id` = '5');									
+UPDATE `thehome`.`items` SET `item_description` = 'The impulse to decorate or to modify the appearance of the ear.' WHERE (`item_id` = '6');									
+UPDATE `thehome`.`items` SET `item_description` = 'Silver Earrings S925 Athena Silver Original.' WHERE (`item_id` = '7');									
+UPDATE `thehome`.`items` SET `item_description` = 'The style is both strong and dignified.' WHERE (`item_id` = '8');									
+UPDATE `thehome`.`items` SET `item_description` = 'Silver Earrings S925 Clytze White Helios Silver Original ' WHERE (`item_id` = '9');									
+UPDATE `thehome`.`items` SET `item_description` = 'Handcrafted from s925 silver mixed with CZ  stone, gangz gangz' WHERE (`item_id` = '10');									
+UPDATE `thehome`.`items` SET `item_description` = 'Stainless steel cast white alloy face, anti-rust alloy band\nStyle: Cross symbol' WHERE (`item_id` = '11');									
+UPDATE `thehome`.`items` SET `item_description` = 'Material: Stainless alloy ' WHERE (`item_id` = '12');									
+UPDATE `thehome`.`items` SET `item_description` = 'Silver Neacklace S925  Cuban Twinkle Silver Original' WHERE (`item_id` = '13');									
+UPDATE `thehome`.`items` SET `item_description` = 'Pearl necklace with a cross faceted stone to create an outstanding highlight.' WHERE (`item_id` = '14');									
+UPDATE `thehome`.`items` SET `item_description` = 'Silver necklace S925 Clytze White Helios Silver Original ' WHERE (`item_id` = '15');									
+UPDATE `thehome`.`items` SET `item_description` = 'Stone used: LAPIS LAZULI  stone' WHERE (`item_id` = '16');									
+UPDATE `thehome`.`items` SET `item_description` = 'Silver ring S925 Stone Lotus Silver Original' WHERE (`item_id` = '17');									
+UPDATE `thehome`.`items` SET `item_description` = 'Durable alloy material, based on the basic signet form but extremely delicate.' WHERE (`item_id` = '18');									
+UPDATE `thehome`.`items` SET `item_description` = 'Silver ring S925 Stone Six-mantra Silver Original' WHERE (`item_id` = '19');									
+UPDATE `thehome`.`items` SET `item_description` = 'Contains messages, beliefs, promises, achievements, etc.' WHERE (`item_id` = '20');									
+UPDATE `thehome`.`items` SET `item_description` = 'Silver ring S925 Stone Way Bling Silver Original' WHERE (`item_id` = '21');									
+
