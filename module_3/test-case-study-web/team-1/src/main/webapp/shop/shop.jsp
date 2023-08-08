@@ -71,6 +71,7 @@
         <div class="row">
 
             <c:forEach items="${itemsList}" var="items">
+                <c:set var="quantity" value="${items.getInventory()}" />
                 <div class="col-md-4">
                     <div class="product-item">
                         <div class="product-thumb">
@@ -88,7 +89,7 @@
                                     <li>
                                         <a href="#!"><i class="tf-ion-ios-heart"></i></a>
                                     </li>
-                                    <c:if test="${items.getInventory() > 0 && items.getAvailable() == 0}">
+                                    <c:if test="${quantity > 0 && items.getAvailable() == 0}">
                                         <li>
                                             <a href="/CartServlet?itemId=${items.getId()}"><i
                                                     class="tf-ion-android-cart"></i></a>
@@ -127,7 +128,10 @@
                                             <p class="product-short-description">
                                                     ${items.getDescription()}
                                             </p>
-                                            <c:if test="${items.getInventory() > 0 && items.getAvailable() == 0}">
+                                            <c:if test="${quantity == 0 || items.getAvailable() == 1}">
+                                                <button onclick="window.location.href='/CartServlet?itemId=${items.getId()}'" type="button" class="btn btn-main" disabled>Sold Out</button>
+                                            </c:if>
+                                            <c:if test="${quantity > 0 && items.getAvailable() == 0}">
                                                 <a href="/CartServlet?itemId=${items.getId()}" class="btn btn-main">Add
                                                     To Cart</a>
                                             </c:if>

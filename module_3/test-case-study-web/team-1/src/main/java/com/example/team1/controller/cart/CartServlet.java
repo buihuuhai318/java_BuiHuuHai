@@ -53,6 +53,11 @@ public class CartServlet extends HttpServlet {
                         Map<Integer, OrderDetail> orderDetailMap = new HashMap<>();
                         OrderDetail orderDetail = new OrderDetail(cart.getId(), items, quantity, items.getPrice());
                         orderDetailMap.put(id, orderDetail);
+                        int tempQuantity = items.getInventory() - quantity;
+                        if (tempQuantity == 0) {
+                            items.setAvailable(1);
+                            itemService.availableItem(id, false);
+                        }
                         orderDetailService.insertOrder(orderDetail);
                         cart.setDetailList(orderDetailMap);
                         List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());

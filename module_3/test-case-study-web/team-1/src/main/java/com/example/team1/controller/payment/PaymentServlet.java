@@ -191,6 +191,10 @@ public class PaymentServlet extends HttpServlet {
             for (OrderDetail orderDetail : orderDetailList) {
                 items = orderDetail.getItems();
                 items.setInventory(items.getInventory() - orderDetail.getQuantity());
+                if (items.getInventory() - orderDetail.getQuantity() > 0) {
+                    itemService.availableItem(items.getId(), true);
+
+                }
                 itemService.updateInventoryItem(items.getId(), items);
             }
             request.setAttribute("bill", bill);

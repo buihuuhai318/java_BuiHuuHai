@@ -76,7 +76,25 @@ public class ShopServlet extends HttpServlet {
         if (session.getAttribute("cart") != null) {
             Cart cart = (Cart) session.getAttribute("cart");
             List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
-            request.setAttribute("orderList", orderList);
+            if (orderList.size() != 0) {
+                request.setAttribute("orderList", orderList);
+                orderList.get(0).getItems().getId();
+                orderList.get(0).getQuantity();
+            } else {
+                List<Items> itemsList = new ArrayList<>(itemService.selectAll().values());
+                for (int i = 0; i < itemsList.size(); i++) {
+                    if (itemsList.get(i).getInventory() > 0) {
+                        itemService.availableItem(itemsList.get(i).getId(), true);
+                    }
+                }
+            }
+        } else {
+            List<Items> itemsList = new ArrayList<>(itemService.selectAll().values());
+            for (int i = 0; i < itemsList.size(); i++) {
+                if (itemsList.get(i).getInventory() > 0) {
+                    itemService.availableItem(itemsList.get(i).getId(), true);
+                }
+            }
         }
     }
 
@@ -113,6 +131,7 @@ public class ShopServlet extends HttpServlet {
         session.setAttribute("cart", cart);
         request.setAttribute("orderList", orderList);
         String referer = request.getHeader("referer");
+        headCart(request, response);
         if (referer != null) {
             response.sendRedirect(referer);
         } else {
@@ -158,6 +177,7 @@ public class ShopServlet extends HttpServlet {
     }
 
     private void showIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        headCart(request, response);
         List<Items> itemsList = new ArrayList<>(itemService.selectItemHot().values());
         List<ItemType> itemTypeList = new ArrayList<>(itemTypeService.selectAllItemType().values());
         headCart(request, response);
