@@ -522,7 +522,7 @@ public class Email {
         return content;
     }
 
-    public static String getContent(Bill bill, Cart cart) {
+    public static String getContent(Bill bill, Cart cart, String complete) {
         String content;
 
         content = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
@@ -672,7 +672,7 @@ public class Email {
                 "                         </thead>\n" +
                 "                          <tr>\n" +
                 "                           <td style=\"padding:2%;Margin:0;margin:2%;font-size:100%\"><strong>Payment Status:</strong></td>\n" +
-                "                           <td style=\"padding:2%;Margin:0;margin:2%;color:#1cc88a;font-size:100%\">Complete</td>\n" +
+                "                           <td style=\"padding:2%;Margin:0;margin:2%;color:#1cc88a;font-size:100%\">" + complete + "</td>\n" +
                 "                          </tr>\n" +
                 "                          <tr>\n" +
                 "                           <td style=\"padding:2%;Margin:0;margin:2%;font-size:100%\"><strong>Payment Method:</strong></td>\n" +

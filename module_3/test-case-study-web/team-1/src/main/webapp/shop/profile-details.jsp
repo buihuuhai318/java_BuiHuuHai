@@ -75,7 +75,7 @@
                     <div class="media">
                         <div class="pull-left text-center" href="#!">
                             <img class="media-object user-img" src="image-customers/${requestScope['customers'].getImage()}" alt="Image">
-                            <a href="CustomerServlet?action=edit" class="btn btn-transparent mt-20">Change Info</a>
+                            <a href="/CustomerServlet?action=edit" class="btn btn-transparent mt-20">Change Info</a>
                         </div>
                         <div class="media-body">
                             <ul class="user-profile-list">

@@ -56,54 +56,64 @@
                     <div class="block billing-details">
                         <h4 class="widget-title">Information</h4>
                         <form class="checkout-form" action="/CustomerServlet?action=edit" method="post">
-                            <div class="form-group">
-                                <label for="full_name">Full Name</label>
-                                <input type="text" class="form-control" id="full_name" placeholder="" name="name"
-                                       value="${requestScope["customers"].getName()}" required maxlength="50">
-                            </div>
-                            <div class="form-group">
-                                <label for="user_address">Address</label>
-                                <input type="text" class="form-control" id="user_address" placeholder="" name="address"
-                                       value="${requestScope["customers"].getAddress()}" required maxlength="100">
-                            </div>
-                            <div class="checkout-country-code clearfix">
-                                <div class="form-group">
-                                    <label for="user_post_code">Birthday</label>
-                                    <input type="date" class="form-control" id="user_post_code" name="birthday"
-                                           value="${requestScope["customers"].getBirthday()}" required>
+                            <div class="row">
+                                <div class="col-sm-4">
+
+                                    <img class="media-object" style="width: 100%" src="image-customers/${requestScope['customers'].getImage()}" alt="Image">
+                                    <div class="form-group">
+                                        <label for="user_country">Avatar</label>
+                                        <input type="file" name="image" class="form-control btn-transparent" style="padding-bottom: 15px; padding-top: 15px" id="" placeholder="" maxlength="100">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="gender"></label>
-                                    <select class="form-control" name="gender" style="height: 50px" id="gender">
-                                        <option value="1"
-                                                <c:if test='${requestScope["customers"].isGender() eq "1"}'>selected</c:if> >
-                                            Male
-                                        </option>
-                                        <option value="0"
-                                                <c:if test='${requestScope["customers"].isGender() eq "0"}'>selected</c:if> >
-                                            Female
-                                        </option>
-                                    </select>
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label for="full_name">Full Name</label>
+                                        <input type="text" class="form-control" id="full_name" placeholder="" name="name"
+                                               value="${requestScope["customers"].getName()}" required maxlength="50">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_address">Address</label>
+                                        <input type="text" class="form-control" id="user_address" placeholder="" name="address"
+                                               value="${requestScope["customers"].getAddress()}" required maxlength="100">
+                                    </div>
+                                    <div class="checkout-country-code clearfix">
+                                        <div class="form-group">
+                                            <label for="user_post_code">Birthday</label>
+                                            <input type="date" class="form-control" id="user_post_code" name="birthday"
+                                                   value="${requestScope["customers"].getBirthday()}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gender"></label>
+                                            <select class="form-control" name="gender" style="height: 50px" id="gender">
+                                                <option value="1"
+                                                        <c:if test='${requestScope["customers"].isGender() eq "1"}'>selected</c:if> >
+                                                    Male
+                                                </option>
+                                                <option value="0"
+                                                        <c:if test='${requestScope["customers"].isGender() eq "0"}'>selected</c:if> >
+                                                    Female
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_country">Phone</label>
+                                        <input type="text" class="form-control" id="user_country" placeholder="" name="phone"
+                                               value="${requestScope["customers"].getPhone()}" required maxlength="20">
+                                    </div>
+
+                                    <c:if test='${requestScope["done"] != null}'>
+                                        <div class="alert alert-success alert-common" role="alert">
+                                            <i class="tf-ion-thumbsup"></i>
+                                            <span>Well done!</span> Update successfully !!!
+                                        </div>
+                                    </c:if>
+                                    <div class="form-group" style="margin-top: 3%">
+                                        <button type="submit" class="btn btn-main text-center">Update</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="user_country">Phone</label>
-                                <input type="text" class="form-control" id="user_country" placeholder="" name="phone"
-                                       value="${requestScope["customers"].getPhone()}" required maxlength="20">
-                            </div>
-                            <div class="form-group">
-                                <label for="user_country">Avatar</label>
-                                <input type="file" name="image" class="form-control btn-transparent" style="padding-bottom: 15px; padding-top: 15px" id="" placeholder="" accept=".jpg, .png, .pdf" maxlength="100">
-                            </div>
-                            <c:if test='${requestScope["done"] != null}'>
-                                <div class="alert alert-success alert-common" role="alert">
-                                    <i class="tf-ion-thumbsup"></i>
-                                    <span>Well done!</span> Update successfully !!!
-                                </div>
-                            </c:if>
-                            <div class="form-group" style="margin-top: 3%">
-                                <button type="submit" class="btn btn-main text-center">Update</button>
-                            </div>
+
                         </form>
                     </div>
                 </div>

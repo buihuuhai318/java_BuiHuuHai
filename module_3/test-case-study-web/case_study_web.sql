@@ -266,6 +266,23 @@ DELIMITER ;
 
 call total_each_type;
 
+DELIMITER //
+CREATE PROCEDURE hot_sale()
+BEGIN
+SELECT items.item_id, items.item_type_id, GROUP_CONCAT(item_images.image_url) AS image_urls, SUM(detail_quantity) AS total_quantity 
+	FROM items
+	left JOIN order_details ON order_details.item_id = items.item_id 
+	left JOIN item_images ON item_images.item_id = items.item_id 
+	left JOIN bill ON bill.cart_id = order_details.cart_id
+	left join item_types on items.item_type_id = item_types.item_type_id
+    where payment_status = 1 and item_available = 0 and MONTH(bill_date) = MONTH(CURDATE())
+	GROUP BY items.item_id, items.item_type_id 
+	ORDER BY total_quantity DESC 
+	limit 9;
+END //
+DELIMITER ;
+
+call hot_sale;
 
 
 select * from bill
@@ -326,6 +343,7 @@ SELECT items.item_id, items.item_type_id, GROUP_CONCAT(item_images.image_url) AS
 FROM items
 left JOIN order_details ON order_details.item_id = items.item_id
 left JOIN item_images ON item_images.item_id = items.item_id
+where payment_status = 1 and item_available = 0 and MONTH(bill_date) = MONTH(CURDATE())
 GROUP BY items.item_id, items.item_type_id
 ORDER BY total_quantity DESC
 limit 9;

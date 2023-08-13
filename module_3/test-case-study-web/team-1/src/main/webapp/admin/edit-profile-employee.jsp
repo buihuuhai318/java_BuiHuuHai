@@ -47,7 +47,7 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%">
+            <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%; width: 80%; margin-left: auto; margin-right: auto ">
 
                 <form class="user" action="/EmployeeServlet?action=editList&id=${requestScope["employees"].getId()}" method="post">
                     <div class="text-center" style="width: 20%; margin-left: auto; margin-right: auto">
@@ -61,7 +61,7 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-5" style="padding: 2%">
-                                <img class="card-img" style="max-height: 80%" src="image-customers/${requestScope["employees"].getImage()}"
+                                <img class="card-img" style="max-height: 70%" src="image-customers/${requestScope["employees"].getImage()}"
                                      alt="">
                                 <input type="file" class="form-control" id=""
                                        placeholder="image" value="${requestScope["employees"].getImage()}"

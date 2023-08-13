@@ -1,25 +1,27 @@
 package bai12;
 
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         int[] arr = {2 ,2 ,4 ,3, 2, 3};
         System.out.println(check(arr));
     }
 
-    public static int check(int[] arr) {
+    public static int check(List<Integer> s) {
         int count1 = 0;
         int count2 = 0;
         int count3 = 0;
         int count4 = 0;
         int countCar = 0;
 
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 4) {
+        for (int i = 0; i < s.size(); i++) {
+            if (s.get(i) == 4) {
                 count4++;
-            } else if (arr[i] == 3) {
+            } else if (s.get(i) == 3) {
                 count3++;
-            } else if (arr[i] == 2) {
+            } else if (s.get(i) == 2) {
                 count2++;
             } else {
                 count1++;

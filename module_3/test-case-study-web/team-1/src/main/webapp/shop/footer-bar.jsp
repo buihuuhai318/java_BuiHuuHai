@@ -123,6 +123,8 @@ Essential Scripts
 <%--    <!-- Main Js File -->--%>
 <%--    <script src="js/script.js"></script>--%>
 
-
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 </body>
 </html>

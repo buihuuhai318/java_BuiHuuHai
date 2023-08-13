@@ -4,11 +4,78 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f144edc3-e426-4a86-8aa3-fc6f52751614" name="Changes" comment="" />
+    <list default="true" id="f144edc3-e426-4a86-8aa3-fc6f52751614" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/controller/ReportServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/model/ReceiptForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/model/ReportBoard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/repository/Base.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/repository/IReceiptFormRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/repository/IReportRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/repository/imp/ReceiptFormRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/repository/imp/ReportRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/service/IReceiptService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/service/IReportService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/service/imp/ReceiptService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/java/service/imp/ReportService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test exam/src/main/webapp/report/list.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/UserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../module_2/exercise/thuat-toan/src/bai12/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../module_2/exercise/thuat-toan/src/bai12/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../module_2/exercise/thuat-toan/src/test/Test1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../module_2/exercise/thuat-toan/src/test/Test1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/WEB-INF/classes/com/example/team1/controller/payment/PaymentServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/WEB-INF/classes/com/example/team1/controller/payment/PaymentServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/WEB-INF/classes/com/example/team1/controller/shop/ShopServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/WEB-INF/classes/com/example/team1/controller/shop/ShopServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/WEB-INF/classes/com/example/team1/repository/item/ItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/WEB-INF/classes/com/example/team1/repository/item/ItemRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/WEB-INF/classes/com/example/team1/util/Email.class" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/WEB-INF/classes/com/example/team1/util/Email.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/admin/edit-profile-customer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/admin/edit-profile-customer.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/admin/edit-profile-employee.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/admin/edit-profile-employee.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/admin/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/admin/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/admin/item-edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/admin/item-edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/edit-info-customer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/edit-info-customer.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/footer-bar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/footer-bar.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/header-bar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/header-bar.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/product-single.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/product-single.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/profile-details.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/profile-details.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/purchase-confirmation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/purchase-confirmation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/signin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../apache-tomcat-9.0.21/webapps/ROOT/shop/signin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/.idea/webContexts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/case_study_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/case_study_web.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/java/com/example/team1/controller/payment/PaymentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/java/com/example/team1/controller/payment/PaymentServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/java/com/example/team1/controller/shop/ShopServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/java/com/example/team1/controller/shop/ShopServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/java/com/example/team1/repository/item/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/java/com/example/team1/repository/item/ItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/java/com/example/team1/util/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/java/com/example/team1/util/Email.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/admin/edit-profile-customer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/admin/edit-profile-customer.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/admin/edit-profile-employee.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/admin/edit-profile-employee.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/admin/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/admin/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/admin/item-edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/admin/item-edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/edit-info-customer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/edit-info-customer.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/footer-bar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/footer-bar.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/header-bar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/header-bar.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/product-single.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/product-single.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/profile-details.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/profile-details.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/purchase-confirmation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/purchase-confirmation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/signin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../test-case-study-web/team-1/src/main/webapp/shop/signin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/Base.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/Base.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/test.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Servlet" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -26,7 +93,10 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
 }</component>
   <component name="RunManager">
@@ -53,6 +123,9 @@
       <updated>1691428021178</updated>
       <workItem from="1691428022237" duration="6095000" />
       <workItem from="1691458048055" duration="14000" />
+      <workItem from="1691548957196" duration="220000" />
+      <workItem from="1691562700574" duration="640000" />
+      <workItem from="1691590318597" duration="38000" />
     </task>
     <servers />
   </component>

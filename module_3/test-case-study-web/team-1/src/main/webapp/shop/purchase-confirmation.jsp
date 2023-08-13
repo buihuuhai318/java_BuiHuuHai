@@ -71,7 +71,13 @@
             <div class="col-md-6 col-md-offset-3">
                 <div class="block text-center">
                     <i class="tf-ion-android-checkmark-circle" style="margin: 0"></i>
-                    <h2 class="text-center">Payment Successfully !!!</h2>
+                    <c:if test="${COD == null}">
+                        <h2 class="text-center">Payment Successfully !!!</h2>
+                    </c:if>
+                    <c:if test="${COD != null}">
+                        <h2 class="text-center">Your Order Is On The Way !!!</h2>
+
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -93,7 +99,13 @@
                                     <tbody>
                                     <tr>
                                         <td class=""><strong>Payment Status:</strong></td>
-                                        <td class="success-msg" style="color: #1cc88a">Complete</td>
+                                        <c:if test="${COD == null}">
+                                            <td class="success-msg" style="color: #1cc88a">Complete</td>
+                                        </c:if>
+                                        <c:if test="${COD != null}">
+                                            <td class="success-msg" style="color: #1cc88a">COD</td>
+                                        </c:if>
+
                                     </tr>
                                     <tr>
                                         <td><strong>Payment Method:</strong></td>

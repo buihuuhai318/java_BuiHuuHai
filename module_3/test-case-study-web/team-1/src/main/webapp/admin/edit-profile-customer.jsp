@@ -47,7 +47,7 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%">
+            <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%; width: 80%; margin-left: auto; margin-right: auto ">
 
                 <form class="user" action="/CustomerServlet?action=editList&id=${requestScope["customers"].getId()}" method="post">
                     <div class="text-center" style="width: 20%; margin-left: auto; margin-right: auto">
@@ -62,7 +62,7 @@
                         <div class="row">
                             <div class="col-lg-5" style="padding: 2%">
                                 <img class="card-img" src="image-customers/${requestScope["customers"].getImage()}"
-                                     alt="" style="max-height: 80%">
+                                     alt="" style="max-height: 70%">
                                 <input type="file" class="form-control" id=""
                                        placeholder="image" value="${requestScope["customers"].getImage()}"
                                        style="margin-top: 5%; height: fit-content" name="image" maxlength="100">

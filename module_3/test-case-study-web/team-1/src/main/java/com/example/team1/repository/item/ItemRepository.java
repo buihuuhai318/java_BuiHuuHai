@@ -29,13 +29,7 @@ public class ItemRepository implements IItemRepository {
             "item_inventory = ? " +
             "where item_id = ?";
 
-    private static final String HOT_SALE = "SELECT items.item_id, items.item_type_id, GROUP_CONCAT(item_images.image_url) AS image_urls, SUM(detail_quantity) AS total_quantity " +
-            "FROM items " +
-            "left JOIN order_details ON order_details.item_id = items.item_id " +
-            "left JOIN item_images ON item_images.item_id = items.item_id " +
-            "GROUP BY items.item_id, items.item_type_id " +
-            "ORDER BY total_quantity DESC " +
-            "limit 9;";
+    private static final String HOT_SALE = "call hot_sale;";
 
     private static final String SEARCH = "call search_items(?);";
 

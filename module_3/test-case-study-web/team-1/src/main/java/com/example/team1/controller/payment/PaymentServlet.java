@@ -180,9 +180,10 @@ public class PaymentServlet extends HttpServlet {
             int quantity = Integer.parseInt(request.getParameter("totalQuantity"));
             int paymentId = Integer.parseInt(request.getParameter("paymentMethod"));
             PaymentMethod paymentMethod = paymentMethodService.selectAll().get(paymentId);
-            int paymentStatus = 0;
-            if (request.getParameter("billDone") != null) {
-                paymentStatus = 1;
+            int paymentStatus = 1;
+            if (paymentId == 1) {
+                paymentStatus = 0;
+                request.setAttribute("COD", "COD");
             }
             Bill bill = new Bill(cart.getId(), paymentMethod, quantity, price, phone, address, paymentStatus);
             billService.insertBill(bill);
@@ -193,7 +194,6 @@ public class PaymentServlet extends HttpServlet {
                 items.setInventory(items.getInventory() - orderDetail.getQuantity());
                 if (items.getInventory() - orderDetail.getQuantity() > 0) {
                     itemService.availableItem(items.getId(), true);
-
                 }
                 itemService.updateInventoryItem(items.getId(), items);
             }
@@ -201,7 +201,12 @@ public class PaymentServlet extends HttpServlet {
             request.setAttribute("cart", cart);
             session.removeAttribute("cart");
             session.removeAttribute("cartId");
-            String content = Email.getContent(bill, cart);
+            String content;
+            if (paymentId == 1) {
+                content = Email.getContent(bill, cart, "COD");
+            } else {
+                content = Email.getContent(bill, cart, "Complete");
+            }
             Email.sendEmail(accounts.getEmail(), "#Thehome - Purchase Confirmation - Payment: " + cart.getId(), content);
             request.getRequestDispatcher("shop/purchase-confirmation.jsp").forward(request, response);
         } else {

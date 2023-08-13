@@ -42,6 +42,40 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 
+    <style>
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none; /* Ẩn ban đầu */
+        }
+
+        /* CSS của spinner vẫn như trong ví dụ trước */
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid black;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+    </style>
 </head>
 
 <body id="body">
@@ -51,16 +85,16 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="block text-center">
-                    <a class="logo" href="/ShopServlet">
+                    <a class="logo spinner-link" href="/ShopServlet">
                         <img src="images/logo/logo.jpg" style="width: 60%;" alt="">
                     </a>
                     <h2 class="text-center" style="margin: 3%">Welcome Back</h2>
                     <form class="text-left clearfix" action="/AccountServlet?action=login" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username" name="username" value="${username}" required maxlength="50">
+                            <input type="text" class="form-control" placeholder="Username" name="username" value="${username}" maxlength="50">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" name="password" value="${password}" required maxlength="50">
+                            <input type="password" class="form-control" placeholder="Password" name="password" value="${password}" maxlength="50">
                         </div>
                         <div class="btn-group" data-toggle="buttons" style="margin-left: auto">
                             <input type="checkbox" class="btn-check" style="margin-right: 5px; margin-left: 10px" id="btncheck1" name="rememberMe" checked>
@@ -73,17 +107,40 @@
                             </div>
                         </c:if>
                         <div class="text-center" style="margin-top: 3%">
-                            <button type="submit" class="btn btn-main text-center">Login</button>
+                            <button type="submit" id="showSpinnerButton1" onclick="showSpinner()" class="btn btn-main text-center">Login</button>
                         </div>
                     </form>
-                    <p class="mt-20">New in this site ?<a href="/AccountServlet?action=create"> Create new account</a>
+                    <p class="mt-20">New in this site ?<a href="/AccountServlet?action=create" id="showSpinnerButton2"> Create new account</a>
                     </p>
-                    <p><a href="/AccountServlet?action=res"> Forgot your password?</a></p>
+                    <p><a href="/AccountServlet?action=res" id="showSpinnerButton3"> Forgot your password?</a></p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<div class="loader-overlay" id="spinnerOverlay">
+    <div class="loader"></div>
+</div>
+
+<script>
+    function showSpinner() {
+        let spinnerContainer = document.getElementById('spinnerOverlay');
+        spinnerContainer.style.display = 'flex';
+    }
+
+    document.getElementById('showSpinnerButton1').addEventListener('click', showSpinner);
+    document.getElementById('showSpinnerButton2').addEventListener('click', showSpinner);
+    document.getElementById('showSpinnerButton3').addEventListener('click', showSpinner);
+    document.getElementById('showSpinnerLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        showSpinner();
+    });
+    document.getElementById('showSpinnerLink1').addEventListener('click', function(e) {
+        e.preventDefault();
+        showSpinner();
+    });
+</script>
+
 
 <!--
 Essential Scripts

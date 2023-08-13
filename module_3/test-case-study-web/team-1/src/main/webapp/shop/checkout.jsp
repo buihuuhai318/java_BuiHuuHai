@@ -67,8 +67,8 @@
         }
 
         .loader {
-            border: 16px solid #f3f3f3;
-            border-top: 16px solid black;
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid black;
             border-radius: 50%;
             width: 120px;
             height: 120px;

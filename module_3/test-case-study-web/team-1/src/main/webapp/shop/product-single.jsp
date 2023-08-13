@@ -147,19 +147,19 @@
         <div class="row">
             <c:set var="limit" value="4"/>
             <c:set var="count" value="0"/>
-            <c:forEach items="${itemsList}" var="items1">
-                <c:set var="quantity1" value="${items1.getInventory()}" />
+            <c:forEach items="${itemsList}" var="items">
+                <c:set var="quantity" value="${items.getInventory()}" />
                 <c:if test="${count < limit}">
                     <div class="col-md-3">
                         <div class="product-item">
                             <div class="product-thumb">
                                 <img class="img-responsive" style="height: 20em"
-                                     src="item-image/${items1.getItemType().getName()}/${items1.getImageList().get(1).getUrl()}"
+                                     src="item-image/${items.getItemType().getName()}/${items.getImageList().get(1).getUrl()}"
                                      alt="product-img"/>
                                 <div class="preview-meta">
                                     <ul>
                                         <li>
-									<span data-toggle="modal" data-target="#product-modal${items1.getId()}">
+									<span data-toggle="modal" data-target="#product-modal${items.getId()}">
 										<i class="tf-ion-ios-search"></i>
 									</span>
                                         </li>
@@ -167,8 +167,8 @@
                                             <a href="#"><i class="tf-ion-ios-heart"></i></a>
                                         </li>
                                         <li>
-                                            <c:if test="${quantity1 > 0 && items1.getAvailable() == 0}">
-                                                <a href="/CartServlet?itemId=${items1.getId()}" ><i
+                                            <c:if test="${quantity > 0 && items.getAvailable() == 0}">
+                                                <a href="/CartServlet?itemId=${items.getId()}" ><i
                                                         class="tf-ion-android-cart"></i></a>
                                             </c:if>
                                         </li>
@@ -176,12 +176,12 @@
                                 </div>
                             </div>
                             <div class="product-content">
-                                <h4><a href="product-single.html">${items1.getName()}</a></h4>
-                                <p class="price">$${items1.getPrice()}</p>
+                                <h4><a href="product-single.html">${items.getName()}</a></h4>
+                                <p class="price">$${items.getPrice()}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="modal product-modal fade" id="product-modal${items1.getId()}">
+                    <div class="modal product-modal fade" id="product-modal${items.getId()}">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <i class="tf-ion-close"></i>
                         </button>
@@ -192,26 +192,26 @@
                                         <div class="col-md-8">
                                             <div class="modal-image">
                                                 <img class="img-responsive"
-                                                     src="item-image/${items1.getItemType().getName()}/${items1.getImageList().get(1).getUrl()}"
+                                                     src="item-image/${items.getItemType().getName()}/${items.getImageList().get(1).getUrl()}"
                                                      alt="product-img"/>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="product-short-details">
-                                                <h2 class="product-title">${items1.getName()}</h2>
-                                                <p class="product-price">$${items1.getPrice()}</p>
+                                                <h2 class="product-title">${items.getName()}</h2>
+                                                <p class="product-price">$${items.getPrice()}</p>
                                                 <p class="product-short-description">
-                                                        ${items1.getDescription()}
+                                                        ${items.getDescription()}
                                                 </p>
-                                                <c:if test="${quantity1 == 0 || items1.getAvailable() == 1}">
-                                                    <button onclick="window.location.href='/CartServlet?itemId=${items1.getId()}'" type="button" class="btn btn-main" disabled>Sold Out</button>
+                                                <c:if test="${quantity == 0 || items.getAvailable() == 1}">
+                                                    <button onclick="window.location.href='/CartServlet?itemId=${items.getId()}'" type="button" class="btn btn-main" disabled>Sold Out</button>
                                                 </c:if>
-                                                <c:if test="${quantity1 > 0 && items1.getAvailable() == 0}">
-                                                    <button onclick="window.location.href='/CartServlet?itemId=${items1.getId()}'" type="button" class="btn btn-main" >Add
+                                                <c:if test="${quantity > 0 && items.getAvailable() == 0}">
+                                                    <button onclick="window.location.href='/CartServlet?itemId=${items.getId()}'" type="button" class="btn btn-main" >Add
                                                         To Cart</button>
                                                 </c:if>
 
-                                                <a href="/ShopServlet?action=viewDetail&id=${items1.getId()}"
+                                                <a href="/ShopServlet?action=viewDetail&id=${items.getId()}"
                                                    class="btn btn-transparent">View Product Details</a>
                                             </div>
                                         </div>

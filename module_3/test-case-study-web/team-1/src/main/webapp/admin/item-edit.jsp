@@ -47,7 +47,7 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%">
+            <div class="card o-hidden border-0 shadow-lg my-5" style="padding: 5%; width: 80%; margin-left: auto; margin-right: auto ">
 
                 <form class="user" action="/ItemServlet?action=edit&id=${requestScope["items"].getId()}" method="post">
                     <div class="text-center" style="width: 20%; margin-left: auto; margin-right: auto">
@@ -62,10 +62,14 @@
                         <div class="row">
                             <div class="col-lg-5" style="padding: 2%">
                                 <div class="row">
-                                    <c:forEach items="${imageList}" var="image">
-                                        <img class="card-img col-sm-6" style="width: 20%; margin-top: 5%"
+                                    <c:forEach items="${imageList}" var="image" varStatus="status">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <img class="card-img col-sm-12" style="width: 100%; margin-bottom: 5%"
                                              src="item-image/${requestScope["items"].getItemType().getName()}/${image.getUrl()}"
                                              alt="">
+                                        <input type="file" class="form-control" name="image${status.index + 1}"
+                                               style="height: fit-content; margin-bottom: 5%" maxlength="100">
+                                        </div>
                                     </c:forEach>
                                 </div>
                             </div>
@@ -138,24 +142,24 @@
                                                placeholder="Description" value="${requestScope["items"].getDescription()}"
                                                name="description" required maxlength="200">
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 1
-                                                + 3</p>
-                                            <input type="file" class="form-control" name="image1"
-                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">
-                                            <input type="file" class="form-control" name="image3"
-                                                   style="height: fit-content" maxlength="100">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 2
-                                                + 4</p>
-                                            <input type="file" class="form-control" name="image2"
-                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">
-                                            <input type="file" class="form-control" name="image4"
-                                                   style="height: fit-content" maxlength="100">
-                                        </div>
-                                    </div>
+<%--                                    <div class="form-group row">--%>
+<%--                                        <div class="col-sm-6 mb-3 mb-sm-0">--%>
+<%--                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 1--%>
+<%--                                                + 3</p>--%>
+<%--                                            <input type="file" class="form-control" name="image1"--%>
+<%--                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">--%>
+<%--                                            <input type="file" class="form-control" name="image3"--%>
+<%--                                                   style="height: fit-content" maxlength="100">--%>
+<%--                                        </div>--%>
+<%--                                        <div class="col-sm-6">--%>
+<%--                                            <p class="text-xs font-weight-bold text-primary text-uppercase mb-1">Image 2--%>
+<%--                                                + 4</p>--%>
+<%--                                            <input type="file" class="form-control" name="image2"--%>
+<%--                                                   style="height: fit-content; margin-bottom: 5%" maxlength="100">--%>
+<%--                                            <input type="file" class="form-control" name="image4"--%>
+<%--                                                   style="height: fit-content" maxlength="100">--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
                                     <hr>
                                     <div style="width: 80%; margin-left: auto; margin-right: auto" class="row form-group">
                                         <div class="col-sm-6">

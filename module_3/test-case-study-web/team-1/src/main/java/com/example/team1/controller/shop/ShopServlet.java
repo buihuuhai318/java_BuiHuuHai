@@ -77,9 +77,14 @@ public class ShopServlet extends HttpServlet {
             Cart cart = (Cart) session.getAttribute("cart");
             List<OrderDetail> orderList = new ArrayList<>(cart.getDetailList().values());
             if (orderList.size() != 0) {
+                for (int i = 0; i < orderList.size(); i++) {
+                    if (orderList.get(i).getItems().getInventory() - orderList.get(i).getQuantity() == 0) {
+                        itemService.availableItem(orderList.get(i).getItems().getId(), false);
+                    } else {
+                        itemService.availableItem(orderList.get(i).getItems().getId(), true);
+                    }
+                }
                 request.setAttribute("orderList", orderList);
-                orderList.get(0).getItems().getId();
-                orderList.get(0).getQuantity();
             } else {
                 List<Items> itemsList = new ArrayList<>(itemService.selectAll().values());
                 for (int i = 0; i < itemsList.size(); i++) {

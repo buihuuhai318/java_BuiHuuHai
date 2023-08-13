@@ -42,6 +42,40 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 
+    <style>
+        .loader-overlay {
+            position: fixed;
+            top: 0px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none; /* Ẩn ban đầu */
+        }
+
+        /* CSS của spinner vẫn như trong ví dụ trước */
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid black;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+    </style>
 </head>
 
 <body id="body">
@@ -51,7 +85,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="block text-center">
-                    <a class="logo" href="/ShopServlet">
+                    <a class="logo spinner-link" href="/ShopServlet">
                         <img src="images/logo/logo.jpg" style="width: 70%" alt="">
                     </a>
                     <h2 class="text-center" style="margin: 3%">Create Your Account</h2>
@@ -69,20 +103,48 @@
                             <div class="alert alert-danger alert-common" role="alert"><i class="tf-ion-close-circled"></i><span>Warning!</span> Email or username already existed !!!</div>
                         </c:if>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-main text-center">Sign In</button>
+                            <button type="submit" class="spinner-button btn btn-main text-center">Sign In</button>
                         </div>
                     </form>
-                    <p class="mt-20">Already hava an account ?<a href="/AccountServlet?action=login"> Login</a></p>
-                    <p><a href="/AccountServlet?action=res"> Forgot your password?</a></p>
+                    <p class="mt-20">Already hava an account ?<a href="/AccountServlet?action=login" class="spinner-link"> Login</a></p>
+                    <p><a href="/AccountServlet?action=res" class="spinner-link"> Forgot your password?</a></p>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
+<div class="loader-overlay" id="spinnerOverlay">
+    <div class="loader"></div>
+</div>
 <!--
 Essential Scripts
 =====================================-->
+
+
+<script>
+    const spinnerButtons = document.querySelectorAll('.spinner-button');
+    const spinnerLinks = document.querySelectorAll('.spinner-link');
+    const spinnerOverlay = document.getElementById('spinnerOverlay');
+
+    spinnerButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            showSpinnerOverlay();
+        });
+    });
+
+    spinnerLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            showSpinnerOverlay();
+        });
+    });
+
+    function showSpinnerOverlay() {
+        spinnerOverlay.style.display = 'flex'; // Hiển thị spinner overlay
+        setTimeout(() => {
+            spinnerOverlay.style.display = 'none'; // Ẩn spinner overlay sau 2 giây
+        }, 3000);
+    }
+</script>
 
 <!-- Main jQuery -->
 <script src="plugins/jquery/dist/jquery.min.js"></script>
